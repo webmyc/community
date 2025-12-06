@@ -1,80 +1,182 @@
 ---
-title: Introduction
-description: Overview of Vibe Coding plugin and its AI-assisted WordPress editing capabilities
+title: Introduction to Respira for WordPress
+description: Quick start guide for connecting Respira for WordPress to AI coding assistants such as Cursor and Claude Code, enabling natural‑language editing of your WordPress site.
 ---
 
-## Welcome to Vibe Coding
+## Welcome to Respira for WordPress
 
-Vibe Coding is Respira's innovative WordPress plugin that empowers content creators and developers to safely edit WordPress sites using advanced AI coding assistants like Cursor and Claude Code. Unlike traditional methods that require SSH access and pose security risks, Vibe Coding provides a secure, user-friendly interface for making code changes directly through your WordPress dashboard.
+Respira for WordPress connects your AI coding assistant to your site so you can safely edit, inspect, and manage content using natural language. It provides a controlled workflow that keeps your live site protected while enabling fast, precise changes through tools like Cursor and Claude Code.
 
-<Columns cols={3}>
-  <Card title="Safe Editing" icon="shield" href="#safe-editing">
-    Edit WordPress sites securely without SSH access, reducing security vulnerabilities.
-  </Card>
-  <Card title="AI Integration" icon="sparkles" href="#ai-integration">
-    Seamlessly integrate with Cursor, Claude Code, and other AI coding assistants.
-  </Card>
-  <Card title="Developer Friendly" icon="code" href="#developer-friendly">
-    Maintain professional coding standards while leveraging AI assistance.
-  </Card>
-</Columns>
+## What is Respira for WordPress?
 
-## Key Features
+Respira is a safe bridge between your AI coding assistant and WordPress. It translates natural‑language instructions into builder‑accurate edits and protects your site with a review-first workflow.
 
-Vibe Coding combines heart-centered principles with cutting-edge technology to create a harmonious development environment. Our plugin enables wisdom economy teachers and content creators to focus on their core mission while efficiently managing technical aspects of their WordPress sites.
+- Safely lets Cursor, Claude Code, and other AI coding assistants edit WordPress.  
+- Uses a duplicate‑first workflow so AI edits copies; you approve before anything goes live.  
+- Understands page builders like Divi, Elementor, and Gutenberg to keep layouts intact.  
+- Requires no SSH or complex hosting setup and works on typical shared hosting.
 
-<Tabs>
-  <Tab title="Security First" icon="lock">
-    <Callout kind="info">Vibe Coding prioritizes security by isolating AI-generated code changes within a controlled environment.</Callout>
-    
-    ## Secure Code Execution
-    All code modifications are validated before deployment, preventing potential security breaches.
-    
-    ## No SSH Required
-    Edit files directly through the WordPress admin interface without compromising server security.
-  </Tab>
-  <Tab title="AI Assistant Integration" icon="cpu">
-    <Expandable title="Supported AI Tools" default-open="false">
-      Vibe Coding supports popular AI coding assistants including:
-      - Cursor IDE
-      - Claude Code
-      - Other AI-powered coding tools
-    </Expandable>
-    
-    ## Intelligent Code Suggestions
-    Receive context-aware code recommendations that understand WordPress architecture.
-  </Tab>
-  <Tab title="WordPress Optimization" icon="settings">
-    <Steps>
-      <Step title="Theme Customization" icon="palette">
-        Modify themes safely with AI guidance.
-      </Step>
-      <Step title="Plugin Integration" icon="plug">
-        Add and configure plugins without direct file access.
-      </Step>
-      <Step title="Performance Tuning" icon="zap">
-        Optimize site speed and responsiveness.
-      </Step>
-    </Steps>
-  </Tab>
-</Tabs>
+### Who this guide is for
 
-<ExpandableGroup>
-  <Expandable title="FAQs" default-open="false">
-    <Expandable title="Is Vibe Coding secure?" default-open="false">
-      Yes, Vibe Coding implements multiple security layers to ensure safe code execution.
-    </Expandable>
-    <Expandable title="Which AI assistants are supported?" default-open="false">
-      Currently supports Cursor and Claude Code, with plans for additional AI tools.
-    </Expandable>
-    <Expandable title="Do I need coding experience?" default-open="false">
-      Basic WordPress knowledge is helpful, but AI assistance makes advanced editing accessible.
-    </Expandable>
-  </Expandable>
-</ExpandableGroup>
+- WordPress site owners who want to use AI to speed up editing and maintenance  
+- Developers integrating AI workflows into client sites  
+- Agencies looking to streamline content updates and site operations  
+- Anyone using AI coding assistants such as Cursor, Claude Code, or similar tools
 
-## Getting Started
+## Get up and running in 15 minutes
 
-Ready to transform your WordPress development workflow? Follow our installation guide to get Vibe Coding up and running in minutes. Our plugin integrates seamlessly with your existing WordPress setup while providing powerful AI-assisted editing capabilities.
+Follow these five steps to install Respira for WordPress, generate an API key, set up the MCP server, and connect your AI assistant.
 
-<Callout kind="tip">Begin with our installation guide to set up Vibe Coding and connect your preferred AI coding assistant.</Callout>
+## 1. Install the Respira for WordPress plugin
+
+Add the Respira for WordPress plugin to your site. This enables secure communication between WordPress and your AI assistant.
+
+### Option A: Download from GitHub
+
+1. Go to [GitHub Releases](https://github.com/webmyc/respira-wordpress/releases/latest)
+2. Download `respira-for-wordpress-latest.zip`
+3. In WordPress Admin, go to **Plugins → Add New → Upload Plugin**
+4. Choose the ZIP file and click **Install Now**
+5. Click **Activate Plugin**
+
+### Option B: Manual installation
+
+1. Download the plugin ZIP file  
+2. Extract it to your WordPress `wp-content/plugins/` directory  
+3. Go to **Plugins** in WordPress Admin  
+4. Find **Respira for WordPress** and click **Activate**
+
+## 2. Generate an API key
+
+Your API key identifies your AI assistant when it connects to WordPress.
+
+1. Go to **Respira → API Keys** in WordPress Admin  
+2. Click **Generate API Key**  
+3. Give it a name such as `My Development Machine`  
+4. Copy and save the API key — you will not be able to view it again
+
+**Important:** Store your API key securely. You will need it when configuring the MCP server.
+
+## 3. Download and install the MCP server
+
+The MCP server runs locally on your machine. It creates the secure bridge between your AI coding assistant and your WordPress site.
+
+### Option A: Install from npm (recommended)
+
+```bash
+npm install -g @respira/wordpress-mcp-server
+```
+
+Or:
+
+```bash
+npx -y @respira/wordpress-mcp-server
+```
+
+### Option B: Download ZIP file
+
+1. Go to your [Downloads page](https://respira.press/dashboard/downloads) (requires login)  
+2. Download `respira-wordpress-mcp-server-latest.zip`  
+3. Extract it to a folder such as `~/.respira/mcp-server/`  
+4. Configure your MCP client to point to the `dist/index.js` file
+
+**Recommended:** Use the npm installation for automatic updates and simpler management.
+
+## 4. Configure your AI assistant
+
+Connect Cursor, Claude Code, or another AI coding assistant so it can communicate with WordPress through Respira.
+
+See the [Configuration Guide](/configuration) for detailed instructions for:
+
+- [Cursor](/configuration#configure-cursor-ide)
+- [Claude Code](/configuration#configure-claude-desktop-claude-code)
+- [Codex](/configuration#configure-other-mcp-compatible-editors)
+
+You will need your site URL and the API key you created in Step 2.
+
+## 5. Start editing with AI
+
+Once everything is configured, you can begin editing your WordPress site using natural language instructions.
+
+Try commands such as:
+
+- "List all pages on my WordPress site"  
+- "Create a duplicate of the About page"  
+- "Update the homepage title to 'Welcome'"  
+- "Get the structure of my homepage and show me its sections"
+
+Tip: Browse the [Prompts & Examples](/prompts) page for inspiration and effective phrasing.
+
+## You are all set
+
+You have successfully connected your AI coding assistant to WordPress.
+
+### Where to go next
+
+- [Installation](/installation)  
+- [Configuration](/configuration)  
+- [Usage Guide](/usage)  
+- [Prompts & Examples](/prompts)  
+- [Troubleshooting](/troubleshooting)
+
+## Personal onboarding (optional)
+
+POPULAR — €300
+
+New to AI-assisted WordPress editing?
+
+A custom 1:1 session where you share your screen and Mihai guides you through everything. This is ideal if you are new to using AI coding assistants with WordPress and want hands-on help getting set up.
+
+- Live 2‑hour Zoom session — you share your screen, Mihai walks you through setup  
+- Full recording included  
+- Summary and transcript for easy reference  
+- Customized step‑by‑step guide for your WordPress environment  
+- Personalized onboarding and setup assistance  
+
+[Book your session](https://cal.com/mihai-love/respira-personal-onboarding)
+
+One‑time payment · Includes everything listed above
+
+## Ready to get started?
+
+Start free. No credit card required.
+
+[Start Free](https://respira.press/signup)
+
+Questions? Email [word@respira.press](mailto:word@respira.press)
+
+Partner up? Let’s meet: [Set a meeting](https://respira.cafe/contact)
+
+![Respira for WordPress logo](https://www.respira.cafe/img/RESPIRA-LOGO.png)
+
+Respira for WordPress  
+Stop fighting WordPress. Start talking to it.
+
+[LinkedIn Showcase](https://www.linkedin.com/showcase/respira-for-wordpress/)  
+[Instagram](https://instagram.com/respira.cafe)  
+[Respira](https://respira.love)
+
+[WordPress Plugin](https://respira.press/dashboard/downloads)  
+![Install MCP Server](https://cursor.com/deeplink/mcp-install-dark.svg)
+
+## FAQ
+
+### Do I need coding experience to use Respira for WordPress?
+
+No. Respira is designed so you can work entirely through natural language. Developers can go deeper, but coding is not required.
+
+### Which AI tools work with Respira?
+
+Respira works with AI coding assistants that support the MCP protocol, including Cursor, Claude Code, and similar tools.
+
+### Is it safe to let AI edit my site?
+
+Yes. Respira uses a controlled, permission‑based workflow. Your AI assistant proposes changes, and you approve them before they are applied.
+
+### Does Respira modify content directly or create duplicates?
+
+Your AI assistant can inspect, modify, and duplicate content based on the instructions you approve. You stay in full control of every change.
+
+### Is Respira free to try?
+
+Yes. Respira offers a free trial or license depending on your plan. You can start without entering payment details.

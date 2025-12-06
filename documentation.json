@@ -1,1 +1,128 @@
-"{\n  \"name\": \"Respira for WordPress Documentation\",\n  \"initialRoute\": \"introduction\",\n  \"colors\": {\n    \"light\": {\n      \"brand\": \"#7cb0a4\",\n      \"heading\": \"#1a1a1a\",\n      \"text\": \"#374151\"\n    },\n    \"dark\": {\n      \"brand\": \"#5a8f82\",\n      \"heading\": \"#f2f2f2\",\n      \"text\": \"#c1c1c1\"\n    }\n  },\n  \"navigation\": {\n    \"tabs\": [\n      {\n        \"tab\": \"Documentation\",\n        \"icon\": \"book\",\n        \"groups\": [\n          {\n            \"group\": \"Getting Started\",\n            \"icon\": \"rocket\",\n            \"pages\": [\n              {\n                \"title\": \"Introduction\",\n                \"path\": \"introduction\",\n                \"icon\": \"star\"\n              },\n              {\n                \"title\": \"Installation\",\n                \"path\": \"installation\",\n                \"icon\": \"download\"\n              },\n              {\n                \"title\": \"MCP Install Link Generator\",\n                \"path\": \"mcp-install\",\n                \"icon\": \"link\"\n              }\n            ]\n          },\n          {\n            \"group\": \"Core Features\",\n            \"icon\": \"zap\",\n            \"pages\": [\n              {\n                \"title\": \"Usage Guide\",\n                \"path\": \"usage\",\n                \"icon\": \"file-text\"\n              },\n              {\n                \"title\": \"Configuration\",\n                \"path\": \"configuration\",\n                \"icon\": \"settings\"\n              }\n            ]\n          },\n          {\n            \"group\": \"Support\",\n            \"icon\": \"help-circle\",\n            \"pages\": [\n              {\n                \"title\": \"Troubleshooting\",\n                \"path\": \"troubleshooting\",\n                \"icon\": \"alert-circle\"\n              }\n            ]\n          },\n          {\n            \"group\": \"Learning\",\n            \"icon\": \"lightbulb\",\n            \"pages\": [\n              {\n                \"title\": \"Prompts & Examples\",\n                \"path\": \"prompts\",\n                \"icon\": \"book-open\"\n              }\n            ]\n          }\n        ]\n      },\n      {\n        \"tab\": \"API Reference\",\n        \"icon\": \"code\",\n        \"groups\": [\n          {\n            \"group\": \"Endpoints\",\n            \"icon\": \"terminal\",\n            \"openapi\": \"openapi.yaml\"\n          }\n        ]\n      },\n      {\n        \"tab\": \"Changelog\",\n        \"icon\": \"clock\",\n        \"pages\": [\n          {\n            \"title\": \"Release History\",\n            \"path\": \"changelog\",\n            \"icon\": \"history\"\n          }\n        ]\n      }\n    ]\n  },\n  \"navbar\": {\n    \"actions\": {\n      \"primary\": {\n        \"title\": \"Download Plugin\",\n        \"link\": \"https://www.respira.press\"\n      },\n      \"links\": [\n        {\n          \"title\": \"GitHub\",\n          \"link\": \"https://github.com/respira/vibe-coding\"\n        },\n        {\n          \"title\": \"Support\",\n          \"link\": \"https://support.vibe-coding.com\"\n        }\n      ]\n    }\n  }\n}"
+{
+  "name": "Respira for WordPress Documentation",
+  "initialRoute": "introduction",
+  "colors": {
+    "light": {
+      "brand": "#7cb0a4",
+      "heading": "#1a1a1a",
+      "text": "#374151"
+    },
+    "dark": {
+      "brand": "#5a8f82",
+      "heading": "#f2f2f2",
+      "text": "#c1c1c1"
+    }
+  },
+  "navigation": {
+    "tabs": [
+      {
+        "tab": "Documentation",
+        "icon": "book",
+        "groups": [
+          {
+            "group": "Getting Started",
+            "icon": "rocket",
+            "pages": [
+              {
+                "title": "Introduction",
+                "path": "introduction",
+                "icon": "star"
+              },
+              {
+                "title": "Installation",
+                "path": "installation",
+                "icon": "download"
+              },
+              {
+                "title": "MCP Install Link Generator",
+                "path": "mcp-install",
+                "icon": "link"
+              }
+            ]
+          },
+          {
+            "group": "Core Features",
+            "icon": "zap",
+            "pages": [
+              {
+                "title": "Usage Guide",
+                "path": "usage",
+                "icon": "file-text"
+              },
+              {
+                "title": "Configuration",
+                "path": "configuration",
+                "icon": "settings"
+              }
+            ]
+          },
+          {
+            "group": "Support",
+            "icon": "help-circle",
+            "pages": [
+              {
+                "title": "Troubleshooting",
+                "path": "troubleshooting",
+                "icon": "alert-circle"
+              }
+            ]
+          },
+          {
+            "group": "Learning",
+            "icon": "lightbulb",
+            "pages": [
+              {
+                "title": "Prompts & Examples",
+                "path": "prompts",
+                "icon": "book-open"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "API Reference",
+        "icon": "code",
+        "groups": [
+          {
+            "group": "Endpoints",
+            "icon": "terminal",
+            "openapi": "openapi.yaml"
+          }
+        ]
+      },
+      {
+        "tab": "Changelog",
+        "icon": "clock",
+        "pages": [
+          {
+            "title": "Release History",
+            "path": "changelog",
+            "icon": "history"
+          }
+        ]
+      }
+    ]
+  },
+  "navbar": {
+    "actions": {
+      "primary": {
+        "title": "Download Plugin",
+        "link": "https://www.respira.press"
+      },
+      "links": [
+        {
+          "title": "GitHub",
+          "link": "https://github.com/respira/vibe-coding"
+        },
+        {
+          "title": "Support",
+          "link": "https://support.vibe-coding.com"
+        }
+      ]
+    }
+  },
+  "logo-dark": "https://blob-cdn.documentation.ai/org-cccb5697-cdca-444e-8aec-fdc429b7b40e/doc-3378e7db-0241-430e-87fd-d23f651dc2d8/1765036350188-b1ybrl18djb-RESPIRA-LOGO.png?q=85&fm=auto&auto=compress%2Cformat",
+  "logo-light": "https://blob-cdn.documentation.ai/org-cccb5697-cdca-444e-8aec-fdc429b7b40e/doc-3378e7db-0241-430e-87fd-d23f651dc2d8/1765036350188-b1ybrl18djb-RESPIRA-LOGO.png?q=85&fm=auto&auto=compress%2Cformat",
+  "favicon": "https://blob-cdn.documentation.ai/org-cccb5697-cdca-444e-8aec-fdc429b7b40e/doc-3378e7db-0241-430e-87fd-d23f651dc2d8/1765036350188-b1ybrl18djb-RESPIRA-LOGO.png?q=85&fm=auto&auto=compress%2Cformat"
+}
