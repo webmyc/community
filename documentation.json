@@ -536,67 +536,6 @@
             ]
           },
           {
-            "group": "Page Builders",
-            "icon": "layout-template",
-            "pages": [
-              {
-                "title": "Overview",
-                "path": "builders/overview",
-                "icon": "book-open"
-              },
-              {
-                "title": "Divi",
-                "path": "builders/divi",
-                "icon": "layout"
-              },
-              {
-                "title": "Elementor",
-                "path": "builders/elementor",
-                "icon": "layout"
-              },
-              {
-                "title": "Bricks",
-                "path": "builders/bricks",
-                "icon": "layout"
-              },
-              {
-                "title": "Oxygen",
-                "path": "builders/oxygen",
-                "icon": "layout"
-              },
-              {
-                "title": "Gutenberg",
-                "path": "builders/gutenberg",
-                "icon": "layout"
-              },
-              {
-                "title": "WPBakery",
-                "path": "builders/wpbakery",
-                "icon": "layout"
-              },
-              {
-                "title": "Beaver Builder",
-                "path": "builders/beaver-builder",
-                "icon": "layout"
-              },
-              {
-                "title": "Brizy",
-                "path": "builders/brizy",
-                "icon": "layout"
-              },
-              {
-                "title": "Visual Composer",
-                "path": "builders/visual-composer",
-                "icon": "layout"
-              },
-              {
-                "title": "Thrive Architect",
-                "path": "builders/thrive-architect",
-                "icon": "layout"
-              }
-            ]
-          },
-          {
             "group": "Guides",
             "icon": "map",
             "pages": [
@@ -682,6 +621,67 @@
                 "title": "Contact",
                 "path": "support/contact",
                 "icon": "mail"
+              }
+            ]
+          },
+          {
+            "group": "Page Builders",
+            "icon": "layout-template",
+            "pages": [
+              {
+                "title": "Overview",
+                "path": "builders/overview",
+                "icon": "book-open"
+              },
+              {
+                "title": "Divi",
+                "path": "builders/divi",
+                "icon": "layout"
+              },
+              {
+                "title": "Elementor",
+                "path": "builders/elementor",
+                "icon": "layout"
+              },
+              {
+                "title": "Bricks",
+                "path": "builders/bricks",
+                "icon": "layout"
+              },
+              {
+                "title": "Oxygen",
+                "path": "builders/oxygen",
+                "icon": "layout"
+              },
+              {
+                "title": "Gutenberg",
+                "path": "builders/gutenberg",
+                "icon": "layout"
+              },
+              {
+                "title": "WPBakery",
+                "path": "builders/wpbakery",
+                "icon": "layout"
+              },
+              {
+                "title": "Beaver Builder",
+                "path": "builders/beaver-builder",
+                "icon": "layout"
+              },
+              {
+                "title": "Brizy",
+                "path": "builders/brizy",
+                "icon": "layout"
+              },
+              {
+                "title": "Visual Composer",
+                "path": "builders/visual-composer",
+                "icon": "layout"
+              },
+              {
+                "title": "Thrive Architect",
+                "path": "builders/thrive-architect",
+                "icon": "layout"
               }
             ]
           }
