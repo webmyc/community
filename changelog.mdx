@@ -9,19 +9,17 @@ This page is the official changelog and download hub for both Respira for WordPr
 
 ## WordPress Plugin Releases
 
-<Update label="2025-12-13" description="Respira for WordPress v1.8.42" tags={["feature", "improvement"]}>
+<Update label="2025-12-13" description="Respira for WordPress v1.9.1" tags={["feature", "improvement"]}>
 
 ### Latest stable version
 
-Download: [respira-for-wordpress-1.8.42.zip](https://respira.press/releases)
+Download: [respira-for-wordpress-1.9.1.zip](https://respira.press/releases)
 
 ### What's New
 
-- **Admin login-as-client** - Swap Supabase session for admin impersonation
-- **Trial extension API** - GET endpoint respects impersonation auth
-- **Admin client view** - Behaves like real client session
-- **Elementor cache clearing** - Fixed method call syntax
-- **Custom CSS regeneration** - Regenerate Elementor CSS cache after updates
+- **Custom post updates (meta + CSS)** - Update custom post types with `meta` and `customCss`
+- **Builder-aware Custom CSS** - Detects Divi/Elementor and saves CSS to the right place
+- **Elementor CSS regeneration** - Automatically clears/regenerates Elementor CSS cache after updates
 
 ### Features
 
@@ -69,7 +67,7 @@ Download: [respira-for-wordpress-1.8.42.zip](https://respira.press/releases)
 
 ## MCP Server Releases
 
-<Update label="2025-12-13" description="MCP Server v2.0.8" tags={["feature", "improvement"]}>
+<Update label="2025-12-14" description="MCP Server v2.0.9" tags={["feature", "improvement"]}>
 
 ### Latest MCP server version
 
@@ -79,11 +77,9 @@ npm: [@respira/wordpress-mcp-server](https://www.npmjs.com/package/@respira/word
 
 ### What's New
 
-- **Interactive setup wizard** - Run `--setup` to configure step-by-step
-- **CLI options** - `--list`, `--test`, `--help` for site management
-- **Connection testing** - Validate before saving configuration
-- **Sentry monitoring** - Error tracking for better reliability
-- **60+ tools** - Comprehensive WordPress management
+- **Custom post meta support** - `wordpress_update_custom_post` accepts `meta` for arbitrary post meta
+- **Custom CSS support** - `wordpress_update_custom_post` accepts `customCss` (builder-aware)
+- **Compatibility guard** - Requires Respira for WordPress plugin v1.9.1+ for these custom post updates
 
 ### Features
 
