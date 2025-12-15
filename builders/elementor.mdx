@@ -1,48 +1,144 @@
 ---
 title: "Elementor Builder Reference"
-description: "Technical notes for using Respira with Elementor: JSON-based layouts, widgets, and module-level updates."
+description: "Technical documentation for using Respira with Elementor: JSON-based layouts, widget targeting, and safe editing workflows."
 ---
 
 # Elementor Builder Reference
 
-Elementor stores page layouts as structured JSON (post meta) and renders content through widgets, sections/containers, and nested elements.
+Technical documentation for using Respira with [Elementor](https://elementor.com/).
 
-## How Respira Works With Elementor
+## About Elementor
 
-1. Detect Elementor on a page (or site-wide)
-2. Extract a structured representation of the page
-3. Update a specific widget/module using labels, paths, or types
-4. Preserve all other widgets and settings
+[Elementor](https://elementor.com/) is the leading WordPress page builder with over 16 million active installations. It provides a drag-and-drop interface for building pages using widgets, sections, and containers.
 
-## Recommended Targeting: Labels
+## Data Structure
 
-Use Elementor's Navigator to name important widgets/sections (or use an admin label pattern your team follows). Then target them with:
+Elementor stores page layouts as structured JSON in WordPress post meta (`_elementor_data`). Each page contains a hierarchical tree of elements:
+
+```json
+[
+  {
+    "id": "abc123",
+    "elType": "section",
+    "settings": { "layout": "boxed" },
+    "elements": [
+      {
+        "id": "def456",
+        "elType": "column",
+        "settings": { "width": "50" },
+        "elements": [
+          {
+            "id": "ghi789",
+            "elType": "widget",
+            "widgetType": "heading",
+            "settings": {
+              "title": "Welcome to Our Site",
+              "_element_id": "hero-heading"
+            }
+          }
+        ]
+      }
+    ]
+  }
+]
+```
+
+## Module Identification
+
+### By Custom ID (Recommended)
+
+Set in Elementor: Widget → Advanced → CSS ID. Then target with:
+
+```json
+{ "admin_label": "hero-heading" }
+```
+
+### By Navigator Label
+
+Use Elementor's Navigator panel (right-click → Navigator) to name widgets:
 
 ```json
 { "admin_label": "Hero CTA Button" }
 ```
 
+### By Path
+
+```json
+{ "path": "sections[0].columns[0].widgets[1]" }
+```
+
+### By Type
+
+```json
+{ "type": "button", "match_content": "Get Started" }
+```
+
 ## Common Widgets
 
-| Widget | Typical Use |
-|--------|-------------|
-| Heading | Headlines and section titles |
-| Text Editor | Body content |
-| Button | Calls to action |
-| Image | Images with alt text |
-| Icon List | Feature lists |
-| Form | Lead capture / contact forms |
+| Widget | Type | Key Settings |
+|--------|------|--------------|
+| Heading | `heading` | title, size, tag |
+| Text Editor | `text-editor` | editor (HTML content) |
+| Button | `button` | text, link, size |
+| Image | `image` | image (url, id, alt) |
+| Icon List | `icon-list` | icon_list (array) |
+| Form | `form` | form_fields, email_to |
+| Video | `video` | youtube_url, vimeo_url |
+| Divider | `divider` | style, weight |
+| Spacer | `spacer` | space |
+| Icon Box | `icon-box` | title, description, icon |
 
-## Example Prompts
+## Example Prompts for Elementor
 
-- "Update the widget labeled 'Hero Heading' to say 'Start Here'"
-- "Change the CTA button link to /pricing"
-- "Extract the Elementor structure for page 42"
+**Content Updates:**
+
+- "Update the heading widget labeled 'Hero Heading' to say 'Start Here'"
+- "Change all button colors on the pricing page to #FF5733"
+- "Replace the hero section image with /wp-content/uploads/new-hero.jpg"
+
+**Structure Queries:**
+
+- "Show me all sections on page 42"
+- "List all buttons and their text on the homepage"
+- "What widgets are in the first section?"
+
+**Bulk Updates:**
+
+- "Find all buttons with 'Learn More' and change text to 'Get Started'"
+- "Update all heading widgets to use H2 instead of H3"
+- "Change the footer email address across all pages"
+
+## Global Widgets
+
+Respira detects Elementor Global Widgets. Updates to global widgets propagate everywhere they're used.
+
+- "List all global widgets" → Shows global widget library
+- "Update the global header phone number" → Changes it site-wide
+
+## Template Kits & Theme Builder
+
+Elementor Pro's Theme Builder templates (headers, footers, single post templates) are editable through Respira:
+
+- "Update the header template button to link to /contact"
+- "Change the footer copyright year to 2025"
+
+## Limitations
+
+- **Visual-only settings**: Hover states, entrance animations, and responsive visibility may need the Elementor editor
+- **Custom CSS**: Per-widget custom CSS is preserved but complex styling changes may require the builder
+- **Dynamic tags**: Elementor dynamic content tokens are preserved but not directly editable
+- **Third-party widgets**: Support varies by add-on; core Elementor widgets have full support
+
+## When to Use This Tool
+
+- **Quick content updates** - Change headlines, button text, or links without opening the builder
+- **Bulk edits** - Update the same text or link across multiple pages
+- **SEO workflows** - Fix heading structure or add missing alt text
+- **Client handoffs** - Make content changes after design is locked
 
 ## See Also
 
-- [wordpress_extract_builder_content](/tools/builders/extract-content)
-- [wordpress_update_module](/tools/builders/update-module)
-- [wordpress_inject_builder_content](/tools/builders/inject-content)
-
-
+- [wordpress_extract_builder_content](/tools/builders/extract-content) - View page structure
+- [wordpress_update_module](/tools/builders/update-module) - Update specific widgets
+- [wordpress_inject_builder_content](/tools/builders/inject-content) - Replace entire structure
+- [Page Builder Overview](/builders/overview) - Compare all supported builders

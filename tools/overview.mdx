@@ -1,6 +1,6 @@
 ---
 title: "Tools Reference"
-description: "Complete reference for Respira's MCP tools. Learn what each tool does, its parameters, responses, and example prompts."
+description: "Complete reference for 77 Respira MCP tools. Find the right tool for pages, posts, builders, menus, SEO analysis, and more."
 ---
 
 # Tools Reference
@@ -188,3 +188,24 @@ All tools follow the pattern: `wordpress_[action]_[resource]`
 - `analyze_*` - Read-only analysis
 - `check_*` - Quick validation
 
+## FAQ
+
+### How many tools does Respira have?
+
+Respira provides 77 MCP tools across 14 categories. This includes 38 read-only tools (for viewing content and analysis) and 39 write tools (for creating, updating, and deleting content).
+
+### What's the difference between read-only and write tools?
+
+Read-only tools (like `wordpress_list_pages`, `wordpress_analyze_seo`) only retrieve information—they never modify your site. Write tools (like `wordpress_update_page`, `wordpress_delete_post`) can change content. Write operations use the duplicate-first workflow by default, so you review changes before they go live.
+
+### Which tools are safe to use on production?
+
+All analysis tools are completely safe as they're read-only. For write operations, Respira's duplicate-first workflow protects your live content. The AI creates a draft copy, you review it in WordPress Admin (Respira → Approve Edits), and only then does it replace the original. You can also use [wordpress_validate_security](/tools/other/validate-security) to check content before saving.
+
+### Can I manage multiple sites with these tools?
+
+Yes. Use [wordpress_switch_site](/tools/other/switch-site) to switch between configured WordPress sites during a session. Configure multiple sites in `~/.respira/config.json` and the AI can work across all of them.
+
+### Do I need to remember all the tool names?
+
+No. Your AI assistant knows all available tools and will choose the right one based on your natural language request. Just describe what you want ("update the homepage title", "list all pages", "analyze SEO") and the AI selects the appropriate tool.

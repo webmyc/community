@@ -1,20 +1,152 @@
 ---
 title: "Thrive Architect Reference"
-description: "Technical notes for using Respira with Thrive Architect: element-based content and safe updates."
+description: "Technical documentation for using Respira with Thrive Architect: conversion-focused elements, targeting strategies, and safe editing workflows."
 ---
 
 # Thrive Architect Reference
 
-Thrive Architect stores layouts in a custom builder format. Respira can extract structure and apply targeted updates where identifiers are available.
+Technical documentation for using Respira with [Thrive Architect](https://thrivethemes.com/architect/).
 
-## Example Prompts
+## About Thrive Architect
+
+[Thrive Architect](https://thrivethemes.com/architect/) is a conversion-focused WordPress page builder from Thrive Themes. It's designed for creating high-converting landing pages, sales pages, and opt-in forms with over 40 elements optimized for lead generation.
+
+## Data Structure
+
+Thrive Architect stores layouts in a custom format with elements organized in a nested structure. Content is stored in post meta:
+
+```json
+{
+  "elements": [
+    {
+      "type": "section",
+      "id": "sec-123",
+      "children": [
+        {
+          "type": "contentbox",
+          "id": "cb-456",
+          "children": [
+            {
+              "type": "text",
+              "id": "txt-789",
+              "content": "<h1>Welcome to Our Site</h1>",
+              "class": "hero-heading"
+            },
+            {
+              "type": "button",
+              "id": "btn-012",
+              "text": "Get Started",
+              "link": "/contact",
+              "class": "hero-cta"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
+```
+
+## Module Identification
+
+### By Custom Class (Recommended)
+
+Add a custom class in Element Settings → Advanced:
+
+```json
+{ "admin_label": "hero-cta" }
+```
+
+### By Element ID
+
+Each element has a unique ID:
+
+```json
+{ "admin_label": "btn-012" }
+```
+
+### By Path
+
+```json
+{ "path": "elements[0].children[0].children[1]" }
+```
+
+### By Type and Content
+
+```json
+{ "type": "button", "match_content": "Get Started" }
+```
+
+## Common Elements
+
+| Element | Type | Key Attributes |
+|---------|------|----------------|
+| Text | `text` | content (HTML) |
+| Button | `button` | text, link |
+| Image | `image` | src, alt |
+| Lead Generation | `lead_generation` | form fields, action |
+| Content Box | `contentbox` | layout settings |
+| Countdown | `countdown` | date, expiry_action |
+| Testimonial | `testimonial` | name, content, image |
+| Guarantee Box | `guarantee` | title, content |
+| Star Rating | `star_rating` | rating, count |
+| Progress Bar | `progress_bar` | percentage, label |
+
+## Example Prompts for Thrive Architect
+
+**Content Updates:**
+
+- "Update the hero headline element to 'New Headline'"
+- "Change the CTA button with class 'hero-cta' to link to /pricing"
+- "Replace the testimonial name with 'John Smith'"
+
+**Structure Queries:**
 
 - "Extract Thrive Architect structure for page 42"
-- "Update the hero headline element"
+- "List all button elements on the sales page"
+- "Show me all lead generation forms"
+
+**Bulk Updates:**
+
+- "Find all buttons with 'Buy Now' and change to 'Get Started Free'"
+- "Update the guarantee box text across all landing pages"
+- "Change all countdown timers to December 31, 2025"
+
+## Thrive Leads Integration
+
+Thrive Leads opt-in forms embedded in pages are editable:
+
+- "List all lead generation elements" → Shows opt-in forms
+- "Update the lead form headline"
+
+## Landing Page Templates
+
+Thrive Architect landing page templates are fully supported:
+
+- "Update the sales page template headline"
+- "Change the webinar registration button text"
+
+## Smart Landing Pages
+
+Thrive's Smart Landing Pages work with Respira for content updates while preserving the overall design system.
+
+## Limitations
+
+- **Conversion elements**: Complex elements like A/B tests and smart links need the builder
+- **Thrive Leads**: Advanced lead generation settings need the Thrive Leads interface
+- **Animations**: Entry effects and hover animations are preserved but need the builder
+- **Global elements**: Thrive Architect global elements can be edited but changes need verification
+
+## When to Use This Tool
+
+- **Content optimization** - Update headlines, CTAs, and copy for conversion testing
+- **Landing page maintenance** - Quick edits to sales and opt-in pages
+- **Bulk CTA updates** - Change button text or links across multiple pages
+- **Post-launch tweaks** - Adjust content based on conversion data
 
 ## See Also
 
-- [wordpress_extract_builder_content](/tools/builders/extract-content)
-- [wordpress_update_module](/tools/builders/update-module)
-
-
+- [wordpress_extract_builder_content](/tools/builders/extract-content) - View page structure
+- [wordpress_update_module](/tools/builders/update-module) - Update specific elements
+- [wordpress_inject_builder_content](/tools/builders/inject-content) - Replace entire structure
+- [Page Builder Overview](/builders/overview) - Compare all supported builders

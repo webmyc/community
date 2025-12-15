@@ -53,10 +53,30 @@ Many actions are logged (depending on your plan / plugin version). Logs typicall
 - Timestamp
 - Success/failure
 
+## FAQ
+
+### Can AI delete my live pages?
+
+No, not by default. Respira uses a duplicate-first workflow where write operations create draft copies. You must explicitly approve changes in WordPress Admin (Respira → Approve Edits) before they affect your live content. Only then does the duplicate replace the original.
+
+### Who can see my API key?
+
+Only you. API keys are displayed once when created and never shown again in WordPress Admin. They're stored securely and transmitted only between your local MCP server and your WordPress site over HTTPS. Never share your API key or commit it to version control.
+
+### What happens if I reject a duplicate?
+
+The duplicate is deleted. Your original content remains completely untouched. This is the safe "undo" mechanism—if you don't like the AI's changes, just reject them and nothing on your live site changes.
+
+### Can someone else use my API key?
+
+If your API key is compromised, revoke it immediately in WordPress Admin (Respira → API Keys). Create a new key for your continued use. Each key can be revoked independently, so you can issue different keys for different machines or team members.
+
+### Is my content sent to external servers?
+
+Respira communicates only between your local MCP server and your WordPress site. Analysis tools run on your WordPress server. Content is not sent to Anthropic, OpenAI, or other third parties by Respira itself. Your AI assistant (Cursor, Claude Code, etc.) receives the content locally to process your requests.
+
 ## See Also
 
 - [API Key Management](/security/api-key-management)
 - [Audit Logging](/security/audit-logging)
 - [Data Privacy](/security/data-privacy)
-
-

@@ -1,20 +1,142 @@
 ---
 title: "Beaver Builder Reference"
-description: "Technical notes for using Respira with Beaver Builder: module-level updates and safe editing."
+description: "Technical documentation for using Respira with Beaver Builder: serialized layouts, module targeting, and safe editing workflows."
 ---
 
 # Beaver Builder Reference
 
-Beaver Builder stores structured layout data for rows, columns, and modules. Respira can extract and update specific modules while preserving the rest.
+Technical documentation for using Respira with [Beaver Builder](https://www.wpbeaverbuilder.com/).
 
-## Example Prompts
+## About Beaver Builder
+
+[Beaver Builder](https://www.wpbeaverbuilder.com/) is a reliable, user-friendly WordPress page builder trusted by agencies and developers. It stores layouts as serialized data and features over 30 content modules with a focus on stability and clean code.
+
+## Data Structure
+
+Beaver Builder stores layouts as serialized PHP arrays in post meta (`_fl_builder_data`). The structure consists of rows, columns, and modules:
+
+```json
+{
+  "node-abc123": {
+    "node": "abc123",
+    "type": "row",
+    "settings": { "width": "fixed" }
+  },
+  "node-def456": {
+    "node": "def456",
+    "type": "column",
+    "parent": "abc123",
+    "settings": { "size": "100" }
+  },
+  "node-ghi789": {
+    "node": "ghi789",
+    "type": "module",
+    "parent": "def456",
+    "settings": {
+      "type": "heading",
+      "heading": "Welcome to Our Site",
+      "tag": "h1"
+    }
+  }
+}
+```
+
+## Module Identification
+
+### By Node Label (Recommended)
+
+Set a custom label in Beaver Builder: Module Settings → Advanced → Label:
+
+```json
+{ "admin_label": "Hero Heading" }
+```
+
+### By CSS ID
+
+Set in Module Settings → Advanced → ID:
+
+```json
+{ "admin_label": "hero-cta" }
+```
+
+### By Path
+
+```json
+{ "path": "rows[0].columns[0].modules[0]" }
+```
+
+### By Type and Content
+
+```json
+{ "type": "heading", "match_content": "Welcome" }
+```
+
+## Common Modules
+
+| Module | Type | Key Settings |
+|--------|------|--------------|
+| Heading | `heading` | heading, tag |
+| Text Editor | `rich-text` | text (HTML content) |
+| Button | `button` | text, link |
+| Photo | `photo` | photo, link |
+| Icon | `icon` | icon, link |
+| Callout | `callout` | heading, text, photo |
+| Call to Action | `cta` | heading, text, btn_text, btn_link |
+| Content Slider | `content-slider` | slides array |
+| Accordion | `accordion` | items array |
+| Contact Form | `contact-form` | email settings |
+
+## Example Prompts for Beaver Builder
+
+**Content Updates:**
 
 - "Update the module labeled 'Hero Button' to say 'Contact Us'"
+- "Change the heading with ID 'hero-heading' to 'Welcome Home'"
+- "Replace the CTA button link with /get-started"
+
+**Structure Queries:**
+
 - "Extract Beaver Builder structure for page 42"
+- "List all button modules on the homepage"
+- "Show me all rows and their modules"
+
+**Bulk Updates:**
+
+- "Find all buttons with 'Learn More' and change to 'Get Started'"
+- "Update the phone number in all text editor modules"
+- "Change all H3 headings to H2"
+
+## Saved Modules & Templates
+
+Beaver Builder saved modules and templates are editable:
+
+- "List all saved modules" → Shows saved module library
+- "Update the saved 'Contact Section' phone number"
+
+## Themer Layouts
+
+Beaver Themer layouts (headers, footers, archives) are fully supported:
+
+- "Update the header template button to link to /contact"
+- "Change the footer copyright year to 2025"
+
+## Limitations
+
+- **Advanced tab settings**: Margins, padding, and responsive settings may need the visual editor
+- **Animations**: Animation and visibility settings are preserved but need the builder
+- **Field connections**: Beaver Themer field connections are preserved but not directly editable
+- **Third-party modules**: Support varies by add-on; core modules have full support
+
+## When to Use This Tool
+
+- **Content updates** - Change text, links, and images without opening the builder
+- **Template maintenance** - Update Themer layouts across the site
+- **Bulk editing** - Fix repeated content across multiple pages
+- **Post-launch changes** - Make quick edits after client handoff
 
 ## See Also
 
-- [wordpress_extract_builder_content](/tools/builders/extract-content)
-- [wordpress_update_module](/tools/builders/update-module)
-
-
+- [wordpress_extract_builder_content](/tools/builders/extract-content) - View page structure
+- [wordpress_update_module](/tools/builders/update-module) - Update specific modules
+- [wordpress_inject_builder_content](/tools/builders/inject-content) - Replace entire structure
+- [Page Builder Overview](/builders/overview) - Compare all supported builders

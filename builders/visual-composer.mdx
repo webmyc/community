@@ -1,20 +1,145 @@
 ---
 title: "Visual Composer Reference"
-description: "Technical notes for using Respira with Visual Composer: element trees and safe updates."
+description: "Technical documentation for using Respira with Visual Composer: element trees, targeting strategies, and safe editing workflows."
 ---
 
 # Visual Composer Reference
 
-Visual Composer stores page layouts as structured elements. Respira can extract and update targeted elements when they can be identified reliably.
+Technical documentation for using Respira with [Visual Composer](https://visualcomposer.com/).
 
-## Example Prompts
+## About Visual Composer
+
+[Visual Composer](https://visualcomposer.com/) is a WordPress website builder that provides a frontend editor with 500+ elements and templates. Note: Visual Composer is different from WPBakery (formerly Visual Composer Page Builder). This reference covers the newer Visual Composer Website Builder.
+
+## Data Structure
+
+Visual Composer stores page content as JSON in post meta. The structure consists of nested elements with unique IDs:
+
+```json
+{
+  "elements": {
+    "abc123": {
+      "id": "abc123",
+      "parent": false,
+      "tag": "row",
+      "order": 0
+    },
+    "def456": {
+      "id": "def456",
+      "parent": "abc123",
+      "tag": "column",
+      "order": 0,
+      "size": { "all": "100" }
+    },
+    "ghi789": {
+      "id": "ghi789",
+      "parent": "def456",
+      "tag": "basicButton",
+      "order": 0,
+      "title": "Get Started",
+      "url": "/contact",
+      "customClass": "hero-cta"
+    }
+  }
+}
+```
+
+## Module Identification
+
+### By Custom Class (Recommended)
+
+Add a custom class in Element Settings:
+
+```json
+{ "admin_label": "hero-cta" }
+```
+
+### By Element ID
+
+Each element has a unique ID:
+
+```json
+{ "admin_label": "ghi789" }
+```
+
+### By Path
+
+```json
+{ "path": "elements.ghi789" }
+```
+
+### By Type and Content
+
+```json
+{ "type": "basicButton", "match_content": "Get Started" }
+```
+
+## Common Elements
+
+| Element | Tag | Key Attributes |
+|---------|-----|----------------|
+| Text Block | `textBlock` | output (HTML content) |
+| Button | `basicButton` | title, url |
+| Single Image | `singleImage` | image, alt |
+| Heading | `heading` | text, headingTag |
+| Icon | `icon` | iconPicker, link |
+| Row | `row` | layout settings |
+| Column | `column` | size |
+| Section | `section` | layout settings |
+| Hero Section | `heroSection` | background, content |
+| Call to Action | `callToAction` | title, description, buttonText |
+
+## Example Prompts for Visual Composer
+
+**Content Updates:**
+
+- "Update the element with class 'hero-cta' to link to /pricing"
+- "Change the heading in element 'ghi789' to 'New Headline'"
+- "Replace the footer address text"
+
+**Structure Queries:**
 
 - "Extract Visual Composer structure for page 42"
-- "Update the element that contains the footer address"
+- "List all button elements on the homepage"
+- "Show me all rows and their columns"
+
+**Bulk Updates:**
+
+- "Find all basicButton elements with 'Learn More' and change to 'Get Started'"
+- "Update the phone number in all text blocks"
+- "Change all H3 headings to H2"
+
+## Hub Elements & Templates
+
+Visual Composer Hub elements and templates are supported:
+
+- "List all saved templates" → Shows template library
+- "Update the saved 'Contact Section' template"
+
+## Header, Footer & Sidebar Editor
+
+Visual Composer's global areas are editable:
+
+- "Update the header template button"
+- "Change the footer copyright text to 2025"
+
+## Limitations
+
+- **Design options**: Margins, padding, and responsive settings may need the visual editor
+- **Animations**: Element animations are preserved but need the builder to modify
+- **Hub elements**: Third-party Hub elements have varying support
+- **Dynamic content**: Dynamic field connections are preserved but not directly editable
+
+## When to Use This Tool
+
+- **Content updates** - Change text, links, and images without opening the builder
+- **Template editing** - Update saved templates efficiently
+- **Bulk changes** - Fix repeated content across multiple pages
+- **Post-launch maintenance** - Make quick edits after client handoff
 
 ## See Also
 
-- [wordpress_extract_builder_content](/tools/builders/extract-content)
-- [wordpress_update_module](/tools/builders/update-module)
-
-
+- [wordpress_extract_builder_content](/tools/builders/extract-content) - View page structure
+- [wordpress_update_module](/tools/builders/update-module) - Update specific elements
+- [wordpress_inject_builder_content](/tools/builders/inject-content) - Replace entire structure
+- [Page Builder Overview](/builders/overview) - Compare all supported builders

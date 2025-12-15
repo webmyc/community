@@ -1,20 +1,161 @@
 ---
 title: "Brizy Builder Reference"
-description: "Technical notes for using Respira with Brizy: JSON-based layouts and safe updates."
+description: "Technical documentation for using Respira with Brizy: JSON-based layouts, element targeting, and safe editing workflows."
 ---
 
 # Brizy Builder Reference
 
-Brizy stores page structures as JSON blocks/elements. Respira can extract this structure and update targeted parts when identifiers are available.
+Technical documentation for using Respira with [Brizy](https://www.brizy.io/).
 
-## Example Prompts
+## About Brizy
+
+[Brizy](https://www.brizy.io/) is a modern WordPress page builder focused on simplicity and speed. It stores layouts as JSON and features over 40 elements with a clean, intuitive interface and cloud-based template library.
+
+## Data Structure
+
+Brizy stores page content as JSON in post meta. Each page consists of blocks containing elements:
+
+```json
+{
+  "blocks": [
+    {
+      "type": "Section",
+      "value": {
+        "_id": "abc123",
+        "items": [
+          {
+            "type": "Row",
+            "value": {
+              "items": [
+                {
+                  "type": "Column",
+                  "value": {
+                    "items": [
+                      {
+                        "type": "RichText",
+                        "value": {
+                          "_id": "text-456",
+                          "text": "<h1>Welcome to Our Site</h1>"
+                        }
+                      },
+                      {
+                        "type": "Button",
+                        "value": {
+                          "_id": "btn-789",
+                          "text": "Get Started",
+                          "linkExternal": "/contact"
+                        }
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      }
+    }
+  ]
+}
+```
+
+## Module Identification
+
+### By Element ID (Recommended)
+
+Each Brizy element has a unique `_id`. Target it with:
+
+```json
+{ "admin_label": "btn-789" }
+```
+
+### By Custom CSS Class
+
+Add a custom class in Element Settings → Advanced:
+
+```json
+{ "admin_label": "hero-cta-button" }
+```
+
+### By Path
+
+```json
+{ "path": "blocks[0].items[0].items[0].items[1]" }
+```
+
+### By Type and Content
+
+```json
+{ "type": "Button", "match_content": "Get Started" }
+```
+
+## Common Elements
+
+| Element | Type | Key Values |
+|---------|------|------------|
+| Rich Text | `RichText` | text (HTML content) |
+| Button | `Button` | text, linkExternal |
+| Image | `Image` | imageSrc, imageAlt |
+| Icon | `Icon` | name, link |
+| Video | `Video` | video (URL) |
+| Section | `Section` | layout settings |
+| Row | `Row` | column configuration |
+| Column | `Column` | nested items |
+| Form | `Form` | fields array |
+| Map | `Map` | address, zoom |
+
+## Example Prompts for Brizy
+
+**Content Updates:**
+
+- "Update the button labeled 'CTA' to link to /pricing"
+- "Change the heading in element 'text-456' to 'Welcome Home'"
+- "Replace the hero image with a new URL"
+
+**Structure Queries:**
 
 - "Extract Brizy structure for page 42"
-- "Update the button labeled 'CTA' to link to /pricing"
+- "List all buttons on the homepage"
+- "Show me all sections and their blocks"
+
+**Bulk Updates:**
+
+- "Find all buttons with 'Learn More' and change to 'Get Started'"
+- "Update the phone number in all rich text elements"
+- "Change all H3 headings to H2"
+
+## Global Blocks
+
+Brizy global blocks are editable and changes propagate site-wide:
+
+- "List all global blocks" → Shows global block library
+- "Update the global footer phone number" → Changes it everywhere
+
+## Brizy Cloud & Pro
+
+Brizy Pro features and cloud-synced templates work with Respira:
+
+- Pop-ups and forms
+- Dynamic content areas
+- Role-based display rules (preserved but not editable)
+
+## Limitations
+
+- **Animations**: Entry animations and effects are preserved but need the builder
+- **Conditions**: Display conditions are preserved but not directly editable
+- **Brizy Cloud**: Cloud-synced templates need the Brizy interface for sync operations
+- **Custom CSS**: Per-element CSS is preserved; complex styling changes may need the builder
+
+## When to Use This Tool
+
+- **Quick content updates** - Change text, buttons, and links without the builder
+- **Batch editing** - Update repeated content across pages
+- **Global block maintenance** - Edit global blocks efficiently
+- **SEO improvements** - Fix heading structure or add missing content
 
 ## See Also
 
-- [wordpress_extract_builder_content](/tools/builders/extract-content)
-- [wordpress_update_module](/tools/builders/update-module)
-
-
+- [wordpress_extract_builder_content](/tools/builders/extract-content) - View page structure
+- [wordpress_update_module](/tools/builders/update-module) - Update specific elements
+- [wordpress_inject_builder_content](/tools/builders/inject-content) - Replace entire structure
+- [Page Builder Overview](/builders/overview) - Compare all supported builders

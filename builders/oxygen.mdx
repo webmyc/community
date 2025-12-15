@@ -1,20 +1,142 @@
 ---
 title: "Oxygen Builder Reference"
-description: "Technical notes for using Respira with Oxygen Builder: component trees and safe, targeted updates."
+description: "Technical documentation for using Respira with Oxygen Builder: component trees, targeting strategies, and safe editing workflows."
 ---
 
 # Oxygen Builder Reference
 
-Oxygen stores layouts as structured builder data (component trees). Respira can extract and update targeted components while preserving the rest of the page.
+Technical documentation for using Respira with [Oxygen Builder](https://oxygenbuilder.com/).
 
-## Example Prompts
+## About Oxygen
 
-- "Update the Oxygen component labeled 'Footer Email' to our new email"
+[Oxygen Builder](https://oxygenbuilder.com/) is a professional-grade WordPress site builder that generates clean, bloat-free code. It completely replaces your theme and offers full site building capabilities with over 60 components.
+
+## Data Structure
+
+Oxygen stores page layouts as serialized component trees in post meta. Each component has a unique ID and nested children:
+
+```json
+{
+  "id": 1,
+  "name": "ct_section",
+  "options": {
+    "ct_id": 1,
+    "selector": "section-1-123"
+  },
+  "children": [
+    {
+      "id": 2,
+      "name": "ct_headline",
+      "options": {
+        "ct_content": "Welcome to Our Site",
+        "selector": "headline-2-123"
+      }
+    },
+    {
+      "id": 3,
+      "name": "ct_link_button",
+      "options": {
+        "ct_content": "Get Started",
+        "url": "/contact"
+      }
+    }
+  ]
+}
+```
+
+## Module Identification
+
+### By Selector (Recommended)
+
+Each Oxygen element has a unique selector. Target it with:
+
+```json
+{ "admin_label": "headline-2-123" }
+```
+
+### By Custom Class
+
+Add a custom class in Oxygen's Advanced tab:
+
+```json
+{ "admin_label": "hero-cta-button" }
+```
+
+### By Path
+
+```json
+{ "path": "components[0].children[1]" }
+```
+
+### By Type and Content
+
+```json
+{ "type": "ct_link_button", "match_content": "Get Started" }
+```
+
+## Common Components
+
+| Component | Type | Key Options |
+|-----------|------|-------------|
+| Headline | `ct_headline` | ct_content, tag |
+| Text Block | `ct_text_block` | ct_content |
+| Button | `ct_link_button` | ct_content, url |
+| Image | `ct_image` | src, alt |
+| Icon | `ct_icon` | icon_id |
+| Section | `ct_section` | layout settings |
+| Columns | `ct_columns` | column configuration |
+| Div | `ct_div_block` | generic container |
+| Link | `ct_link` | url, target |
+| Code Block | `ct_code_block` | code_php, code_css, code_js |
+
+## Example Prompts for Oxygen
+
+**Content Updates:**
+
+- "Update the Oxygen component labeled 'Footer Email' to support@example.com"
+- "Change the headline selector 'headline-2-123' to 'New Headline'"
+- "Replace the CTA button link with /pricing"
+
+**Structure Queries:**
+
 - "Extract Oxygen structure for the homepage"
+- "List all buttons on page 42"
+- "Show me the component tree for this page"
+
+**Bulk Updates:**
+
+- "Find all ct_link_button components with 'Learn More' and change to 'Get Started'"
+- "Update the copyright year in all text blocks"
+- "Change all H3 headlines to H2"
+
+## Templates & Reusable Parts
+
+Oxygen templates and reusable parts are editable:
+
+- "List all Oxygen templates" → Shows template library
+- "Update the header template phone number" → Changes it site-wide
+
+## Inner Content & Gutenberg
+
+Oxygen can include Gutenberg blocks via Inner Content. Respira can edit both the Oxygen structure and embedded Gutenberg content.
+
+## Limitations
+
+- **Conditions**: Oxygen conditions (visibility rules) are preserved but need the builder
+- **Dynamic data**: Dynamic data connections are preserved but not directly editable
+- **Global styles**: Oxygen's global colors and stylesheets need the builder interface
+- **Custom PHP**: Code blocks with PHP are preserved but not editable through Respira
+
+## When to Use This Tool
+
+- **Quick content updates** - Change headlines, button text, or links
+- **Batch editing** - Update the same content across multiple templates
+- **SEO workflows** - Fix heading structure or missing content
+- **Client maintenance** - Make content changes without needing Oxygen knowledge
 
 ## See Also
 
-- [wordpress_extract_builder_content](/tools/builders/extract-content)
-- [wordpress_update_module](/tools/builders/update-module)
-
-
+- [wordpress_extract_builder_content](/tools/builders/extract-content) - View page structure
+- [wordpress_update_module](/tools/builders/update-module) - Update specific components
+- [wordpress_inject_builder_content](/tools/builders/inject-content) - Replace entire structure
+- [Page Builder Overview](/builders/overview) - Compare all supported builders

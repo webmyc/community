@@ -1,24 +1,144 @@
 ---
 title: "Bricks Builder Reference"
-description: "Technical notes for using Respira with Bricks Builder: JSON-based elements and structure-aware updates."
+description: "Technical documentation for using Respira with Bricks Builder: JSON-based elements, targeting strategies, and safe editing workflows."
 ---
 
 # Bricks Builder Reference
 
-Bricks Builder stores page structure as a JSON-like element tree. Elements are nestable and can represent sections, containers, headings, buttons, etc.
+Technical documentation for using Respira with [Bricks Builder](https://bricksbuilder.io/).
 
-## Best Practice: Label Important Elements
+## About Bricks
 
-Name key elements (hero, CTA, footer blocks) so they can be reliably targeted.
+[Bricks Builder](https://bricksbuilder.io/) is a modern, performance-focused WordPress page builder that stores content as lightweight JSON. It's known for clean code output and developer-friendly features, with over 80 elements available.
 
-## Example Prompts
+## Data Structure
 
-- "Update the Bricks element labeled 'Hero CTA' to link to /contact"
+Bricks stores page structure as JSON in post meta (`_bricks_page_content_2`). Elements are organized in a flat array with parent-child relationships:
+
+```json
+{
+  "elements": [
+    {
+      "id": "abc123",
+      "name": "section",
+      "parent": 0,
+      "settings": { "tag": "section" }
+    },
+    {
+      "id": "def456",
+      "name": "heading",
+      "parent": "abc123",
+      "settings": {
+        "text": "Welcome to Our Site",
+        "_cssId": "hero-heading"
+      }
+    },
+    {
+      "id": "ghi789",
+      "name": "button",
+      "parent": "abc123",
+      "settings": {
+        "text": "Get Started",
+        "link": { "url": "/contact" }
+      }
+    }
+  ]
+}
+```
+
+## Module Identification
+
+### By CSS ID (Recommended)
+
+Set in Bricks: Element → Style → CSS → ID:
+
+```json
+{ "admin_label": "hero-heading" }
+```
+
+### By Element Name
+
+Label important elements in the structure panel:
+
+```json
+{ "admin_label": "Hero CTA Button" }
+```
+
+### By Path
+
+```json
+{ "path": "elements[2]" }
+```
+
+### By Type and Content
+
+```json
+{ "type": "button", "match_content": "Get Started" }
+```
+
+## Common Elements
+
+| Element | Type | Key Settings |
+|---------|------|--------------|
+| Heading | `heading` | text, tag |
+| Text | `text` | text (HTML content) |
+| Button | `button` | text, link |
+| Image | `image` | image (id, url, alt) |
+| Icon | `icon` | icon, link |
+| Video | `video` | videoType, videoId |
+| Container | `container` | layout settings |
+| Section | `section` | tag, width |
+| Block | `block` | layout settings |
+| Divider | `divider` | style |
+
+## Example Prompts for Bricks
+
+**Content Updates:**
+
+- "Update the element labeled 'Hero CTA' to link to /contact"
+- "Change the heading with ID 'hero-heading' to 'Welcome Home'"
+- "Replace all button text 'Learn More' with 'Get Started'"
+
+**Structure Queries:**
+
 - "Extract Bricks structure for page 42"
+- "List all buttons on the homepage"
+- "Show me the element hierarchy"
+
+**Bulk Updates:**
+
+- "Find all buttons and change their background color setting"
+- "Update the phone number across all sections"
+- "Change all H3 headings to H2"
+
+## Global Elements
+
+Bricks global elements and templates are editable through Respira:
+
+- "List all Bricks templates" → Shows template library
+- "Update the global header logo" → Changes it site-wide
+
+## Theme Styles
+
+Bricks theme styles define default styling. Respira preserves these while updating content.
+
+## Limitations
+
+- **Complex interactions**: Bricks interactions (scroll, click triggers) may need the builder
+- **Query loops**: Dynamic query loop settings are preserved but need the builder for changes
+- **Conditions**: Display conditions are preserved but not directly editable
+- **Custom CSS**: Per-element CSS is preserved; complex styling changes may need the builder
+
+## When to Use This Tool
+
+- **Content updates** - Change text, links, and images without opening the builder
+- **Bulk edits** - Update repeated content across multiple pages
+- **SEO optimization** - Fix heading hierarchy or add missing content
+- **Template maintenance** - Update global elements after initial design
 
 ## See Also
 
-- [wordpress_extract_builder_content](/tools/builders/extract-content)
-- [wordpress_update_module](/tools/builders/update-module)
-
-
+- [wordpress_extract_builder_content](/tools/builders/extract-content) - View page structure
+- [wordpress_update_module](/tools/builders/update-module) - Update specific elements
+- [wordpress_inject_builder_content](/tools/builders/inject-content) - Replace entire structure
+- [Page Builder Overview](/builders/overview) - Compare all supported builders

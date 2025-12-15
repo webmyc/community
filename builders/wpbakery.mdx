@@ -1,20 +1,133 @@
 ---
 title: "WPBakery Builder Reference"
-description: "Technical notes for using Respira with WPBakery: shortcode-based layouts and safe module updates."
+description: "Technical documentation for using Respira with WPBakery: shortcode-based layouts, element targeting, and safe module updates."
 ---
 
 # WPBakery Builder Reference
 
-WPBakery stores content largely as shortcodes. Respira can extract structure and perform targeted updates while preserving the rest of the layout.
+Technical documentation for using Respira with [WPBakery Page Builder](https://wpbakery.com/).
 
-## Example Prompts
+## About WPBakery
+
+[WPBakery Page Builder](https://wpbakery.com/) (formerly Visual Composer) is one of the most widely used WordPress page builders with over 4 million active installations. It uses a shortcode-based architecture to store content.
+
+## Data Structure
+
+WPBakery stores layouts as nested shortcodes in `post_content`:
+
+```text
+[vc_row][vc_column]
+  [vc_column_text el_id="hero-text"]
+    <h1>Welcome to Our Site</h1>
+    <p>We help businesses grow.</p>
+  [/vc_column_text]
+  [vc_btn title="Get Started" link="url:/contact" el_id="hero-cta"]
+[/vc_column][/vc_row]
+
+[vc_row][vc_column width="1/2"]
+  [vc_single_image image="123" img_size="full"]
+[/vc_column][vc_column width="1/2"]
+  [vc_column_text]
+    <h2>Our Services</h2>
+  [/vc_column_text]
+[/vc_column][/vc_row]
+```
+
+Each shortcode has attributes that control appearance and behavior. Elements can have `el_id` or `el_class` attributes for targeting.
+
+## Module Identification
+
+### By Element ID (Recommended)
+
+Set in WPBakery: Element Settings → Design Options → Element ID:
+
+```json
+{ "admin_label": "hero-cta" }
+```
+
+### By Custom Class
+
+Set a custom CSS class and target it:
+
+```json
+{ "admin_label": "main-cta-button" }
+```
+
+### By Path
+
+```json
+{ "path": "rows[0].columns[0].elements[1]" }
+```
+
+### By Type and Content
+
+```json
+{ "type": "vc_btn", "match_content": "Get Started" }
+```
+
+## Common Elements
+
+| Element | Shortcode | Key Attributes |
+|---------|-----------|----------------|
+| Text Block | `vc_column_text` | content (HTML) |
+| Button | `vc_btn` | title, link, color |
+| Single Image | `vc_single_image` | image, img_size |
+| Row | `vc_row` | layout settings |
+| Column | `vc_column` | width, offset |
+| Separator | `vc_separator` | color, style |
+| Message Box | `vc_message` | message_box_color, content |
+| Video Player | `vc_video` | link |
+| Icon | `vc_icon` | icon, color |
+| Tabs | `vc_tta_tabs` | nested tab sections |
+
+## Example Prompts for WPBakery
+
+**Content Updates:**
+
+- "Update the text block with ID 'hero-text' to say 'Welcome Home'"
+- "Change the button with 'Get Started' to link to /pricing"
+- "Replace the image in the first row with image ID 456"
+
+**Structure Queries:**
 
 - "Extract WPBakery structure for page 42"
-- "Update the module that contains 'Get Started' to 'Start Free Trial'"
+- "List all buttons on the homepage"
+- "Show me all rows and their column layouts"
+
+**Bulk Updates:**
+
+- "Find all buttons with 'Learn More' and change to 'Get Started'"
+- "Update the phone number in all text blocks to 555-123-4567"
+- "Change all vc_btn colors from blue to green"
+
+## Templates and Presets
+
+WPBakery templates saved in the Template Library are editable:
+
+- "List all WPBakery templates" → Shows template library
+- "Update the 'Contact Section' template phone number"
+
+## Backend vs Frontend Editor
+
+Respira works with content regardless of which editor was used. Both Backend Editor and Frontend Editor changes are supported.
+
+## Limitations
+
+- **Design Options**: Padding, margins, and responsive settings may need the visual editor
+- **Custom CSS**: Per-element custom CSS is preserved but complex styling changes may require the builder
+- **Third-party add-ons**: Support varies; core WPBakery elements have full support
+- **Row/column structure**: Layout-level changes (column widths, row settings) are best done in the builder
+
+## When to Use This Tool
+
+- **Content updates** - Change text, links, and images without opening the builder
+- **Batch editing** - Update repeated content across multiple pages
+- **SEO fixes** - Fix heading structure or add missing content
+- **Post-launch maintenance** - Make quick edits after site handoff
 
 ## See Also
 
-- [wordpress_extract_builder_content](/tools/builders/extract-content)
-- [wordpress_update_module](/tools/builders/update-module)
-
-
+- [wordpress_extract_builder_content](/tools/builders/extract-content) - View page structure
+- [wordpress_update_module](/tools/builders/update-module) - Update specific elements
+- [wordpress_inject_builder_content](/tools/builders/inject-content) - Replace entire structure
+- [Page Builder Overview](/builders/overview) - Compare all supported builders

@@ -47,13 +47,7 @@
                 "title": "Quick Start Guide",
                 "path": "quick-start-guide",
                 "icon": "zap"
-              }
-            ]
-          },
-          {
-            "group": "Core Features",
-            "icon": "sparkles",
-            "pages": [
+              },
               {
                 "title": "Usage Guide",
                 "path": "usage",
@@ -655,6 +649,22 @@
             ]
           },
           {
+            "group": "Reference",
+            "icon": "book",
+            "pages": [
+              {
+                "title": "Prompts & Examples",
+                "path": "prompts",
+                "icon": "book-open"
+              },
+              {
+                "title": "Error Codes",
+                "path": "reference/error-codes",
+                "icon": "alert-octagon"
+              }
+            ]
+          },
+          {
             "group": "Support",
             "icon": "help-circle",
             "pages": [
@@ -672,22 +682,6 @@
                 "title": "Contact",
                 "path": "support/contact",
                 "icon": "mail"
-              }
-            ]
-          },
-          {
-            "group": "Reference",
-            "icon": "book",
-            "pages": [
-              {
-                "title": "Prompts & Examples",
-                "path": "prompts",
-                "icon": "book-open"
-              },
-              {
-                "title": "Error Codes",
-                "path": "reference/error-codes",
-                "icon": "alert-octagon"
               }
             ]
           }

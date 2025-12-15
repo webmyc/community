@@ -1,28 +1,143 @@
 ---
 title: "Gutenberg (Block Editor) Reference"
-description: "Technical notes for using Respira with Gutenberg: block-based content and safe editing workflows."
+description: "Technical documentation for using Respira with Gutenberg: WordPress block editing, content updates, and SEO workflows."
 ---
 
 # Gutenberg (Block Editor) Reference
 
-Gutenberg stores content as HTML with block comments that represent block structure. Respira can read, update, and analyze Gutenberg pages effectively.
+Technical documentation for using Respira with the [WordPress Block Editor](https://wordpress.org/gutenberg/) (Gutenberg).
+
+## About Gutenberg
+
+The [WordPress Block Editor](https://wordpress.org/gutenberg/), commonly known as Gutenberg, is WordPress's default content editor since version 5.0. It powers over 40% of all websites on the internet through WordPress core.
+
+## Data Structure
+
+Gutenberg stores content as HTML with block comment delimiters in `post_content`:
+
+```html
+<!-- wp:heading {"level":1} -->
+<h1 class="wp-block-heading">Welcome to Our Site</h1>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>This is the introduction paragraph with some <strong>bold text</strong>.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:button {"backgroundColor":"primary"} -->
+<div class="wp-block-button">
+  <a class="wp-block-button__link has-primary-background-color">Get Started</a>
+</div>
+<!-- /wp:button -->
+```
+
+Block attributes are stored as JSON in the opening comment. The HTML between comments is the rendered content.
+
+## Module Identification
+
+### By Block Type
+
+```json
+{ "type": "core/heading", "match_content": "Welcome" }
+```
+
+### By CSS Anchor
+
+Set in Block Settings → Advanced → HTML Anchor:
+
+```json
+{ "admin_label": "hero-cta" }
+```
+
+### By Position
+
+```json
+{ "path": "blocks[0]" }
+```
+
+### By Content Match
+
+```json
+{ "match_content": "Get Started" }
+```
+
+## Common Blocks
+
+| Block | Type | Key Attributes |
+|-------|------|----------------|
+| Heading | `core/heading` | level, content |
+| Paragraph | `core/paragraph` | content |
+| Image | `core/image` | url, alt, caption |
+| Button | `core/button` | text, url |
+| List | `core/list` | values |
+| Quote | `core/quote` | value, citation |
+| Columns | `core/columns` | nested column blocks |
+| Group | `core/group` | layout, nested blocks |
+| Cover | `core/cover` | url, dimRatio |
+| Gallery | `core/gallery` | images array |
+
+## Example Prompts for Gutenberg
+
+**Content Updates:**
+
+- "Update the first H1 on the About page to 'About Our Company'"
+- "Change the hero button text to 'Start Free Trial'"
+- "Replace all instances of '2024' with '2025' in the footer"
+
+**Structure Queries:**
+
+- "Show me all headings on page 42"
+- "List all button blocks on the homepage"
+- "What blocks are on the contact page?"
+
+**Bulk Updates:**
+
+- "Find all buttons with 'Learn More' and change to 'Get Started'"
+- "Update the copyright text in the footer on all pages"
+- "Add alt text to all images missing it"
+
+## Reusable Blocks
+
+Gutenberg Reusable Blocks (now called Patterns) can be updated through Respira:
+
+- "List all reusable blocks" → Shows pattern library
+- "Update the reusable CTA block button text" → Changes it everywhere used
+
+## Full Site Editing (FSE)
+
+For themes using Full Site Editing, Respira can access template parts:
+
+- Header and footer templates
+- Post and page templates
+- Archive templates
+
+Example: "Update the site header tagline to 'Your Success Partner'"
 
 ## Best Use Cases
 
-- Editing headings and body content
-- Adding/removing sections (blocks) via content updates
-- SEO and readability workflows
+- **Editing headings and body content** - Quick text changes without the editor
+- **Adding/removing sections** - Modify content structure via content updates
+- **SEO and readability workflows** - Batch-fix heading hierarchy or missing alt text
+- **Programmatic content** - Update dates, years, or repeated content across pages
 
-## Example Prompts
+## Limitations
 
-- "Update the first H1 on the About page"
-- "Add a new FAQ section at the bottom of page 42"
-- "Analyze SEO on my homepage"
+- **Block patterns**: Pattern structure is preserved, but pattern-specific styling may need the editor
+- **Third-party blocks**: Support varies by plugin; core blocks have full support
+- **Interactive blocks**: Blocks with complex interactivity (forms, carousels) may need manual editing
+- **Theme-specific blocks**: Full Site Editing theme blocks work, but custom themes may vary
+
+## When to Use This Tool
+
+- **Before publishing** - Review and fix content before going live
+- **Monthly maintenance** - Update dates, phone numbers, addresses site-wide
+- **After migrations** - Batch-fix content issues after moving from another builder
+- **SEO audits** - Fix heading structure and add missing meta content
 
 ## See Also
 
-- [wordpress_read_page](/tools/pages/read-page)
-- [wordpress_update_page](/tools/pages/update-page)
-- [wordpress_analyze_seo](/tools/analysis/analyze-seo)
-
-
+- [wordpress_read_page](/tools/pages/read-page) - Read full page content
+- [wordpress_update_page](/tools/pages/update-page) - Update page content
+- [wordpress_analyze_seo](/tools/analysis/analyze-seo) - Analyze page SEO
+- [wordpress_analyze_readability](/tools/analysis/analyze-readability) - Check content readability
+- [Page Builder Overview](/builders/overview) - Compare all supported builders
