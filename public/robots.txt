@@ -1,0 +1,17 @@
+# Respira Documentation
+# https://respira.press/docs
+
+User-agent: *
+Allow: /docs/
+
+# Sitemap
+Sitemap: https://respira.press/docs/sitemap.xml
+
+# Allow all documentation pages
+Allow: /docs/
+Allow: /docs/tools/
+Allow: /docs/builders/
+Allow: /docs/guides/
+Allow: /docs/security/
+Allow: /docs/reference/
+Allow: /docs/support/
