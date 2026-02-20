@@ -1,0 +1,214 @@
+---
+title: "Breakdance Builder Reference"
+description: "Technical documentation for using Respira with Breakdance Builder, including JSON storage, element targeting, cache handling, and safe update patterns."
+---
+
+# Breakdance Builder Reference
+
+Technical documentation for using Respira with the Breakdance WordPress page builder.
+
+## About Breakdance
+
+[Breakdance](https://breakdance.com/) is a visual WordPress site builder that stores layouts as structured JSON rather than shortcodes or raw HTML.
+
+Respira interacts with Breakdance pages at the JSON layer, updating content while preserving the existing layout and design.
+
+## Data structure
+
+Breakdance stores page and template content in a post meta record with key `_breakdance_data`. The value is a JSON blob that includes the element tree and other configuration.
+
+The main element tree is available under `data['tree']['children']` after decoding the JSON:
+
+```php
+$raw      = get_post_meta($post_id, '_breakdance_data', true);
+$data     = json_decode($raw, true);
+$children = $data['tree']['children'];
+```
+
+Work with `children` as a nested array of elements, each with its own type, attributes, and children. Respira tools read and write this JSON when extracting or injecting builder content.
+
+<Callout kind="info">
+
+Use `wordpress_get_builder_info` to confirm that the builder for a given post is Breakdance before assuming `_breakdance_data` exists.
+
+</Callout>
+
+## How Respira targets elements
+
+Respira targets Breakdance content by operating on the decoded `_breakdance_data` structure and, where possible, limiting changes to a dedicated managed element.
+
+### Recommended workflow
+
+Use this pattern when working with Breakdance content:
+
+<Steps>
+
+<Step title="Detect builder type" icon="search">
+
+Call [`wordpress_get_builder_info`](/tools/context/get-builder-info) with the post or page ID and confirm that the builder is Breakdance before applying any builder-specific logic.
+
+</Step>
+
+<Step title="Extract current builder JSON" icon="download">
+
+Use [`wordpress_extract_builder_content`](/tools/builders/extract-content) to read the `_breakdance_data` meta value for the target post. Decode the JSON and locate the element tree under `data['tree']['children']`.
+
+</Step>
+
+<Step title="Locate or create the managed Code Block" icon="edit-3">
+
+Work only with a dedicated Code Block element reserved for Respira-managed content (named `respiraManaged` in the implementation plan):
+
+- If the `respiraManaged` element already exists in `children`, update only its content-related fields.
+- If it does not exist, create a new Code Block element configured as the managed node and append or insert it into `children` at the desired position.
+
+This approach avoids rewriting the full Breakdance element tree.
+
+</Step>
+
+<Step title="Inject updated JSON" icon="upload">
+
+After updating the `respiraManaged` element content in the decoded array, re-encode the full structure as JSON and write it back to `_breakdance_data` using [`wordpress_inject_builder_content`](/tools/builders/inject-content) or [`wordpress_update_post`](/tools/posts/update-post) with the appropriate meta payload.
+
+</Step>
+
+<Step title="Clear Breakdance CSS cache" icon="refresh-ccw">
+
+After updating `_breakdance_data`, clear the Breakdance CSS cache for that post:
+
+```php
+delete_post_meta($post_id, '_breakdance_css_cache');
+do_action('breakdance_clear_cache', $post_id);
+```
+
+Make sure your integration triggers these calls so the front-end reflects the new content.
+
+</Step>
+
+</Steps>
+
+### Module-level updates
+
+For cases where you know the specific element or managed block to update, use [`wordpress_update_module`](/tools/builders/update-module) instead of rewriting the entire `_breakdance_data` value.
+
+This is particularly useful when:
+
+- Only the content of `respiraManaged` needs to change.
+- You want to minimize the chance of conflicting with manual edits done in the Breakdance UI.
+
+## How Respira targets elements (summary)
+
+When working with Breakdance:
+
+- Treat `_breakdance_data` as the single source of truth for builder content.
+- Navigate to `tree.children` in the decoded JSON.
+- Prefer updating only the dedicated `respiraManaged` Code Block element.
+- Avoid restructuring or regenerating the full element tree unless absolutely necessary.
+
+## Example prompts for Breakdance
+
+Use targeted prompts that describe the content you want to change, not the underlying JSON.
+
+**Content updates using `respiraManaged`:**
+
+- "Update the Breakdance `respiraManaged` block on the Contact page so the opening paragraph explains that support replies within 24 hours."
+- "Rewrite the `respiraManaged` Code Block on the pricing page to include three bullet points about our 30-day guarantee, priority support, and usage limits."
+
+**Safe structural changes around the managed block:**
+
+- "Insert a short testimonial paragraph at the top of the `respiraManaged` block on the homepage, quoting a customer named Maria Alvarez from Brightwave Studio."
+- "Add a closing call-to-action sentence inside the `respiraManaged` content inviting visitors to schedule a demo."
+
+<Callout kind="tip">
+
+Describe the visible outcome you want (headlines, paragraphs, bullets) and mention that the page uses Breakdance with a managed Code Block so Respira can map your request to the correct element.
+
+</Callout>
+
+## Cache and CSS notes
+
+Breakdance compiles CSS for each page based on the element tree in `_breakdance_data`. When you change that JSON, the compiled CSS may become stale.
+
+After any successful content injection or module update against `_breakdance_data`:
+
+```php
+delete_post_meta($post_id, '_breakdance_css_cache');
+do_action('breakdance_clear_cache', $post_id);
+```
+
+Respira-compatible workflows should:
+
+- Run these cache-clear operations automatically after updating the builder meta.
+- Expect that the first page load after a change may regenerate CSS for that post.
+
+If you do not clear the cache, you may see:
+
+- Old fonts, colors, or spacing applied to new content.
+- Layout changes not appearing until Breakdance regenerates CSS through its own UI.
+
+## Limitations and safety guidelines
+
+Breakdance uses a nested JSON structure with many element types and configuration options. To keep updates reliable:
+
+- **Do not rewrite the full element tree** unless you have a very specific reason and a complete understanding of the existing layout.
+- **Limit changes to the managed `respiraManaged` Code Block** wherever possible.
+- **Avoid mass renaming or re-typing elements** in `tree.children` through automated tools; let the Breakdance UI handle structural refactors.
+- **Keep JSON well-formed** when injecting content; always decode, modify, and re-encode rather than concatenating strings.
+
+<Callout kind="danger">
+
+If you corrupt `_breakdance_data` or remove required elements, the Breakdance editor or front-end may fail to render the page. Always test changes on a staging copy first.
+
+</Callout>
+
+## See also
+
+Use these tools with Breakdance pages:
+
+<Columns cols={2}>
+
+<Card
+  title="Get builder info"
+  href="/tools/context/get-builder-info"
+  icon="info"
+  cta="Identify active builder"
+>
+
+Determine whether a WordPress post or page is using Breakdance before applying builder-specific logic.
+
+</Card>
+
+<Card
+  title="Extract builder content"
+  href="/tools/builders/extract-content"
+  icon="download"
+  cta="Read `_breakdance_data`"
+>
+
+Read the raw Breakdance JSON stored in the `_breakdance_data` post meta key for inspection or analysis.
+
+</Card>
+
+<Card
+  title="Inject builder content"
+  href="/tools/builders/inject-content"
+  icon="upload"
+  cta="Write updated JSON"
+>
+
+Write updated `_breakdance_data` content back to the post after modifying the element tree or managed Code Block.
+
+</Card>
+
+<Card
+  title="Update builder module"
+  href="/tools/builders/update-module"
+  icon="edit"
+  cta="Target specific elements"
+>
+
+Perform focused updates against a specific Breakdance element, such as the managed `respiraManaged` Code Block.
+
+</Card>
+
+</Columns>

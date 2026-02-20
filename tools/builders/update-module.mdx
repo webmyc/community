@@ -11,7 +11,7 @@ Update a specific module within a page builder page. Find modules by `admin_labe
 
 | Parameter | Type | Required | Description |
 |-----------|------|----------|-------------|
-| builder | string | Yes | Builder name: divi, elementor, bricks, etc. |
+| builder | string | Yes | Builder name: divi, elementor, bricks, breakdance, etc. |
 | pageId | number | Yes | Page ID |
 | moduleIdentifier | object | Yes | How to find the module (see below) |
 | updates | object | Yes | Changes to apply |
@@ -138,6 +138,7 @@ For reliable targeting, set admin labels in your page builder:
 | Visual Composer | path, type ✓ |
 | Thrive | path, type ✓ |
 | Gutenberg | path, type ✓ |
+| Breakdance | path, type ✓ |
 
 ## Related Tools
 
@@ -150,5 +151,3 @@ For reliable targeting, set admin labels in your page builder:
 - Automatically creates duplicate for safety (same as wordpress_update_page)
 - Preserves all other modules, sections, and styling
 - If module not found, returns error with available modules list
-
-

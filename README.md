@@ -12,7 +12,7 @@ Respira for WordPress is the only WordPress MCP with page builder support. It co
 
 ### Key Features
 
-- **10 Page Builder Support**: Divi, Elementor, Bricks, Oxygen, Gutenberg, WPBakery, Beaver Builder, Brizy, Visual Composer, Thrive Architect
+- **11 Page Builder Support**: Divi, Elementor, Bricks, Oxygen, Gutenberg, WPBakery, Beaver Builder, Brizy, Visual Composer, Thrive Architect, Breakdance
 - **Duplicate-First Safety**: AI edits copies, you approve before changes go live
 - **60+ MCP Tools**: Complete WordPress management via AI
 - **No SSH Required**: Works on any WordPress hosting
