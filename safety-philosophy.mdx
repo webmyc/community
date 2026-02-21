@@ -1,0 +1,283 @@
+---
+title: Safety Philosophy
+description: How Respira’s duplicate-before-edit workflow keeps your WordPress site safe. Technical support included with all active licenses.
+---
+
+## Why safety matters for AI and WordPress
+
+Giving an AI tool write access to your WordPress site is a big trust decision. One bad edit can break layouts, tank SEO, or confuse customers.
+
+Respira is designed so you never have to worry about AI accidentally destroying your work. The core idea: treat every AI change as an experiment in a sandbox, not as a live edit.
+
+<Callout kind="info">
+Respira never edits live content directly. Every change starts as a duplicate you control in wp-admin.
+</Callout>
+
+## Duplicate-before-edit: sandboxing your content
+
+Respira’s primary safety mechanism is a strict duplicate-before-edit workflow. The AI never touches the published original.
+
+### How the workflow behaves
+
+Every AI write operation follows the same pattern:
+
+- Respira duplicates the target page, post, or custom post first.
+- The AI edits the duplicate, not the original.
+- You review the duplicate in wp-admin using your normal editor.
+- You decide what happens next.
+
+Typical outcomes:
+
+- **Approve and publish** the duplicate, replacing or supplementing the old content.
+- **Reject and trash** the duplicate if you do not like the changes.
+- **Manually tweak** the duplicate further before publishing.
+- **Do nothing yet** and leave the duplicate as a draft for later.
+
+Throughout this process, the original remains published and unchanged, so experiments never put your live site at risk.
+
+### What you see in WordPress
+
+From your perspective in wp-admin, Respira’s edits look like another human collaborator:
+
+- New drafts labeled clearly as duplicates of existing content.
+- Full editor support (Gutenberg, builders, classic editor) for reviewing and tweaking changes.
+- Audit log entries showing what changed, when, and why.
+
+If you know how to review drafts in WordPress, you already know how to review Respira’s work.
+
+> "Two things that really landed:
+>
+> 1. 'Duplicate-before-edit workflow' — stealing this immediately. I've used that pattern in other agentic tools but somehow didn't wire it into this one. Obvious in hindsight.
+>
+> 2. 'Sandboxing is the product' — perfect framing. In just a few days I went from fully trusting the AI to building structured, testable tooling the agent operates through instead. Delta-level mutations, progressive discovery via filtered element search, automated screenshot diffing against source — all to keep the agent from doing exactly the kind of damage this thread is about."
+>
+> — danieliser, Anthropic engineer
+
+## How this compares to other safety strategies
+
+Many teams already use safety strategies like staging sites, git-based rollbacks, or careful admin-side editing. Respira’s approach is different: it builds safety into each AI operation instead of relying on environment-level safeguards.
+
+### Side-by-side comparison
+
+| Strategy                    | Scope of changes                    | Risk to live site                     | Operational complexity            | Fits non-technical editors |
+|----------------------------|-------------------------------------|---------------------------------------|-----------------------------------|----------------------------|
+| Staging site               | Whole site                          | Low (if staging is isolated)          | High (hosting, sync, merge)       | Medium                      |
+| Git rollback               | Files, sometimes DB snapshots       | Medium (rolls back everything)        | High (CLI, deploy pipeline)       | Low                         |
+| Direct admin-side editing  | Single page/post at a time          | High (edits are live)                 | Low (built into WordPress)        | High                        |
+| Respira duplicate-first 🛡️ | Single page/post, per AI operation | Very low (original stays published)   | Low (review drafts in wp-admin)   | High                        |
+
+### Why not rely on staging alone?
+
+Staging sites are great for big redesigns, but they come with trade-offs:
+
+- You need separate hosting and database copies.
+- Keeping staging in sync with production is error-prone.
+- Merging content changes back often means manual copy-paste.
+
+Respira’s duplicate-first model gives you per-edit safety without a second environment. Each AI change is already sandboxed as a draft in production, so you get isolation without sync headaches.
+
+### Why not rely on git rollback?
+
+Git rollbacks shine for code-level disasters, not content experiments:
+
+- Rolling back a deploy often rolls back _everything_, not just one mistaken edit.
+- Database content is tricky to version-control and restore safely.
+- Editors who live in WordPress rarely have CLI or git access.
+
+Respira gives you localized, content-level rollbacks by design: delete or revert the duplicate and the original keeps serving traffic.
+
+### Why direct AI editing in wp-admin is risky
+
+Some AI tools log into WordPress and edit live content via the admin UI or REST API. This looks convenient, but:
+
+- Mistakes ship immediately to visitors.
+- Multi-step edits can leave content in a broken intermediate state.
+- There is no clear “before and after” artifact tied to the AI change.
+
+Respira never does this. Admin-side editing is reserved for you and your team; the AI only works on duplicates.
+
+## Technical safety features
+
+Under the hood, Respira layers multiple technical safeguards on top of the duplicate-first model. The goal is to fail safe whenever something looks wrong.
+
+### Input validation and security checks
+
+Before sending or applying changes, Respira validates both requests and content:
+
+- **Security validation** against common issues such as XSS and SQL injection.
+- **Schema and JSON validation** for structured payloads to catch malformed data early.
+- **Content sanity checks** tuned for WordPress objects and builder content.
+
+If validation fails at any point, Respira rejects the operation and leaves your content unchanged.
+
+### Authentication and authorization
+
+Only trusted AI tools and users should be able to request edits. Respira enforces:
+
+- **API keys** that start with `respira_`, scoped to your WordPress site.
+- **WordPress capabilities** checks so AI tools can only perform actions your user account is allowed to perform.
+- **Nonces** and **rate limiting** to protect against replay attempts and abuse.
+
+<Callout kind="alert">
+Never share your Respira API key in public prompts or code examples. Treat it like a password tied to your WordPress admin access.
+</Callout>
+
+### Audit logging and retention
+
+Every AI operation is tracked in an audit log, including:
+
+- What was attempted (tool, target, and intent).
+- When it happened.
+- Who or what initiated it (including API keys).
+- Why it ran (prompt or action context).
+- Whether it succeeded, failed validation, or was cancelled.
+
+Retention:
+
+- **Starter license**: 30 days of audit history.
+- **Agency license**: 90 days of audit history.
+
+These logs give you a forensic trail if you ever need to investigate a change, review team usage, or tune your prompts.
+
+### Graceful degradation and safe failure modes
+
+Respira is designed to fail closed rather than silently corrupt data. When something goes wrong, it stops the operation instead of forcing through a half-broken result.
+
+Common safe failure modes include:
+
+- **Validation failure** → reject the change and keep the original untouched.
+- **Timeouts or network issues** → cancel the operation, no partial writes.
+- **Parser fallback** when content structures look unfamiliar, so odd edge cases do not break layouts.
+- **Plugin conflict detection** that can automatically disable high-risk features if another plugin interferes.
+
+You might see fewer successful AI edits in some edge cases, but your site stays safe.
+
+### Permission controls and opt-ins
+
+Respira starts with conservative defaults and requires explicit opt-in for riskier capabilities.
+
+Typical patterns:
+
+- Read-only analysis tools are enabled by default.
+- Write tools and destructive operations require higher capabilities.
+- Advanced features prompt you with clear warnings before you enable them.
+
+You stay in control of what the AI is allowed to touch, on a capability and feature level.
+
+## WooCommerce safety principles
+
+The WooCommerce add-on extends the same safety philosophy to products, orders, and inventory. The goal is to let AI help manage your catalog without risking core business data or payment flows.
+
+### How WooCommerce entities are protected
+
+High-level behaviors:
+
+- **Products** are duplicated before AI edits, including variations, so experiments never touch live product pages or pricing directly.
+- **Orders** are tightly scoped: AI can only adjust safe fields such as shipping or billing addresses and order status. It never edits line items, totals, or payment details.
+- **Status changes** still trigger the usual WooCommerce emails, so customers and staff remain in the loop.
+- **Inventory** changes follow guarded flows with confirmations and a clear audit trail.
+- **Payment gateways, shipping, and tax settings** remain read-only for the AI.
+
+For deeper details and field-level behavior, see the dedicated WooCommerce safety guide.
+
+<Callout kind="tip">
+Learn how these rules apply to products, orders, and inventory in the WooCommerce add-on: read the full guide at [/woocommerce/safety](/woocommerce/safety).
+</Callout>
+
+## When things go wrong
+
+Even with strong safeguards, mistakes and surprises can happen. Respira is designed to give you straightforward recovery paths.
+
+### If an AI edit has not been published yet
+
+If you or a teammate have not published the duplicate:
+
+- **Trash the duplicate** draft or pending post/page.
+- The original published content keeps serving visitors.
+- The audit log still records what happened, in case you want to review it later.
+
+This is the most common case when you are careful about approvals.
+
+### If something was published by mistake
+
+If a duplicate has already been published but you do not like the result:
+
+- Use WordPress revisions or your usual content history tools to revert.
+- Or manually switch back to the original content if you kept a copy.
+- Cross-check the audit log to confirm which AI action caused which change.
+
+Keeping the rollback flow consistent with normal WordPress editing reduces surprises for your team.
+
+### If your subscription expired
+
+If your Respira subscription lapses:
+
+- Existing content and published pages continue to serve as usual.
+- You have a **7-day grace period** where you can still access recent audit logs and recovery information.
+- After the grace period, new AI operations will stop until you renew, but your live site does not break.
+
+<Callout kind="info">
+If you are locked out of AI tools but need help rolling back or auditing changes, contact support at `word@respira.press` and include your site URL.
+</Callout>
+
+## Best practices for safe AI editing
+
+You get the strongest guarantees when you combine Respira’s safeguards with a few simple habits.
+
+### General editing practices
+
+- **Review every duplicate** before publishing, especially on high-traffic or money pages.
+- **Start with small scopes** (one page, one product) before attempting bulk updates.
+- **Use clear prompts** that describe constraints (do not change URLs, keep headings, preserve shortcodes).
+- **Check layouts** in your builder after major content changes, such as swapping long-form sections.
+
+### WooCommerce-specific practices
+
+- **Test on low-stakes products first**, such as drafts or internal SKUs.
+- **Avoid price changes via AI** until you have validated prompt behavior and constraints.
+- **Monitor order emails** when experimenting with AI-driven status updates, to confirm messaging looks right.
+- **Keep inventory-sensitive changes manual** until you are fully comfortable with the workflows.
+
+### Multi-site and team workflows
+
+- **Scope API keys per site** instead of sharing one key across a whole network.
+- **Use distinct keys per team or tool** to make audit logs easier to interpret.
+- **Document your approval process** so everyone knows who reviews and publishes AI drafts.
+
+If you want end-to-end patterns for multi-site and team setups, see the guides under [/guides/multi-site-management](/guides/multi-site-management) and [/guides/team-workflows](/guides/team-workflows).
+
+## Support and human oversight
+
+Technical support is part of the safety story. When something looks off, you should be able to talk to a human.
+
+- **Starter license**: email support at `word@respira.press`.
+- **Agency license**: priority email support on the same address.
+- **WooCommerce add-on**: support included for all active subscriptions.
+
+A human (Mihai) responds to all support requests, typically within about 24 hours, with a focus on real incident analysis, not scripted replies.
+
+<Callout kind="tip">
+If you suspect an AI edit caused an issue, mention approximate time, affected URL, and any prompt you used. Support can cross-reference audit logs much faster with these details.
+</Callout>
+
+## Further reading
+
+Use these pages to go deeper on how Respira integrates with your stack and protects your data.
+
+<Columns cols={2}>
+  <Card title="Installation" icon="download" href="/installation" cta="Set up Respira">
+    Install the plugin and connect your AI tools using secure API keys.
+  </Card>
+  <Card title="Configuration" icon="settings" href="/configuration" cta="Configure access">
+    Tune permissions, connect to your editor, and enable or disable write tools.
+  </Card>
+</Columns>
+
+<Columns cols={2}>
+  <Card title="Troubleshooting" icon="alert-triangle" href="/troubleshooting" cta="Fix issues">
+    Diagnose common problems, validate security, and interpret error codes.
+  </Card>
+  <Card title="WooCommerce Safety" icon="shield" href="/woocommerce/safety" cta="Protect your store">
+    See how Respira applies duplicate-first safety to products, orders, and inventory.
+  </Card>
+</Columns>

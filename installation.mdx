@@ -21,7 +21,7 @@ Make sure you have:
 
 ## Step 1: Install the Respira for WordPress plugin
 
-### Option A: Download from respira.press (Recommended)
+### Option A: Download from respira.press (recommended)
 
 1. Go to [respira.press/releases](https://respira.press/releases)
 2. Download the latest `respira-for-wordpress-x.x.x.zip`
@@ -51,7 +51,7 @@ Save your API key securely. It starts with `respira_` and you will need it to co
 
 The MCP server ([@respira/wordpress-mcp-server](https://www.npmjs.com/package/@respira/wordpress-mcp-server)) runs locally on your machine and connects your AI assistant to WordPress. See the [Release History](/changelog) for the latest version and updates.
 
-### Option A: Interactive Setup Wizard (Recommended)
+### Option A: Interactive setup wizard (recommended)
 
 The easiest way to get started. The wizard guides you through configuration step-by-step:
 
@@ -67,14 +67,14 @@ The setup wizard will:
 - Generate the config file automatically
 - Show you what to add to your AI tool
 
-### Option B: One-Click Install for Cursor
+### Option B: One-click install for Cursor
 
 If you're using Cursor, click the button below to install automatically:
 
 <a href="cursor://anysphere.cursor-deeplink/mcp/install?name=respira-wordpress&config=eyJjb21tYW5kIjoibnB4IiwiYXJncyI6WyIteSIsIkByZXNwaXJhL3dvcmRwcmVzcy1tY3Atc2VydmVyIl19">
   <Image
     src="https://cursor.com/deeplink/mcp-install-dark.svg"
-    alt="Add to Cursor"
+    alt="Add Respira WordPress MCP server to Cursor"
     width="200"
     height="50"
   />
@@ -82,7 +82,7 @@ If you're using Cursor, click the button below to install automatically:
 
 After installing, run `npx @respira/wordpress-mcp-server --setup` to create your site configuration.
 
-### Option C: Manual npm Installation
+### Option C: Manual npm installation
 
 Install globally with npm:
 
@@ -96,7 +96,7 @@ Or run without installing globally:
 npx -y @respira/wordpress-mcp-server
 ```
 
-### CLI Options
+### CLI options
 
 ```bash
 npx @respira/wordpress-mcp-server --setup   # Run setup wizard
@@ -107,7 +107,7 @@ npx @respira/wordpress-mcp-server --help    # Show help
 
 ## Step 4: Create site configuration
 
-If you didn't use the setup wizard, create the config file manually at `~/.respira/config.json`:
+If you did not use the setup wizard, create the config file manually at `~/.respira/config.json`:
 
 ```json
 {
@@ -133,6 +133,46 @@ See the [Configuration Guide](/configuration) for setup instructions for:
 - [Claude Desktop](/configuration#claude-desktop)
 
 Once connected, refer to the [Usage Guide](/usage) to learn how to prompt your assistant effectively.
+
+## Installing WooCommerce add-on
+
+Install the WooCommerce add-on to give your AI assistant access to WooCommerce-specific tools for products, orders, and store management. For a feature overview, see the [WooCommerce Add-on overview](/woocommerce/overview) and the dedicated [WooCommerce installation guide](/woocommerce/installation).
+
+<Callout kind="info">
+  
+- Requirements: WooCommerce active on your WordPress site, Respira for WordPress installed and connected, admin access to WordPress.
+- Support: Included with €7/month subscription. Contact support at [word@respira.press](mailto:word@respira.press).
+- Learn more: See the WooCommerce Add-on overview at `/woocommerce/overview`.
+
+</Callout>
+
+<Steps>
+  <Step title="Subscribe to the WooCommerce add-on" icon="shopping-bag">
+
+Go to your Respira account under **Account → Billing → Add-ons**, locate the WooCommerce add-on, and subscribe. The add-on includes a 7-day free trial or costs €7/month after the trial.
+
+  </Step>
+  <Step title="Download the WooCommerce add-on plugin" icon="download">
+
+Download the WooCommerce add-on plugin ZIP from the Respira releases page at `/releases` or from the GitHub repository at [https://github.com/respira-press/respira-woocommerce-addon](https://github.com/respira-press/respira-woocommerce-addon).
+
+  </Step>
+  <Step title="Install the add-on in WordPress" icon="package">
+
+In WordPress Admin, go to **Plugins → Add New → Upload Plugin**, upload the WooCommerce add-on ZIP file, click **Install Now**, then click **Activate** to enable the add-on.
+
+  </Step>
+  <Step title="Activate your WooCommerce license" icon="key">
+
+In WordPress Admin, go to **Respira → WooCommerce**, paste the license key you received from LemonSqueezy into the license field, and click **Activate License** to validate your subscription.
+
+  </Step>
+  <Step title="Verify WooCommerce tools are available" icon="check-circle">
+
+Ask your connected AI assistant: `What WooCommerce tools are available?`. The response should list 20 or more WooCommerce tools, confirming that the add-on is active and ready to use.
+
+  </Step>
+</Steps>
 
 ## You are all set
 

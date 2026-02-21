@@ -64,6 +64,36 @@ Use natural language in your AI assistant:
 List all pages on my WordPress site
 ```
 
+## What’s Included
+
+### Core features
+
+- Respira core plugin for WordPress
+- MCP server with 60+ WordPress tools
+- Page builder support for 11 builders
+- Duplicate-first safety workflow
+- Built-in SEO and performance analysis
+- Email support: [word@respira.press](mailto:word@respira.press)
+
+### License tiers
+
+- **Starter** — €19/year  
+  Single site license, all core features included.
+
+- **Agency** — €199/year  
+  Up to 20 sites, all core features, priority support.
+
+### Optional add-ons
+
+- **WooCommerce Integration** — €7/month  
+  Adds product, order, and catalog-aware tools for AI editing.
+
+  - Support included
+  - 7-day free trial
+  - Requires Respira Core and WooCommerce
+
+[View pricing details →](/pricing)
+
 ## MCP Server
 
 The MCP server is published on npm:

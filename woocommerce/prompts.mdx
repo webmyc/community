@@ -1,0 +1,612 @@
+---
+title: WooCommerce Prompt Examples
+description: Reusable prompt templates for managing WooCommerce products, orders, inventory, and reports with Respira’s safety-first workflow.
+---
+
+## How to use these WooCommerce prompts
+
+Run these prompts in Claude Code, Cursor, or your preferred AI IDE with Respira connected to your WooCommerce store. Each prompt:
+
+- States a **clear goal**
+- Includes **safety guardrails** (confirmation, do-not-touch fields)
+- Explains what **Respira will do** and what **you should review** before approving changes
+
+For safety details and recommended workflow, read:
+
+- [WooCommerce safety guide](/woocommerce/safety)
+- [WooCommerce tools reference](/woocommerce/tools)
+
+<Callout kind="info">
+
+If you are ever unsure about a prompt or a change, email support at `word@respira.press` and reference the action you are trying to take.
+
+</Callout>
+
+---
+
+## Bulk price updates by category
+
+Update prices for many products in a controlled, review-first way.
+
+### Goal
+
+Apply a percentage discount to all products in one or more categories, with separate regular and sale prices and a confirmation step.
+
+```text
+You are connected to my WooCommerce store through Respira.
+
+Goal:
+Apply a temporary percentage discount to all products in the following categories:
+- Category names: "Summer Collection", "Swimwear"
+- Discount: 20% off the current regular price
+- Sale period: from today until 30 days from now
+
+Safety rules:
+- First, list the products you plan to change with:
+  - product ID
+  - product name
+  - current regular price
+  - proposed new regular price
+  - proposed sale price
+- DO NOT change:
+  - product titles
+  - product descriptions
+  - product images
+  - product categories or tags
+  - stock status or stock quantities
+- Only modify:
+  - regular_price
+  - sale_price
+  - date_on_sale_from
+  - date_on_sale_to
+
+Workflow:
+1. Use WooCommerce tools to:
+   - find products in the categories above
+   - calculate the new regular and sale prices (round to 2 decimals)
+2. Present a summary table of all proposed changes and:
+   - show the total number of products affected
+   - show the min, max, and average current price vs new price
+3. STOP and ask:
+   "Do you confirm applying these price changes to these products? Reply YES to proceed or NO to cancel."
+
+If I reply YES:
+- Apply the updates in WooCommerce exactly as proposed.
+- Then, generate a short change log summary I can save, including:
+  - date/time
+  - categories affected
+  - number of products updated
+  - discount percentage
+
+If I reply anything else:
+- Cancel the changes and clearly state that no product prices were updated.
+
+Follow Respira’s safety-first workflow and double-check tool outputs before applying any bulk change.
+```
+
+**What Respira will do**
+
+- Fetch products in the specified categories and calculate discounted regular and sale prices.
+- Show you a preview list and aggregate stats, then wait for explicit `YES` before applying updates.
+- Write price and sale date fields only, leaving content and inventory untouched.
+
+**What you should review**
+
+- Scan the preview list for any products that should be excluded (for example high-ticket items).
+- Confirm the discount percentage and dates are correct before replying `YES`.
+- After updates, spot-check a few products in your WooCommerce admin to verify prices and sale dates.
+
+---
+
+## Bulk price updates: safe vs aggressive modes
+
+Choose between a conservative, double-confirmation update and a faster, higher-risk update. Start with safe unless you are fully confident in the scope.
+
+<Tabs>
+
+<Tab title="Safe mode (recommended)" icon="shield">
+
+**Goal**
+
+Run a bulk price change with full previews, separate confirmation, and automatic duplicate backups for key products.
+
+```text
+You are connected to my WooCommerce store through Respira.
+
+Goal:
+Perform a SAFE bulk price increase on selected products:
+- Target: all products in categories "Electronics" and "Accessories"
+- Increase: 10% on regular_price only
+- No sale prices, no sale dates
+
+Safety rules:
+- Step 1: Identify target products and show:
+  - product ID
+  - product name
+  - current regular price
+  - proposed new regular price
+- Step 2: For the 5 highest-priced products in this set:
+  - create duplicates as backups before any price change
+  - clearly label each duplicate as "Backup - DO NOT PUBLISH"
+- Step 3: Present:
+  - a preview table of ALL proposed price changes
+  - a list of the 5 products that will get backup duplicates
+
+Important:
+- DO NOT modify:
+  - product titles, descriptions, images
+  - product categories or tags
+  - stock quantities or stock status
+  - sale_price or any sale date fields
+- Only modify regular_price on the ORIGINAL products (not the backups).
+
+Confirmation:
+After showing the previews and backup list, STOP and ask:
+"Do you confirm applying the new regular prices to these products (backups already created for the top 5)? Reply YES to proceed or NO to cancel."
+
+If I reply YES:
+- Apply the regular price changes to the original products only.
+- Summarize what changed.
+
+If I reply anything else:
+- Cancel without changing any prices and confirm that nothing was updated.
+
+Follow Respira’s safety guidelines and verify tool results at each step.
+```
+
+**What Respira will do**
+
+- Find target products, calculate new prices, and create backup duplicates for the most valuable items.
+- Show you all proposed changes and backup records, then wait for an explicit `YES`.
+- Apply only regular price changes and leave backups untouched.
+
+**What you should review**
+
+- Confirm the product list and the top 5 highest-priced items look correct.
+- Check that backups are correctly labeled as non-publishable or excluded from catalogs.
+- Ensure no fields beyond `regular_price` are being modified.
+
+</Tab>
+
+<Tab title="Aggressive mode (fast)" icon="zap">
+
+**Goal**
+
+Apply a broad bulk price change after a single confirmation. Use only when you clearly understand the scope and have recent backups.
+
+```text
+You are connected to my WooCommerce store through Respira.
+
+Goal:
+Apply an AGGRESSIVE bulk price change to a large set of products:
+- Target: all products in category "Clearance"
+- Change: set regular_price to match current sale_price (clear out sale prices)
+- Then remove any sale prices so the new regular price becomes the only visible price.
+
+Safety rules:
+- First, list:
+  - total number of products that currently have a sale_price in "Clearance"
+  - a sample of 10 products with:
+    - product ID
+    - product name
+    - current regular_price
+    - current sale_price
+    - proposed new regular_price (equal to current sale_price)
+- DO NOT modify:
+  - product titles, descriptions, images
+  - product categories or tags
+  - stock quantities or stock status
+- Only modify:
+  - regular_price (set to current sale_price)
+  - sale_price (set to empty/null)
+  - sale dates (cleared)
+
+Confirmation:
+After the sample preview, STOP and ask:
+"This is an AGGRESSIVE update affecting all Clearance products with a sale price.
+New regular_price will be set to the current sale_price, and sale_price will be cleared.
+Reply CONFIRM to proceed, or anything else to cancel."
+
+If I reply CONFIRM:
+- Apply the updates to all matching products.
+- Report:
+  - total number of products updated
+  - total value of price changes (sum of old regular_price minus new regular_price).
+
+If I reply anything else:
+- Cancel and clearly state that no prices were changed.
+
+Always respect Respira’s safety requirements and clearly log what changed.
+```
+
+**What Respira will do**
+
+- Identify all clearance products with a sale price and propose collapsing sale prices into regular prices.
+- Apply updates to the entire matching set after a single `CONFIRM`.
+- Clear sale prices and dates entirely.
+
+**What you should review**
+
+- Ensure you really want sale prices turned into permanent regular prices across all clearance items.
+- Consider taking a manual database or store backup before confirming.
+- After running, verify a few products to confirm that sale badges and sale dates are gone.
+
+</Tab>
+
+</Tabs>
+
+---
+
+## Create new products from a template
+
+Generate consistent products from a base template while protecting existing items.
+
+### Goal
+
+Use an existing product as a template to create several new products with consistent structure and safe constraints.
+
+```text
+You are connected to my WooCommerce store through Respira.
+
+Goal:
+Create new products based on a template product while keeping the original unchanged.
+
+Template:
+- Use the product with ID 8123 as the template.
+- Copy its:
+  - product type (simple vs variable)
+  - tax class
+  - shipping class
+  - attributes structure
+  - SEO/meta fields
+
+New products to create (simple examples):
+1) "Organic Cotton Tee - Navy"
+   - slug: "organic-cotton-tee-navy"
+   - price: 29.00
+   - category: "Apparel"
+   - tags: ["Organic", "T-Shirt"]
+   - stock status: "instock"
+2) "Organic Cotton Tee - Olive"
+   - slug: "organic-cotton-tee-olive"
+   - price: 29.00
+   - category: "Apparel"
+   - tags: ["Organic", "T-Shirt"]
+   - stock status: "instock"
+
+Safety rules:
+- DO NOT modify the template product in any way.
+- DO NOT change any existing products.
+- Only create new products based on the template.
+- For each new product:
+  - adjust title, slug, category, tags, and price as specified
+  - keep template tax/shipping/meta configuration
+- Set new products to "draft" status so I can review before publishing.
+
+Workflow:
+1. Read the template product and summarize the important fields you will reuse.
+2. Show a structured plan for each new product, including:
+   - title
+   - slug
+   - price
+   - stock status
+   - categories
+   - tags
+   - any inherited attributes/meta
+3. STOP and ask:
+   "Do you approve creating these new DRAFT products based on template 8123? Reply YES to create or NO to cancel."
+
+If I reply YES:
+- Create the new products as drafts.
+- Return a list with:
+  - new product IDs
+  - titles
+  - permalinks.
+
+If I reply anything else:
+- Do not create anything and confirm that no products were added.
+
+Follow Respira’s safety-first process and keep a clear audit trail of which products were created.
+```
+
+**What Respira will do**
+
+- Inspect the template product, propose new product definitions, and wait for confirmation.
+- Create new draft products that copy configuration but customize title, slug, categories, tags, and price.
+- Leave the template and any existing products untouched.
+
+**What you should review**
+
+- Confirm the field mapping for each new product (categories, tags, price, attributes).
+- Make sure everything is in `draft` status before publishing in WooCommerce.
+- Check URLs and SEO/meta fields on a few new products before bulk publishing.
+
+---
+
+## Order fulfillment by region
+
+Move digital-only orders to completed after checking items and region rules.
+
+### Goal
+
+Mark qualifying orders as completed once digital items are delivered, without touching physical shipments or triggering unexpected emails outside the rules you set.
+
+```text
+You are connected to my WooCommerce store through Respira.
+
+Goal:
+Identify digital-only orders from the last 7 days for a specific region and safely move them from "processing" to "completed" once they meet the criteria.
+
+Target:
+- Order status: "processing"
+- Order type: digital-only (no physical/shippable items)
+- Region: shipping country is "United States"
+- Time window: created within the last 7 days
+
+Safety rules:
+- DO NOT change:
+  - order totals, taxes, or discounts
+  - line items or quantities
+  - customer email addresses
+- Only modify:
+  - order_status (from "processing" to "completed")
+- Before updating any order:
+  - confirm that all items are digital/downloadable
+  - ensure there is no shipment tracking or shipping label attached
+- Respect WooCommerce’s normal email behavior:
+  - clearly state whether completing these orders will trigger completion emails.
+
+Workflow:
+1. List candidate orders with:
+   - order ID
+   - customer name
+   - country
+   - current status
+   - digital-only confirmation (yes/no)
+2. From that list, select only the orders that are:
+   - in the United States
+   - digital-only
+   - created in the last 7 days
+3. Present a final list of orders you propose to mark as completed.
+
+STOP and ask:
+"Do you confirm updating these orders from 'processing' to 'completed'? Reply YES to proceed or NO to cancel."
+
+If I reply YES:
+- Update only those orders’ statuses to "completed".
+- Summarize:
+  - how many orders were changed
+  - their IDs
+  - any emails WooCommerce reports as sent.
+
+If I reply anything else:
+- Do not change any order statuses and clearly confirm that nothing was updated.
+
+Use Respira’s safety guardrails and treat any order update as irreversible without backups.
+```
+
+**What Respira will do**
+
+- Fetch processing orders, filter to digital-only, United States, last 7 days.
+- Propose a list of order IDs to complete and explain any email side effects.
+- Update only status fields after your explicit `YES`.
+
+**What you should review**
+
+- Check that no physical or mixed orders appear in the final list.
+- Confirm the time window and region match your expectations.
+- Consider testing on a small subset first, then expanding the criteria in a follow-up prompt.
+
+---
+
+## Inventory management for variable products
+
+Audit and adjust stock per variation, focusing on low-stock notifications.
+
+### Goal
+
+Identify low-stock variations within variable products and optionally adjust stock levels for a specific threshold.
+
+```text
+You are connected to my WooCommerce store through Respira.
+
+Goal:
+Review inventory for VARIABLE products and highlight low-stock variations, then optionally top them up after I confirm.
+
+Scope:
+- Include only variable products.
+- Focus on their variations (size/color/etc.).
+- Low-stock threshold: less than or equal to 5 units in stock.
+- Time filter: variations that had at least 1 order in the last 60 days.
+
+Safety rules:
+- DO NOT change:
+  - product titles, descriptions, images
+  - prices or taxes
+- Only modify (after explicit confirmation):
+  - stock_quantity for individual variations
+  - stock_status (if needed, e.g. from "outofstock" to "instock" when quantity > 0)
+
+Workflow:
+1. List all matching low-stock variations with:
+   - parent product ID and title
+   - variation ID
+   - variation attributes (e.g. size/color)
+   - current stock_quantity
+   - stock_status
+   - number of orders in the last 60 days
+2. Propose a replenishment plan, for example:
+   - set stock_quantity to 20 for variations that sold > 5 units in the last 60 days
+   - set stock_quantity to 10 for variations that sold 1–5 units
+   - leave zero-order variations unchanged
+3. Present the proposed changes as a table and clearly separate:
+   - variations to UPDATE (with old vs new stock_quantity)
+   - variations to LEAVE AS IS
+
+STOP and ask:
+"Do you approve applying these stock updates to the listed variations only? Reply YES to update or NO to cancel."
+
+If I reply YES:
+- Apply the stock updates exactly as proposed.
+- Summarize:
+  - how many variations were updated
+  - total stock added.
+
+If I reply anything else:
+- Do not change any stock values and confirm that inventory was not modified.
+
+Follow Respira’s safety approach and avoid broad, unfiltered inventory edits.
+```
+
+**What Respira will do**
+
+- Pull variable products and their variations, filter by sales history and low stock.
+- Propose a targeted replenishment plan and wait for your approval.
+- Update `stock_quantity` and `stock_status` only for the confirmed variations.
+
+**What you should review**
+
+- Ensure the low-stock threshold and lookback window (60 days) match your needs.
+- Check that the proposed new quantities align with your purchasing and warehousing constraints.
+- Spot-check some parent products in WooCommerce to confirm variation stock looks correct.
+
+---
+
+## Low-stock check for all products
+
+Quickly scan your catalog for items that need attention without making changes.
+
+### Goal
+
+Generate a low-stock report that you can act on manually or with a separate replenishment prompt.
+
+```text
+You are connected to my WooCommerce store through Respira.
+
+Goal:
+Produce a low-stock report across my entire catalog without changing anything.
+
+Scope:
+- Include simple and variable products.
+- For variable products, report at the variation level.
+- Low-stock threshold: 3 units or fewer.
+- Exclude products in category "Discontinued".
+
+Safety rules:
+- READ-ONLY: Do not modify any products or stock values.
+- Do not change stock_status, stock_quantity, prices, or any other fields.
+
+Workflow:
+1. List low-stock items with:
+   - product ID (and variation ID if applicable)
+   - product/variation title
+   - SKU
+   - current stock_quantity
+   - stock_status
+   - category names
+2. Group results by category and show:
+   - number of low-stock items per category
+3. Provide:
+   - a CSV-style table in the response that I can export
+   - a short summary of the top 10 most urgent items.
+
+Confirm at the end that:
+- no products were updated
+- this was a read-only inventory check.
+```
+
+**What Respira will do**
+
+- Scan products and variations, filter to low stock, and organize results by category.
+- Return a structured, exportable report with no write operations.
+- Clearly confirm that no data was changed.
+
+**What you should review**
+
+- Verify the threshold (3 units) and excluded categories.
+- Use the CSV-style result as input for a follow-up replenishment prompt or manual stock update.
+- Consider adjusting the threshold and rerunning during peak seasons.
+
+---
+
+## Sales report for the last 30 days
+
+Get a concise performance view across products and categories.
+
+### Goal
+
+Generate a 30-day sales report with product, category, and high-level metrics, without altering orders or products.
+
+```text
+You are connected to my WooCommerce store through Respira.
+
+Goal:
+Create a concise sales report for the last 30 days, focusing on products and categories.
+
+Scope:
+- Time window: last 30 full days.
+- Include:
+  - total gross sales
+  - total net sales
+  - total number of orders
+  - average order value
+  - top 20 products by revenue
+  - top 10 categories by revenue
+
+Safety rules:
+- READ-ONLY: Do NOT modify any orders, products, or settings.
+- Use orders with status "completed" and "processing" only.
+
+Workflow:
+1. Calculate and report:
+   - total gross and net sales for the last 30 days
+   - total completed/processing orders
+   - average order value
+2. List top 20 products by revenue with:
+   - product ID
+   - product name
+   - quantity sold
+   - gross revenue
+   - refunds (if available)
+3. List top 10 categories by revenue with:
+   - category name
+   - total revenue
+   - number of orders containing that category
+4. Provide a short narrative summary in plain language that highlights:
+   - which products are driving most revenue
+   - any categories that are underperforming.
+
+At the end, explicitly state:
+- that this was a read-only analysis
+- that no orders or products were changed.
+```
+
+**What Respira will do**
+
+- Read order and product data for the last 30 days and compute key metrics.
+- Build ranked lists of top products and categories.
+- Return both structured tables and a plain-language commentary.
+
+**What you should review**
+
+- Confirm the date range and order statuses reflect your reporting conventions.
+- Validate totals against your existing WooCommerce reports for sanity.
+- Use underperforming categories as prompts for follow-up actions (content refresh, pricing review, or promotions).
+
+---
+
+## Safety reminders and support
+
+<Callout kind="tip">
+
+Start with smaller scopes (single category, shorter time window, or limited sample size) before running wide-ranging updates. Once you are confident the pattern is correct, expand the scope in a new prompt.
+
+</Callout>
+
+<Callout kind="alert">
+
+If you suspect any unexpected behavior, stop running write prompts and contact support at `word@respira.press`. Include the prompt you used and a description of what you expected vs what happened.
+
+</Callout>
+
+For deeper guidance, review the [WooCommerce safety guide](/woocommerce/safety) and the [WooCommerce tools reference](/woocommerce/tools) to understand exactly which operations each tool can perform.

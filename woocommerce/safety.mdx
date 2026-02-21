@@ -1,0 +1,524 @@
+---
+title: WooCommerce Add-on Safety
+description: How the WooCommerce add-on protects your store: product duplication, limited order modifications, and read-only sensitive settings.
+---
+
+## Safety model for WooCommerce stores
+
+The WooCommerce add-on protects revenue, stock levels, and customer trust while still giving you practical AI assistance.
+
+<Callout kind="info">
+
+The add-on never blindly edits live, money-touching data. Changes either go through a duplicate-first workflow or are restricted to safe fields, and every action is logged.
+
+</Callout>
+
+Use this page to understand exactly what AI can and cannot do in your store, and how to recover quickly if something goes wrong.
+
+## Product safety: duplicate before edit
+
+Product edits use a duplicate-first workflow so AI never rewrites your only copy of a product.
+
+### How product duplication works
+
+When AI needs to change a product, it:
+
+1. Duplicates the original product.
+2. Applies the requested edits to the duplicate.
+3. Leaves the original product untouched.
+
+You can then review, compare, and manually publish or discard the duplicate from WooCommerce.
+
+<Callout kind="tip">
+
+Use this as a staging flow: let AI propose improved titles, descriptions, and images on duplicates, then approve only the versions you like.
+
+</Callout>
+
+### What is preserved in a duplicate
+
+The duplicate product preserves almost everything that matters for continuity and testing:
+
+- **Core product data**
+  - Name, slug, short and long descriptions
+  - Product type (simple, variable, grouped, etc.)
+  - SKU, visibility, catalog/search settings
+
+- **Images and media**
+  - Featured image
+  - Gallery images
+  - Downloadable files (for digital products)
+
+- **Variations and attributes**
+  - Global and custom attributes
+  - Variation combinations
+  - Variation-level pricing and stock configuration
+
+- **Meta and settings**
+  - Custom fields and meta used by themes or plugins
+  - Shipping class, tax class, and product-specific tax overrides
+  - Linked products (upsells, cross-sells, grouped items)
+
+Because the duplicate keeps all of this, you can safely test changes without risking broken variations, missing images, or lost theme-specific data.
+
+### Example: safe product-edit prompt
+
+Use prompts like this when you want AI to improve a product via the duplicate workflow:
+
+```text
+Take the "Organic Cotton Hoodie" product and create a duplicate with:
+- A more compelling title that still mentions "Organic Cotton Hoodie"
+- Updated long description focused on comfort and sustainability
+- Bullet-point features that are clear and scannable
+Do not change prices, taxes, or stock quantities.
+```
+
+After the run, verify:
+
+- The original "Organic Cotton Hoodie" product still exists unchanged.
+- The duplicate has the revised content and the same variations, images, and meta.
+
+## Order safety: limited, non-financial changes
+
+Orders are financially sensitive objects. The add-on restricts AI to non-destructive, non-financial order operations.
+
+### What AI is allowed to change on orders
+
+AI can make changes that improve operations and communication but do not alter what was sold, for how much, or under which terms:
+
+- **Order status**
+  - Moving orders between statuses such as `on-hold`, `processing`, `completed`, `cancelled`, and `refunded` (subject to your WooCommerce configuration).
+- **Customer details**
+  - Billing name, company, email, phone
+  - Shipping name, company, addresses, phone
+- **Internal and customer notes**
+  - Adding private admin notes
+  - Adding or updating customer-facing order notes where WooCommerce allows it
+- **Metadata that does not affect totals**
+  - Tags and internal flags used for fulfillment or support workflows
+
+### What AI is NOT allowed to change on orders
+
+To protect your revenue and accounting integrity, AI cannot:
+
+- **Modify line items**
+  - No adding, removing, or swapping products on an existing order
+- **Change quantities**
+  - No increasing or decreasing quantities of existing line items
+- **Touch monetary values**
+  - No changing item prices
+  - No modifying shipping costs
+  - No altering applied coupons or discounts
+  - No adjusting taxes or fees
+- **Create or apply refunds**
+  - No issuing refunds
+  - No changing refund amounts or types
+
+<Callout kind="alert">
+
+These restrictions are deliberate. Allowing AI to change order items, quantities, or money would break your accounting trail, tax reports, and payout reconciliation.
+
+</Callout>
+
+### Status changes and email triggers
+
+WooCommerce can send automatic emails to customers when the order status changes. When AI updates an order status:
+
+- WooCommerce uses your existing email templates and settings.
+- Any enabled status-based notifications still send as usual.
+
+Before enabling AI status changes in a live store:
+
+- Review your **WooCommerce → Settings → Emails** configuration.
+- Confirm which statuses send customer emails and that their wording matches your policies.
+
+If a status change triggers an email you did not intend, you can:
+
+- Manually revert the order status to the previous state.
+- Add a customer note explaining the correction.
+- Adjust email settings to prevent future unwanted notifications.
+
+## Inventory safety: confirm and warn
+
+Inventory and stock levels affect backorders, customer expectations, and your cash flow. The add-on requires explicit confirmation before applying stock edits and highlights risky changes.
+
+### Confirm-before-apply for inventory edits
+
+When AI prepares an inventory change, it:
+
+1. Analyzes current stock levels and product settings.
+2. Proposes specific stock adjustments.
+3. Waits for your explicit confirmation before applying changes.
+
+You always see:
+
+- Which products will change.
+- Current and proposed stock quantities.
+- Any products moving to or from low-stock or out-of-stock states.
+
+If something looks off, cancel instead of confirming, then refine your prompt.
+
+### Low-stock warning behavior
+
+The add-on highlights changes that might push products into low or zero stock. For example:
+
+```text
+You are about to reduce inventory:
+
+- Organic Cotton Hoodie (SKU HOODIE-OC-1)
+  Current stock: 7
+  New stock: 1
+  This product will be marked as low stock and may trigger low-stock alerts.
+
+- Linen Summer Shirt (SKU SHIRT-LN-2)
+  Current stock: 3
+  New stock: 0
+  This product will be out of stock and hidden from your catalog if backorders are disabled.
+```
+
+<Callout kind="info">
+
+Treat these messages like pre-flight checks. If a low-stock change would hurt your sales or merchandising strategy, adjust the numbers before confirming.
+
+</Callout>
+
+## Read-only sensitive areas
+
+Some WooCommerce settings remain strictly read-only for AI. The add-on can read them to understand your store configuration but never modifies them.
+
+### Payment gateways (read-only)
+
+Payment gateways determine how customers pay and how money reaches you. AI:
+
+- Can read which gateways you have enabled.
+- Can see gateway names and some configuration to better understand your checkout.
+- Cannot enable, disable, install, or reconfigure any payment gateway.
+
+This prevents:
+
+- Accidentally disabling your only live gateway.
+- Misconfiguring credentials that would block payments.
+- Changing transaction behavior outside your control.
+
+### Shipping zones and methods (read-only)
+
+Shipping settings affect customer costs and your margins. AI:
+
+- Can read shipping zones, methods, and high-level rules.
+- Can use that to write accurate copy or explanations for customers.
+- Cannot create, delete, or edit shipping zones, methods, or rates.
+
+Keeping these read-only avoids unintended cart price changes or broken shipping flows.
+
+### Tax settings (read-only)
+
+Tax configuration has legal and accounting implications. AI:
+
+- Can read your tax classes, basic rates, and whether taxes are included or excluded.
+- Can use that context to avoid suggesting non-compliant pricing strategies.
+- Cannot change tax rates, tax classes, or inclusive/exclusive settings.
+
+<Callout kind="alert">
+
+Treat payment, shipping, and tax settings as the legal and financial backbone of your store. Only a human with full context and authority should change them.
+
+</Callout>
+
+## Permission controls and opt-in safety
+
+You stay in control of what the WooCommerce add-on can touch in your store.
+
+### Default enabled vs opt-in permissions
+
+By default, the add-on enables only conservative, low-risk capabilities. Higher-impact capabilities require explicit opt-in.
+
+Common patterns:
+
+- **Enabled by default**
+  - Reading products, orders, and settings for context
+  - Creating product duplicates
+  - Proposing non-destructive changes that you then approve
+
+- **Opt-in (require your explicit consent)**
+  - Applying product changes to duplicates
+  - Changing order statuses
+  - Applying inventory updates after confirmation
+
+<Callout kind="alert">
+
+Only grant opt-in permissions that match your current workflows and comfort level. Start with read-only or duplicate-based actions in staging before enabling anything that touches live orders or inventory.
+
+</Callout>
+
+When you adjust permissions:
+
+- Document who changed them and why.
+- Revisit permissions after major workflow changes, theme or plugin updates, or staff turnover.
+
+## Audit logging and retention
+
+Every meaningful AI action in your WooCommerce store is recorded in an audit log so you can see what changed, when, and by whom.
+
+### What the audit log records
+
+The audit log typically includes:
+
+- Timestamp of the action.
+- Actor identity (for example, site owner, specific team member).
+- High-level action type (product duplicate, order status change, inventory adjustment).
+- A summary of what changed.
+- Tool or workflow used to make the change.
+
+This gives you a traceable history for compliance, debugging, and trust.
+
+### Retention periods
+
+Audit log entries are kept for a limited time based on your plan:
+
+- **Starter plan**: 30 days of audit history.
+- **Agency plan**: 90 days of audit history.
+- **WooCommerce add-on log retention**: same retention as your core plan (Starter or Agency).
+
+Older entries expire automatically and are no longer visible.
+
+### Viewing the WooCommerce audit log
+
+Access logs from the WordPress admin:
+
+1. Go to **WP Admin → Respira → Audit Logs**.
+2. Filter by:
+   - Date range
+   - Object type (product, order, inventory)
+   - Action type
+3. Drill into an entry to see what changed and the related prompt or operation.
+
+Use this when:
+
+- You want to double-check what AI changed yesterday.
+- A colleague asks why a product or order looks different.
+- You need evidence for compliance or internal reviews.
+
+## Grace period and expiry behavior
+
+When your subscription or plan coverage changes, the WooCommerce add-on degrades safely instead of failing abruptly.
+
+### Day 1–7: grace period
+
+If your subscription expires or payment issues occur:
+
+- For the first **7 days**, the WooCommerce add-on continues to function under a grace period.
+- You keep normal access to:
+  - Product duplication workflows
+  - Allowed order and inventory operations
+  - Audit logs (subject to retention)
+
+During this time, resolve billing issues or decide whether to renew.
+
+### Day 8 and beyond: automatic disable
+
+If no valid subscription is active after 7 days:
+
+- AI-driven WooCommerce operations are **disabled**.
+- AI cannot:
+  - Create new product duplicates
+  - Change order statuses
+  - Propose or apply inventory edits
+- Your existing WooCommerce setup continues to run normally, just without AI assistance.
+
+### Reactivating after expiry
+
+When you reactivate:
+
+- The WooCommerce add-on resumes operation using your latest permissions and settings.
+- Audit logs are still limited by your plan retention window (Starter 30 days, Agency 90 days).
+- You do not need to reinstall or reconfigure the add-on; your previous configuration is preserved.
+
+## Best practices for safe WooCommerce use
+
+Follow these habits to keep financial and customer-impact risk low while getting real value from AI.
+
+### Start in staging or with low-risk products
+
+- Test workflows on a staging or development copy of your store first.
+- If staging is not available:
+  - Use low-traffic or internal products.
+  - Avoid bestselling or mission-critical products in early experiments.
+
+### Keep money-touching changes human-reviewed
+
+- Always have a human review:
+  - Any proposed change that affects prices, discounts, or fees (even if AI cannot apply them automatically).
+  - Status changes on high-value or high-risk orders.
+- Use duplicates to preview content, then manually adjust pricing or discounts yourself where needed.
+
+### Use clear, constrained prompts
+
+Write prompts that make safety expectations explicit:
+
+- State which fields AI may change and which it must leave alone.
+- Clarify that taxes, shipping costs, and payment settings are off-limits.
+- Reference SKUs or product IDs where precision matters.
+
+For example:
+
+```text
+For the products with SKUs HOODIE-OC-1 and SHIRT-LN-2:
+- Improve titles, short descriptions, and long descriptions
+- Keep SKUs, prices, tax classes, and stock levels exactly as they are
+- Create duplicates instead of modifying live products
+Summarize all changes at the end.
+```
+
+### Monitor early runs closely
+
+For the first few days:
+
+- Check the audit log daily.
+- Spot-check:
+  - New product duplicates
+  - Order status changes
+  - Any inventory adjustments you confirm
+
+If you see anything surprising, tighten permissions or revert to more conservative workflows.
+
+## When things go wrong
+
+Even with guardrails, mistakes can happen: a confusing prompt, an unintended status change, or a stock adjustment you regret. Use this section as a quick recovery playbook.
+
+### Scenario 1: Wrong product content live on site
+
+**Symptom**
+
+- A product shows confusing or incorrect content that AI helped generate.
+
+**Likely cause**
+
+- You published a duplicate with content you later want to undo, or manually merged AI changes into the original product.
+
+**Fix**
+
+- Use the audit log to find:
+  - When the content changed.
+  - Which product or duplicate was affected.
+- Restore from:
+  - A previous duplicate that still has the correct content, or
+  - A backup or manual snapshot you keep elsewhere.
+- Revert the live product to the known-good content.
+
+Then:
+
+- Improve your prompts.
+- Keep a clearly labeled backup copy of important product descriptions.
+
+### Scenario 2: Unwanted order status change and email sent
+
+**Symptom**
+
+- An order moved to a new status, and WooCommerce emailed the customer unexpectedly.
+
+**Likely cause**
+
+- AI changed the order status, triggering your configured WooCommerce email for that status.
+
+**Fix**
+
+- Change the order status back to the correct one.
+- Add a customer note explaining any correction if needed.
+- Review **WooCommerce → Settings → Emails**:
+  - Consider disabling certain status-based emails.
+  - Or updating their wording to better match your workflows.
+
+If this happens more than once, temporarily disable AI status changes through permission controls.
+
+### Scenario 3: Inventory edited in a way you do not like
+
+**Symptom**
+
+- Stock levels are lower or higher than you intended after you confirmed a change.
+
+**Likely cause**
+
+- A prompt with overly broad instructions, or a confirmation click where not all proposed changes were double-checked.
+
+**Fix**
+
+- Use the audit log to find exactly which products and quantities changed.
+- Manually adjust stock for those SKUs in WooCommerce to correct values.
+- Tighten your prompts and confirmation habits:
+  - Be explicit about which SKUs are in scope.
+  - Double-check all proposed adjustments before hitting confirm.
+
+### Scenario 4: Someone enabled risky permissions
+
+**Symptom**
+
+- You notice AI has access to more actions than you expected (for example, widespread order status changes).
+
+**Likely cause**
+
+- Another admin enabled additional permissions without fully communicating it.
+
+**Fix**
+
+- Review and reduce permissions to a safer baseline.
+- Use the audit log to see when permissions changed and by whom, if tracked.
+- Agree internally on:
+  - Who is allowed to modify AI/WooCommerce permissions.
+  - How changes are communicated to the wider team.
+
+## Getting help and support
+
+You are not on your own when something feels off or you want a second opinion.
+
+- **Email support**: `word@respira.press`
+- **Typical response time**: around 24 hours on business days
+- **Who you are talking to**: Mihai, who builds and maintains the system
+
+When you reach out:
+
+- Include a brief description of what you were trying to do.
+- Attach any relevant prompts.
+- Share screenshots or copy from the audit log around the time of the issue.
+- Note whether this is a production or staging store.
+
+The more context you provide, the faster you will get a precise, actionable response.
+
+## Further reading
+
+Use these pages to deepen your understanding of how safety works across the whole system, not just WooCommerce.
+
+<Columns cols={2}>
+
+<Card
+  title="WooCommerce overview"
+  href="/woocommerce/overview"
+  icon="book-open"
+  cta="See capabilities"
+/>
+
+<Card
+  title="WooCommerce tools"
+  href="/woocommerce/tools"
+  icon="code"
+  cta="Explore actions"
+/>
+
+</Columns>
+
+<Columns cols={2}>
+
+<Card
+  title="Safety philosophy"
+  href="/safety-philosophy"
+  icon="shield"
+  cta="Understand our approach"
+/>
+
+<Card
+  title="Troubleshooting"
+  href="/troubleshooting"
+  icon="alert-triangle"
+  cta="Fix common issues"
+/>
+
+</Columns>

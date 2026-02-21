@@ -3,9 +3,25 @@ title: Support & Troubleshooting
 description: Troubleshooting guides for Respira for WordPress, including MCP server connection issues, API key errors, page builder detection problems, and how to get direct support.
 ---
 
+## Getting Support
+
+All Respira licenses include technical support:
+
+- Starter plan: Email support at word@respira.press
+- Agency plan: Priority email support at word@respira.press
+- WooCommerce add-on: Technical support included with €7/month subscription
+
+Response time: Typically within 24 hours  
+Who responds: Mihai (founder), not a support bot  
+What to include: WordPress version, Respira version, error messages, what you were trying to do
+
+Before contacting support, check this troubleshooting guide. Many common issues have quick solutions below.
+
+---
+
 ## We're here to help
 
-This page helps you diagnose and resolve the most common Respira for WordPress issues, including MCP server errors, API key failures, page builder detection problems, and publishing or saving issues.
+Use this page to diagnose and resolve the most common Respira for WordPress issues, including MCP server errors, API key failures, page builder detection problems, and publishing or saving issues.
 
 ## Quick Diagnostics
 
@@ -28,7 +44,7 @@ Before requesting support, gather the following:
 
 - Exact error messages shown in WordPress or in the MCP server console
 - Output from `--test` command
-- Your site URL, including protocol (https://)
+- Your site URL, including protocol (`https://`)
 - Respira for WordPress plugin version
 - Whether the issue happens on a specific page, builder, or environment
 
@@ -57,7 +73,7 @@ npx @respira/wordpress-mcp-server --setup
 - Check that the API key is active in WordPress Admin (Respira → API Keys)
 - Ensure your site URL is correct and includes `https://`
 - Review the audit log in WordPress Admin for failed API requests
-- Verify the key hasn't expired or been revoked
+- Verify the key has not expired or been revoked
 - Try generating a new API key
 
 ### Page builder not detected
@@ -66,7 +82,7 @@ npx @respira/wordpress-mcp-server --setup
 - Make sure the page or post was created with that builder
 - Some page builders require specific Respira license tiers
 - If detection still fails, check for JavaScript errors in the browser console
-- Try reading the page directly: "Read page ID 123"
+- Try reading the page directly: `Read page ID 123`
 
 ### Changes not saving
 
@@ -78,7 +94,7 @@ npx @respira/wordpress-mcp-server --setup
 
 ### Windows: 'npx' not recognized
 
-If you see "'npx' is not recognized as an internal or external command":
+If you see `'npx' is not recognized as an internal or external command`:
 
 - Use the full path: `C:\Program Files\nodejs\npx.cmd`
 - Or install globally: `npm install -g @respira/wordpress-mcp-server`

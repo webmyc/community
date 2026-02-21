@@ -1,0 +1,375 @@
+---
+title: WooCommerce Tools Reference
+description: Reference for WooCommerce MCP tools provided by the Respira WooCommerce add-on, grouped by products, orders, inventory, and reports.
+---
+
+## How WooCommerce tools work with your AI assistant
+
+WooCommerce tools let your AI assistant read and modify store data in a structured, auditable way. Each tool encapsulates a specific WooCommerce action such as listing products, updating orders, or checking stock.
+
+Your AI assistant typically decides which tool to call based on natural language prompts. You do not need to remember every tool name, but knowing the main ones helps when you:
+
+- Design repeatable workflows and automations
+- Set guardrails for what the assistant is allowed to change
+- Review logs and audit which tools were used
+
+When the WooCommerce add-on is installed, the assistant has access to 20+ WooCommerce tools. This page highlights the primary tools in four categories: products, orders, inventory, and reports.
+
+<Callout kind="info">
+
+Use this reference to understand capabilities and naming. For exact parameter and response shapes, inspect the tool calls in your AI assistant or logs.
+
+</Callout>
+
+## Using the tool list in workflows
+
+When you write prompts or design workflows, you can:
+
+- Refer to tools by name if you want to constrain behavior.
+- Describe outcomes in natural language and let the assistant choose tools.
+- Combine WooCommerce tools with existing WordPress tools for end-to-end flows.
+
+For example:
+
+- "List the 50 best-selling products from last month and draft improved descriptions."
+- "Duplicate the current homepage hero product and set it as out of stock."
+- "Find all orders with failed payments this week and summarize issues."
+
+The sections below group tools by area and summarize what each one does and how you might use it in workflows.
+
+---
+
+## Product tools
+
+Product tools manage WooCommerce products and their variations. Use them to browse, inspect, create, and update catalog items.
+
+<Callout kind="tip">
+
+Product tools often work together. A common pattern is list → get → duplicate → update, which keeps edits safe and traceable.
+
+</Callout>
+
+### woocommerce_list_products
+
+List products that match basic filters such as status or search keywords.
+
+<ParamField body="filters" param-type="object" show-location="false">
+
+Optional filter object such as status, category, or search text. Exact shape may vary between environments; check the tool output in your AI assistant.
+
+</ParamField>
+
+<ParamField body="pagination" param-type="object" show-location="false">
+
+Optional pagination controls such as page and per_page. Parameters vary; see the tool output in your AI assistant for the concrete structure.
+
+</ParamField>
+
+Typical workflow uses:
+
+- Get an overview of the catalog before making changes.
+- Narrow down to a subset of products to pass into follow-up tools.
+- Build reports or summaries for specific product groups.
+
+### woocommerce_get_product
+
+Retrieve full details for a single product by identifier.
+
+<ParamField body="product_id" param-type="string" required="true" show-location="false">
+
+Unique product identifier as represented in your WooCommerce store. The assistant usually obtains this from `woocommerce_list_products` or another read tool.
+
+</ParamField>
+
+Use this when:
+
+- You need the exact current state before editing.
+- You want to summarize or rewrite descriptions for a specific product.
+- You are about to duplicate or update a product and want to validate key fields.
+
+### woocommerce_create_product
+
+Create a new product in WooCommerce.
+
+<ParamField body="product_data" param-type="object" required="true" show-location="false">
+
+High-level product definition such as name, price, status, and other attributes. The supported fields mirror WooCommerce product fields; see the tool output in your AI assistant for the exact schema.
+
+</ParamField>
+
+Common workflows:
+
+- Generate new products from a CSV, spreadsheet, or external catalog.
+- Spin up draft products for campaign testing.
+- Create localized versions of an existing product for a new market.
+
+### woocommerce_update_product
+
+Update an existing product.
+
+<ParamField body="product_id" param-type="string" required="true" show-location="false">
+
+Identifier of the product to update, usually obtained from `woocommerce_list_products` or `woocommerce_get_product`.
+
+</ParamField>
+
+<ParamField body="updates" param-type="object" required="true" show-location="false">
+
+Partial update payload with only the fields you want to change. Exact field names map to WooCommerce product fields; confirm via the tool output in your AI assistant.
+
+</ParamField>
+
+Use cases:
+
+- Adjust pricing or sale windows across selected products.
+- Update titles, descriptions, and SEO fields after AI rewrites.
+- Change product status (for example, draft, publish).
+
+### woocommerce_duplicate_product
+
+Create a copy of an existing product, typically preserving key fields like pricing, attributes, and images.
+
+<ParamField body="product_id" param-type="string" required="true" show-location="false">
+
+Identifier of the product to duplicate.
+
+</ParamField>
+
+<ParamField body="duplicate_options" param-type="object" show-location="false">
+
+Optional flags controlling what to copy or adjust in the duplicate, such as status or visibility. Options vary; inspect the tool output in your AI assistant for details.
+
+</ParamField>
+
+Recommended patterns:
+
+- Duplicate first, then update the copy rather than editing live products.
+- Use duplicates as staging items for A/B tests.
+- Keep original products intact for rollback and comparison.
+
+### woocommerce_get_variations
+
+List variations belonging to a variable product.
+
+<ParamField body="product_id" param-type="string" required="true" show-location="false">
+
+Identifier of the parent variable product.
+
+</ParamField>
+
+<ParamField body="filters" param-type="object" show-location="false">
+
+Optional filters such as status or specific attributes. Concrete fields depend on your WooCommerce configuration; see the tool output in your assistant.
+
+</ParamField>
+
+Use this when:
+
+- You need to update stock or price at the variation level.
+- You want to analyze performance by size, color, or other attributes.
+- You are preparing targeted changes without affecting all variations.
+
+---
+
+## Order tools
+
+Order tools let your assistant inspect and manage WooCommerce orders. These tools are central for support workflows, fulfillment checks, and revenue reporting.
+
+### woocommerce_list_orders
+
+List orders based on basic filters such as status, date range, or customer information.
+
+<ParamField body="filters" param-type="object" show-location="false">
+
+Optional filter object, typically including status, created date range, or customer identifiers. Exact fields may differ; use tool output to see the structure.
+
+</ParamField>
+
+<ParamField body="pagination" param-type="object" show-location="false">
+
+Optional pagination controls to limit result size. Parameters vary by environment.
+
+</ParamField>
+
+Common uses:
+
+- Retrieve all pending or processing orders for a period.
+- Build summary reports for revenue, refunds, or shipping delays.
+- Identify orders that may need manual review.
+
+### woocommerce_get_order
+
+Fetch detailed information for a single order.
+
+<ParamField body="order_id" param-type="string" required="true" show-location="false">
+
+Unique identifier of the order to retrieve. The assistant usually obtains this from `woocommerce_list_orders` or from user input.
+
+</ParamField>
+
+Use this to:
+
+- Inspect line items, totals, and customer details.
+- Diagnose customer issues based on a specific order.
+- Prepare a safe update plan before changing order fields.
+
+### woocommerce_update_order_status
+
+Change the status of an existing order.
+
+<ParamField body="order_id" param-type="string" required="true" show-location="false">
+
+Identifier of the order to update.
+
+</ParamField>
+
+<ParamField body="status" param-type="string" required="true" show-location="false">
+
+New order status, aligned with your WooCommerce configuration (for example, pending, processing, completed, cancelled, refunded). Exact allowed values depend on your store.
+
+</ParamField>
+
+Typical scenarios:
+
+- Mark orders as completed after external system checks.
+- Move orders to on-hold or cancelled based on fraud checks.
+- Coordinate status with a shipping or fulfillment integration.
+
+### woocommerce_update_order
+
+Apply general updates to an order beyond status changes.
+
+<ParamField body="order_id" param-type="string" required="true" show-location="false">
+
+Identifier of the order to update.
+
+</ParamField>
+
+<ParamField body="updates" param-type="object" required="true" show-location="false">
+
+Partial order update payload such as billing details, shipping details, or metadata. Field structure is store-specific; verify via the tool output in your AI assistant.
+
+</ParamField>
+
+Use this power carefully:
+
+- Correct minor data issues like addresses or contact details.
+- Add metadata for internal workflows or external system references.
+- Coordinate refunds, adjustments, or manual notes.
+
+---
+
+## Inventory tools
+
+Inventory tools manage stock levels and stock status at the product or variation level.
+
+<Callout kind="alert">
+
+Inventory changes can affect store availability and revenue. Combine these tools with confirmation prompts and audit logs to avoid unintended stock changes.
+
+</Callout>
+
+### woocommerce_get_stock_status
+
+Check stock status for one or more products or variations.
+
+<ParamField body="item_ids" param-type="array" required="true" show-location="false">
+
+List of product or variation identifiers to check. The ID format follows your WooCommerce configuration.
+
+</ParamField>
+
+Use this tool to:
+
+- Verify availability before running promotions.
+- Build low-stock and out-of-stock alerts.
+- Cross-check inventory between WooCommerce and external systems.
+
+### woocommerce_update_stock
+
+Update stock levels or stock status.
+
+<ParamField body="updates" param-type="array" required="true" show-location="false">
+
+List of stock updates, each containing a target identifier and new stock data such as quantity or status. Exact fields depend on your store; inspect recent tool calls to see the concrete shape.
+
+</ParamField>
+
+Recommended patterns:
+
+- Run read-only checks first with `woocommerce_get_stock_status`.
+- Use small, targeted batches and verify results.
+- Log context about why a stock change occurred for future audits.
+
+---
+
+## Report tools
+
+Report tools help your assistant generate summaries and analytics over order and product data.
+
+### woocommerce_sales_report
+
+Generate a sales report over a time range.
+
+<ParamField body="range" param-type="object" required="true" show-location="false">
+
+Time window for the report, typically including start and end dates. Precise field names vary; check the tool output in your AI assistant.
+
+</ParamField>
+
+<ParamField body="grouping" param-type="string" show-location="false">
+
+Optional grouping key such as day, week, month, product, or category. Supported values may differ between stores.
+
+</ParamField>
+
+Common workflows:
+
+- Summarize revenue by period or product group.
+- Identify top-performing products or categories.
+- Feed results into AI-written summaries, presentations, or planning documents.
+
+---
+
+## Safety and guardrails
+
+WooCommerce tools can change live store data. Treat them with the same care you would give to direct database or dashboard changes.
+
+Key practices:
+
+- **Duplicate-first workflows**: For product changes, prefer `woocommerce_duplicate_product` followed by `woocommerce_update_product` on the copy instead of editing live items.
+- **Confirmation prompts**: When you design prompts, ask the assistant to restate planned changes before applying them, especially for orders and inventory.
+- **Read-only checks before writes**: Call list or get tools first to verify you are targeting the correct items, then apply updates.
+
+For detailed guidance on store safety, guardrails, and audit logging, see the [WooCommerce safety notes](/woocommerce/safety).
+
+---
+
+## Support and next steps
+
+If you run into issues with WooCommerce tools or need help designing workflows, support is included. Contact the team at `word@respira.press`.
+
+<Columns cols={3}>
+
+<Card
+  title="WooCommerce overview"
+  href="/woocommerce/overview"
+  icon="book-open"
+  cta="Understand capabilities"
+/>
+
+<Card
+  title="Prompt patterns for WooCommerce"
+  href="/woocommerce/prompts"
+  icon="zap"
+  cta="See workflow examples"
+/>
+
+<Card
+  title="Troubleshooting"
+  href="/woocommerce/troubleshooting"
+  icon="alert-triangle"
+  cta="Fix common issues"
+/>
+
+</Columns>

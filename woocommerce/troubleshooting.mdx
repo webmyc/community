@@ -1,0 +1,173 @@
+---
+title: WooCommerce Troubleshooting
+description: Fix common WooCommerce add-on issues: tool detection, license activation, and product duplication problems.
+---
+
+## Quick diagnostics
+
+Rule out common environment issues before you dive into a specific symptom.
+
+- Confirm the WooCommerce add-on is installed and activated in WordPress.
+- Verify your setup against [WooCommerce installation](/woocommerce/installation).
+- Open the WooCommerce overview inside MCP to see which tools are currently available.
+
+<Callout kind="tip">
+
+If you changed plugins, themes, or hosting recently, note what changed. Most WooCommerce issues trace back to an environment change.
+
+</Callout>
+
+## Add-on not detected in MCP
+
+MCP does not show any WooCommerce tools for your site.
+
+### Symptoms
+
+- MCP connects to your WordPress site but shows no WooCommerce tools.
+- Woo-specific prompts or tools you expect from [WooCommerce tools](/woocommerce/tools) are missing.
+- Requests that should touch products or orders return generic WordPress behavior instead.
+
+### Likely causes
+
+- The WooCommerce add-on license is not active for this site.
+- The core WooCommerce plugin is not active in WordPress.
+- The MCP server needs a restart to pick up the new tools.
+- The site context prompt does not mention WooCommerce, so MCP stays in generic mode.
+
+### Steps to fix
+
+- In WordPress, go to **WP Admin → Respira → WooCommerce** and confirm the license shows as active.
+- In **Plugins**, verify the core **WooCommerce** plugin is installed and activated.
+- Restart MCP:
+  - Stop the MCP server process.
+  - Start it again and reconnect to the same WordPress site.
+- Check your site context prompt:
+  - Open your site configuration in MCP.
+  - Make sure the context mentions that the site is a WooCommerce store and that you want WooCommerce tools available.
+
+<Callout kind="info">
+
+After restarting MCP and confirming the license and plugin status, you should see WooCommerce tools appear in your tools list. If they still do not show up, move to the **Before you contact support** checklist below.
+
+</Callout>
+
+## License activation failed
+
+License activation fails or MCP reports an invalid license key.
+
+### Symptoms
+
+- The license field in **WP Admin → Respira → WooCommerce** shows an error after activation.
+- MCP shows license or subscription errors when you try to use WooCommerce tools.
+- Tools previously available are now disabled with a licensing message.
+
+### Likely causes
+
+- The full license key was not copied, or extra whitespace was included.
+- The subscription is not active in LemonSqueezy.
+- The site URL in WordPress does not match the site URL attached to the subscription.
+- The license has been used on a different site than the one configured.
+
+### Steps to fix
+
+- Copy the license key again from your purchase email or LemonSqueezy, and paste it into the license field without spaces before or after it.
+- Log into LemonSqueezy and confirm the WooCommerce add-on subscription is active.
+- Compare the **WordPress Address (URL)** and **Site Address (URL)** in **Settings → General** with the site URL shown in your LemonSqueezy subscription.
+- If the site URL changed (for example, from staging to production), update the URL in your subscription or deactivate the license on the old site.
+- Try activating the license again in **WP Admin → Respira → WooCommerce**.
+
+<Callout kind="alert">
+
+If the license still fails to activate after these checks, capture a screenshot of the error and follow the **Before you contact support** checklist so Mihai can resolve it quickly.
+
+</Callout>
+
+## Products not duplicating
+
+WooCommerce products are not being duplicated as expected.
+
+### Symptoms
+
+- A duplicate product request appears to succeed, but no new product shows in the Products list.
+- Some products duplicate correctly, but others do not.
+- You see permission or memory-related errors in your logs.
+
+### Likely causes
+
+- New products are created as drafts and hidden from the main Products list.
+- The MCP or API user does not have permission to create WooCommerce products.
+- The site hits PHP memory limits during product duplication.
+- A plugin or custom code prevents programmatic product creation.
+
+### Steps to fix
+
+- Check **Products → Drafts** in WordPress for newly created products that do not appear in the main list.
+- Confirm the user associated with MCP has permission to create and edit products in WooCommerce.
+- Review your PHP memory limit in `wp-config.php` or hosting settings and increase it if it is low for your catalog size.
+- Open your audit log or site logs to see whether product creation is blocked by another plugin or custom code.
+- Temporarily disable non-essential WooCommerce extensions and retry a product duplication to see if one of them is interfering.
+
+<Callout kind="tip">
+
+If products start duplicating after you increase the PHP memory limit or disable a specific plugin, keep that change in place and re-enable other plugins one by one to confirm the root cause.
+
+</Callout>
+
+## WooCommerce tools missing or partially missing
+
+Some WooCommerce tools appear, but others are missing or behave inconsistently.
+
+### Symptoms
+
+- Only a subset of expected WooCommerce tools shows up in MCP.
+- Tools disappear after a plugin update or cache clear.
+- A tool is visible but errors when you try to run it.
+
+### Likely causes
+
+- The WooCommerce add-on is outdated compared to your core plugin.
+- Object caching still serves an older tools configuration.
+- The add-on plugin needs a clean deactivate/reactivate cycle.
+- Another plugin conflicts with specific WooCommerce tools.
+
+### Steps to fix
+
+- Update the WooCommerce add-on to the latest version from your plugin updates screen.
+- Clear your object cache using your caching or hosting plugin, then refresh MCP.
+- Deactivate and then reactivate the WooCommerce add-on in **Plugins → Installed Plugins**.
+- Temporarily disable other plugins that interact heavily with WooCommerce (inventory, pricing, product builder) and see whether the missing tools reappear.
+- Recheck the [WooCommerce overview](/woocommerce/overview) inside MCP to confirm the full tool set.
+
+<Callout kind="info">
+
+After updating and clearing cache, you should see a consistent set of WooCommerce tools across MCP and your WordPress site. If tools are still missing, collect logs and continue with the support checklist.
+
+</Callout>
+
+## Before you contact support
+
+Gather a minimal set of information so support can help you quickly.
+
+- WordPress version, WooCommerce version, and WooCommerce add-on version.
+- Confirmation that you followed [WooCommerce installation](/woocommerce/installation) and checked [general troubleshooting](/troubleshooting).
+- Exact error messages or screenshots from:
+  - **WP Admin → Respira → WooCommerce**
+  - MCP logs or error console
+- A short description of:
+  - What you tried to do.
+  - What you expected.
+  - What actually happened.
+- Whether the issue reproduces with:
+  - A default theme.
+  - Only WooCommerce and the add-on active.
+
+<Callout kind="info">
+
+Support is included with your subscription. Email **word@respira.press** and Mihai will usually respond within about 24 hours, often sooner. Attach your notes and screenshots so he can go straight to a fix.
+
+</Callout>
+
+## Related help
+
+- Learn what the WooCommerce add-on can do in [WooCommerce tools](/woocommerce/tools).
+- Review general MCP issues in [Troubleshooting](/troubleshooting).

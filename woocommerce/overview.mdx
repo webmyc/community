@@ -1,0 +1,221 @@
+---
+title: WooCommerce Integration Add-on
+description: Manage WooCommerce products, orders, and inventory with AI for €7/month, including a 7-day free trial and technical support.
+---
+
+## Overview
+
+WooCommerce Integration Add-on extends Respira's duplicate-before-edit workflow to your WooCommerce store so AI can help manage products, orders, inventory, and reports safely.
+
+The add-on is a paid subscription at **€7/month** with a **7-day free trial**, and technical support is included in the price.
+
+<Callout kind="info">
+
+**Requirements**
+
+- Respira Core installed and connected  
+- WooCommerce plugin active on the same site  
+- WordPress 6.0 or newer  
+- PHP 7.4 or newer  
+
+If you are not set up with Respira yet, start with the base [Installation](/installation) guide.
+
+</Callout>
+
+## What the add-on includes
+
+The add-on exposes WooCommerce operations as safe MCP tools that follow the same "duplicate first, then edit" pattern you use for pages and posts.
+
+### Products
+
+Use AI to manage your product catalog without risking live listings.
+
+- Create new simple and variable products from natural language prompts.
+- Duplicate existing products before changing prices, descriptions, images, or attributes.
+- Update variations, attributes, categories, and tags in bulk.
+- Run batch operations across selected products (for example, adjust prices or toggle catalog visibility).
+
+### Orders
+
+Let AI help with day-to-day order handling while keeping core payment data safe.
+
+- List and filter orders by status, customer, date range, or totals.
+- Update order statuses to trigger standard WooCommerce email notifications.
+- Edit billing and shipping addresses when customers send corrections.
+- Generate summaries and reports from recent orders for quick overviews.
+
+### Inventory
+
+Keep stock levels in sync without manual spreadsheet work.
+
+- Track stock per product and variation, including backorders.
+- Identify low-stock or out-of-stock items based on your thresholds.
+- Apply bulk quantity updates after a new shipment or stock take.
+- Ask AI to flag anomalies, such as products that sell fast but sit at low stock.
+
+### Reports and analytics
+
+Turn store data into actionable insight.
+
+- Generate sales reports by date range, product, category, or customer segment.
+- Highlight top-selling products and slow movers.
+- Calculate metrics like average order value and repeat purchase behavior.
+- Export structured summaries you can move into spreadsheets or BI tools.
+
+## Installation (high-level)
+
+Set up the WooCommerce Integration Add-on on top of Respira in a few steps, then follow the detailed guide when you are ready.
+
+<Steps>
+
+  <Step title="Subscribe to the add-on" icon="shopping-cart">
+
+Go to **Account → Billing → Add-ons** in Respira, find **WooCommerce Integration**, and start the subscription. The price is **€7/month** and includes a **7-day free trial** with technical support.
+
+  </Step>
+
+  <Step title="Install the WooCommerce plugin" icon="download">
+
+Download the latest add-on release (for example, from your Releases or GitHub area), upload the ZIP to your WordPress site as a plugin, and activate it.
+
+  </Step>
+
+  <Step title="Activate the license in WordPress" icon="key">
+
+Open **WP Admin → Respira → WooCommerce**, enter your license key, and save. You should now see WooCommerce tools listed in your MCP configuration.
+
+  </Step>
+
+</Steps>
+
+When you are ready for a full walkthrough with screenshots and validation steps, continue to the dedicated [WooCommerce installation guide](/woocommerce/installation).
+
+## Quick start: prompt examples
+
+Start with focused, low-risk prompts that update a small set of products or surface a batch of orders before you approve changes.
+
+### Update a range of prices
+
+```text
+Find all WooCommerce products in the "Summer Collection" category with prices between €20 and €60.
+
+Create duplicates and increase their prices by 10 percent, then show me a summary of the original vs new prices before applying changes.
+```
+
+### Process a batch of orders
+
+```text
+List all WooCommerce orders from the last 24 hours that are still "processing".
+
+For each order:
+- summarize the items and totals
+- suggest if it is ready to mark as "completed"
+
+Do not change any order until I explicitly confirm.
+```
+
+### Check inventory risk
+
+```text
+Review my WooCommerce inventory and list products with less than 5 units in stock in the last 7 days of sales data.
+
+Group them by category, and suggest which ones I should restock first based on recent order volume.
+```
+
+Use these as templates and adjust categories, ranges, and thresholds to match your store.
+
+## Safety features
+
+WooCommerce Integration follows Respira's safety-first design so you can explore AI workflows without risking accidental store damage.
+
+- **Duplicate-before-edit for products**: The add-on duplicates products before editing titles, descriptions, images, or pricing, so your original listings stay intact until you approve changes.
+- **Scoped order handling**: Order tools focus on statuses, addresses, and summaries; sensitive areas stay read-only to keep financial and customer data protected.
+- **Grace period on expiry**: If your subscription lapses, the add-on enters a grace period rather than stopping abruptly, giving you time to renew without losing access to existing configurations.
+
+<Callout kind="tip">
+
+The financial core of your store stays under WooCommerce and your payment gateway. Use AI to prepare, summarize, and stage changes, then confirm important updates (like live price changes) yourself.
+
+</Callout>
+
+For a deeper breakdown of what is read-only, what can change, and how rollbacks work, see [WooCommerce safety model](/woocommerce/safety).
+
+## MCP tools reference
+
+Behind the scenes, the add-on exposes WooCommerce-specific tools for products, orders, inventory, and reporting that your AI assistant calls on your behalf.
+
+If you want to see the exact tool names, parameters, and response fields, open the [WooCommerce tools reference](/woocommerce/tools). That page covers:
+
+- Product tools for reading, duplicating, and updating catalog items.
+- Order tools for listing, filtering, and updating statuses.
+- Inventory tools for stock levels and bulk updates.
+- Reporting tools for summaries and exports.
+
+Use the reference when you need precise control or are designing custom workflows.
+
+## Common workflows
+
+Here are patterns store owners and agencies use most often with the add-on.
+
+### Seasonal price updates
+
+Use AI to stage price changes across a collection, then approve the changes after review.
+
+- Ask AI to find products in a specific category or tag.
+- Have it duplicate those products with updated prices or sale flags.
+- Review the diff and publish when you are satisfied.
+
+### New collection launches
+
+Turn a simple brief into a complete product lineup.
+
+- Provide a description of the new collection, target audience, and price range.
+- Let AI propose product names, short descriptions, long descriptions, and initial prices.
+- Confirm which products to create in WooCommerce and which should stay as drafts.
+
+### Inventory and purchasing checks
+
+Align purchasing with current demand without opening spreadsheets.
+
+- Ask AI to group low-stock products by vendor, category, or margin.
+- Generate purchase suggestions with quantities and priority levels.
+- Export the results or paste them into your purchasing system.
+
+### Customer service support
+
+Help your team answer "where is my order" and "can you change my address" requests faster.
+
+- Have AI summarize recent orders for a given email or name.
+- Ask it to verify whether an order can still ship with a corrected address.
+- Let it propose a clear, friendly response you can paste into your help desk.
+
+## Limitations
+
+The add-on is designed for safe, high-leverage operations, not complete automation of your store.
+
+- The add-on does not replace WooCommerce itself; it layers AI workflows on top of your existing store.
+- Payment processing, refunds, and payout handling remain under WooCommerce and your payment providers.
+- Some sensitive actions and configuration areas are intentionally read-only to reduce risk.
+- Large bulk operations may be batched to respect performance and tool limits rather than running thousands of changes at once.
+
+If you need a specific capability that is not available yet, reach out using the support details below.
+
+## Troubleshooting and support
+
+If something does not look right, start with the general [Troubleshooting](/troubleshooting) page, then move to the [WooCommerce troubleshooting guide](/woocommerce/troubleshooting) for store-specific checks.
+
+Common issues you might see include:
+
+- The add-on is not detected by Respira even though the plugin is active.
+- License activation fails or shows as inactive after saving.
+- Product duplicates do not appear when you expect them.
+- WooCommerce tools do not show up in your AI tool list.
+
+Support is included with your **€7/month** subscription.
+
+<Callout kind="info">
+
+**Need help with WooCommerce Integration?**  
+Email **word@respira.press** with a short description of your store and the issue you are facing. Most requests receive an answer within about 24 hours, usually directly from Mihai.
+
+</Callout>
