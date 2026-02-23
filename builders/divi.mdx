@@ -1,17 +1,42 @@
 ---
-title: "Divi Builder Reference"
-description: "Technical documentation for using Respira with Divi Builder (shortcode-based pages and module-level updates)."
+title: "Divi (Divi 4 + Divi 5)"
+description: "Technical documentation for using Respira with Divi 4 shortcodes and Divi 5 block-based layouts, including module-level updates."
 ---
 
-# Divi Builder Reference
+# Divi (Divi 4 + Divi 5)
 
 Technical documentation for using Respira with [Divi](https://www.elegantthemes.com/gallery/divi/).
+
+## Divi 5 and migration support
+
+Respira supports both Divi 4 and Divi 5 content structures so you can maintain existing layouts and prepare for migration.
+
+- Divi 5 layouts are supported via their block-based `divi/*` structure
+- Divi 4 layouts are supported via their shortcode-based `et_pb_*` structure
+- Divi’s Migrator handles the actual conversion between Divi 4 and Divi 5 formats
+
+Respira helps you plan and validate your Divi 5 migration. Divi’s Migrator performs the actual conversion.
+
+Use these resources for Divi 5 specific workflows:
+
+- [Divi 5 builder reference](/builders/divi-5)
+- [Divi 5 Migration Copilot toolkit](/toolkits/divi-5-migration-copilot)
+- [Divi 4 to Divi 5 migration guide](/guides/divi-4-to-divi-5)
+- [Divi 5 troubleshooting](/troubleshooting/divi-5)
+
+## What you will learn
+
+- How Divi 4 shortcode-based layouts map to Respira’s module model
+- How Divi 5 block-based layouts differ from Divi 4 and what stays the same
+- How to identify, query, and update Divi modules safely with Respira
 
 ## About Divi
 
 [Divi](https://www.elegantthemes.com/gallery/divi/) by Elegant Themes is one of the most popular WordPress page builders with over 2 million active installations. It features a visual drag-and-drop editor with 200+ content modules.
 
-## Data Structure
+## Data structure
+
+Divi 4 stores its builder layouts as `et_pb_*` shortcodes in `post_content`. Divi 5 uses block-based layouts where Divi modules appear as `divi/*` blocks in `post_content`. Respira works against both formats but does not perform the migration or conversion between them.
 
 Divi stores content as shortcodes in `post_content`:
 
@@ -29,9 +54,9 @@ Divi stores content as shortcodes in `post_content`:
 [/et_pb_section]
 ```
 
-## Module Identification
+## Module identification
 
-### By Admin Label (Recommended)
+### By admin label (recommended)
 
 Set in Divi: Module Settings → Advanced → Admin Label
 
@@ -39,19 +64,19 @@ Set in Divi: Module Settings → Advanced → Admin Label
 { "admin_label": "Hero CTA Button" }
 ```
 
-### By Path
+### By path
 
 ```json
 { "path": "sections[0].rows[0].columns[0].modules[1]" }
 ```
 
-### By Type
+### By type
 
 ```json
 { "type": "et_pb_button", "match_content": "Get Started" }
 ```
 
-## Common Divi Modules
+## Common Divi modules
 
 | Module | Shortcode | Key Attributes |
 |--------|-----------|----------------|
@@ -66,28 +91,28 @@ Set in Divi: Module Settings → Advanced → Admin Label
 | CTA | et_pb_cta | title, button_text, button_url |
 | Contact Form | et_pb_contact_form | email, title |
 
-## Example Prompts for Divi
+## Example prompts for Divi
 
-**Content Updates:**
+**Content updates:**
 
 - "Change the hero headline to 'Welcome Home'"
 - "Update all button colors to #FF5733"
 - "Replace the about section image"
 
-**Structure Queries:**
+**Structure queries:**
 
 - "Show me all sections on this page"
 - "List all buttons and their text"
 - "What modules are in the first row?"
 
-**Bulk Updates:**
+**Bulk updates:**
 
 - "Find all buttons with 'Learn More' and change to 'Get Started'"
 - "Update the copyright year in the footer to 2025"
 
-## Global Modules
+## Global modules
 
-Respira detects Divi Global Modules. Updates to global modules appear everywhere they're used.
+Respira detects Divi Global Modules. Updates to global modules appear everywhere they are used.
 
 - "List all global modules" → Shows global module library
 - "Update the global footer email address" → Changes it site-wide
@@ -98,9 +123,7 @@ Respira detects Divi Global Modules. Updates to global modules appear everywhere
 - Per-module custom CSS is supported but complex styling may need builder
 - Dynamic content tokens are preserved but not directly editable
 
-## See Also
+## See also
 
 - [wordpress_update_module](/tools/builders/update-module)
 - [wordpress_extract_builder_content](/tools/builders/extract-content)
-
-

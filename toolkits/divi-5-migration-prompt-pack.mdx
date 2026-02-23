@@ -1,0 +1,688 @@
+---
+title: Divi 5 Migration Prompt Pack
+description: Use five structured prompts to plan, validate, and clean up your Divi 5 migration, from readiness and backups to QA and modernizing layouts.
+---
+
+## Overview
+
+Respira helps you plan and validate your Divi 5 migration. Divi’s Migrator performs the actual conversion.
+
+Use this prompt pack to turn your Divi 5 migration into a repeatable workflow instead of a one-off scramble.
+
+**What you’ll learn**
+
+- How to assess whether a site is ready for Divi 5 before you touch production
+- How to design a safe staging, backup, and rollback path for each migration
+- How to validate migrated pages, clean up Compatibility Mode, and modernize layouts
+
+<Callout kind="info">
+
+These prompts are for planning, validation, and cleanup. Divi’s own Migrator handles the underlying Divi 4 → Divi 5 conversion.
+
+</Callout>
+
+## How to use these prompts
+
+Use the prompt pack with any AI assistant, and optionally inside Respira when your workflow supports it.
+
+<Steps>
+
+<Step title="Copy the prompt you need" icon="copy">
+
+- Scroll to the relevant prompt section below.
+- Select all the text inside the prompt’s code block.
+- Copy it to your clipboard.
+
+</Step>
+
+<Step title="Paste into your AI workflow" icon="terminal">
+
+- Open your preferred AI assistant (or your Respira workspace if it supports custom prompts).
+- Paste the prompt verbatim.
+- When the prompt asks for site-specific details, provide them as clearly as you can.
+
+</Step>
+
+<Step title="Optionally run inside Respira" icon="zap">
+
+- If you use Respira with Divi-aware tools, run these prompts inside Respira so it can:
+  - Inspect your WordPress and Divi configuration.
+  - Read sample pages and layouts before recommending changes.
+- When your current setup does not support running prompts directly in Respira, run them in your AI assistant and then apply the recommendations with Respira’s tools.
+
+</Step>
+
+<Step title="Apply and iterate" icon="check-circle">
+
+- Follow the checklist or plan produced by each prompt.
+- Mark items complete as you go and re-run prompts when:
+  - You change your staging or backup strategy.
+  - You finish a batch of migrations and want updated QA coverage.
+  - You modernize more layouts out of Compatibility Mode.
+
+</Step>
+
+</Steps>
+
+## Prompt pack contents
+
+This pack includes five prompts, designed to run in sequence or on their own:
+
+1. **Migration Readiness Audit**
+2. **Staging + Backup Plan**
+3. **Compatibility Mode Cleanup Plan**
+4. **Post-migration QA Checklist**
+5. **Modernize This Layout** (post-migration refactor to native Divi 5 modules)
+
+Respira helps you plan and validate your Divi 5 migration. Divi’s Migrator performs the actual conversion.
+
+---
+
+## 1. Migration Readiness Audit
+
+Use this prompt before you touch production to understand what could break, which sites to prioritize, and what to document.
+
+### Purpose
+
+Identify technical and process risks before running Divi’s Migrator so you can:
+
+- Spot incompatible plugins, custom code, and fragile layouts.
+- Prioritize sites or sections with higher risk.
+- Decide where you need extra QA or stakeholder sign-off.
+
+### Inputs needed
+
+Have these details ready when you run the prompt:
+
+- Site context:
+  - WordPress version and PHP version.
+  - Current Divi version and whether Divi 5 is already installed.
+  - Hosting type (shared, managed, VPS) and caching stack.
+- Divi usage:
+  - Number and types of layouts (pages, templates, theme builder layouts).
+  - Use of global modules, theme builder, and dynamic content.
+  - Use of Divi’s legacy or third-party modules.
+- Customizations:
+  - Child theme in use and what it changes (functions, templates, CSS).
+  - Custom PHP snippets or mu-plugins touching Divi output.
+  - Custom JavaScript, CSS frameworks, or animation libraries.
+- Business constraints:
+  - Allowed maintenance window(s).
+  - Performance, SEO, or accessibility requirements that must not regress.
+
+### Output you should expect
+
+The assistant should return:
+
+- A concise **risk summary** for migrating this site to Divi 5.
+- A **categorized list of risks**, such as:
+  - Theme and child theme conflicts.
+  - Plugin conflicts (especially builder add-ons).
+  - Custom code risks.
+  - Layout/UX risks.
+- A **recommended migration order** for sections or sites.
+- A short **stakeholder briefing** you can paste into an email or ticket.
+
+### Suggested next action
+
+- Share the risk summary with your team or client.
+- Open your project tracker and:
+  - Add tasks for each medium/high risk finding.
+  - Link those tasks to staging and QA work.
+- Then run the **Staging + Backup Plan** prompt for the same site.
+
+### Prompt: Migration Readiness Audit
+
+```text
+You are a senior WordPress technical lead and Divi specialist.
+
+I am planning a migration from Divi 4 to Divi 5 for this site. I need a concise, practical readiness audit that a web agency or technical site owner can use to plan the migration and communicate risk to stakeholders.
+
+1) SITE CONTEXT
+- WordPress version:
+- PHP version:
+- Hosting type (shared/managed/VPS/other) and caching stack:
+- Current Divi version and whether Divi 5 is already installed:
+- Does the site use a child theme? If yes, describe what it customizes:
+- Any known performance, SEO, or accessibility constraints that must not regress:
+
+2) DIVI USAGE
+- Approximate number of Divi-built pages:
+- Use of Divi Theme Builder (headers, footers, templates, archive templates, etc.):
+- Use of global modules and global presets:
+- Use of dynamic content (ACF, Toolset, custom fields, etc.):
+- Any usage of Divi’s legacy or deprecated modules:
+- Any third-party Divi add-ons or modules:
+
+3) CUSTOMIZATIONS
+- Custom PHP (functions.php, mu-plugins, snippets) that touch Divi output:
+- Custom JavaScript related to layout, animations, or interactions:
+- Custom CSS frameworks or utility classes used alongside Divi:
+- Any custom post types with Divi layouts:
+- Any custom integrations that rely on specific HTML structure or classes:
+
+4) BUSINESS CONSTRAINTS
+- Allowed maintenance window(s):
+- Recovery time objective (how long the site can be partially broken):
+- Stakeholders who must approve the migration (roles, not names):
+
+Using only the information provided, produce:
+
+A. HIGH-LEVEL SUMMARY
+- 3–5 bullet summary of overall migration risk (low/medium/high) and why.
+
+B. RISK CATEGORIES
+List risks under these headings. For each, give:
+- Risk description
+- Why it matters in a Divi 4 → Divi 5 migration
+- How to confirm whether it is a real issue
+- Recommended mitigation
+
+Categories:
+- Theme and child theme risks
+- Plugin and Divi add-on risks
+- Custom code risks (PHP, JS, CSS)
+- Layout and UX risks
+- Performance, SEO, and accessibility risks
+- Operational/process risks (backups, staging, approvals)
+
+C. PRIORITIZED MIGRATION ORDER
+- Suggest an order in which to migrate sections or entire sites, based on risk and business impact.
+- Call out any sections that should be delayed until later (and why).
+
+D. STAKEHOLDER BRIEFING
+Write a short, non-technical summary I can paste into an email or ticket to stakeholders, covering:
+- Why we are migrating to Divi 5 now
+- The main risks you identified (in plain language)
+- How we will reduce those risks (staging, backups, QA)
+- What stakeholders should expect during the migration window.
+```
+
+---
+
+## 2. Staging + Backup Plan
+
+Use this prompt to define a clear, repeatable safety net before you run Divi’s Migrator.
+
+### Purpose
+
+Design a concrete plan for staging, backups, and rollback so you can:
+
+- Avoid performing risky migrations directly on production.
+- Know exactly how to recover if something goes wrong.
+- Standardize migration safety across client sites.
+
+### Inputs needed
+
+Prepare the following details:
+
+- Current backup setup:
+  - Backup plugin or hosting backups in use.
+  - Frequency and retention (how often, how long kept).
+  - Whether you have tested a restore recently.
+- Staging setup:
+  - Whether you already have a staging or development copy.
+  - How staging is created and updated (clone, push/pull tools, manual).
+  - Any differences between staging and production (domains, caching, CDN).
+- Access and roles:
+  - Who has admin access to WordPress, hosting, and DNS.
+  - Who will run Divi’s Migrator and who will approve changes.
+- Change window:
+  - Preferred day/time for migration.
+  - Blackout periods where changes are not allowed.
+
+### Output you should expect
+
+The assistant should return:
+
+- A **staging strategy** (new environment, reusing existing, or local-first).
+- A **backup and rollback plan** with:
+  - Pre-migration snapshot steps.
+  - Clear restore instructions.
+- A **checklist** you can run through before starting each migration.
+- A brief **runbook** you can reuse across sites.
+
+### Suggested next action
+
+- Create or verify the staging environment described.
+- Run a **test restore** on staging using a recent backup.
+- Once staging and backups are in place, run the **Compatibility Mode Cleanup Plan** prompt.
+
+### Prompt: Staging + Backup Plan
+
+```text
+You are a senior WordPress DevOps engineer and Divi specialist.
+
+I am preparing to migrate a site from Divi 4 to Divi 5 using Divi’s Migrator. I need a concrete, low-drama staging and backup plan that a small team or agency can actually follow.
+
+1) BACKUP SETUP
+- Current backup plugin(s) in use:
+- Hosting-level backups available (yes/no, details):
+- Backup frequency and retention:
+- Date of last successful restore test and how it was tested:
+
+2) STAGING / ENVIRONMENTS
+- Do we have an existing staging site? If yes, how is it kept in sync with production?
+- Is there a local development copy? If yes, how up to date is it?
+- Any differences between staging and production (domains, caching, CDN, object cache, PHP settings, etc.):
+
+3) ACCESS & ROLES
+- Who can:
+  - Trigger backups:
+  - Restore backups:
+  - Create or refresh staging:
+  - Run Divi’s Migrator:
+  - Approve changes (client, PM, etc.):
+
+4) CHANGE WINDOW
+- Preferred migration window (day/time and timezone):
+- Any blackout periods where changes are not allowed:
+- Expected traffic levels during the migration window (low/medium/high):
+
+Using this information, produce:
+
+A. STAGING STRATEGY
+- Recommend whether to:
+  - Create a new staging site, or
+  - Reuse and refresh an existing staging site, or
+  - Work locally first, then stage.
+- Explain why this strategy fits the inputs above.
+- Give a numbered checklist for setting up/refreshing staging before the migration.
+
+B. BACKUP & ROLLBACK PLAN
+- Describe exactly which backups to take and when, in relation to the migration (database + files).
+- Provide a clear, step-by-step rollback plan that:
+  - Restores the site to its pre-migration state.
+  - Includes sanity checks after restore (front-end, forms, key funnels).
+- Call out any gaps or risks in the current backup setup.
+
+C. MIGRATION RUNBOOK
+Create a concise, reusable runbook with:
+- Pre-migration checklist (what to verify the day before and hour before).
+- During-migration steps (what to do in staging and production).
+- Post-migration checklist (what to verify before calling the migration complete).
+
+D. TEAM COMMUNICATION NOTES
+Write a short note I can share with the team that covers:
+- Where we will run Divi’s Migrator (staging vs production).
+- How we will back up and how to roll back.
+- Who is on point during the migration window.
+- What to do and who to contact if unexpected issues appear.
+```
+
+---
+
+## 3. Compatibility Mode Cleanup Plan
+
+Use this prompt after you have a migrated copy (usually in staging) that still relies on Compatibility Mode.
+
+### Purpose
+
+Plan how to reduce or eliminate Compatibility Mode dependencies in a controlled way so you can:
+
+- Understand which layouts and modules still depend on legacy behavior.
+- Decide what to refactor now versus later.
+- Avoid breaking fragile pages when turning off Compatibility Mode.
+
+### Inputs needed
+
+Have this ready when you run the prompt:
+
+- Current Compatibility Mode status:
+  - Whether Compatibility Mode is enabled globally.
+  - Any per-page overrides in use.
+- Inventory of migrated layouts:
+  - Examples of pages where Compatibility Mode is clearly required.
+  - Examples of pages that likely do not need it.
+  - Known problem areas (animations, custom JS, third-party modules).
+- Constraints:
+  - Time budget for cleanup per site.
+  - Appetite for visually changing layouts versus keeping them pixel-perfect.
+  - Any dependencies on legacy CSS or JS.
+
+### Output you should expect
+
+The assistant should return:
+
+- A **classification** of layouts/modules into:
+  - Safe to run without Compatibility Mode.
+  - Needs partial refactor before turning it off.
+  - Should remain in Compatibility Mode for now.
+- A **phased cleanup plan** (per section or per page type).
+- A **checklist** for testing pages when toggling Compatibility Mode.
+
+### Suggested next action
+
+- Apply the phased plan in staging.
+- Use the checklist to verify key pages after each change.
+- When a page is stable without Compatibility Mode, mark it for further modernization with **Modernize This Layout**.
+
+### Prompt: Compatibility Mode Cleanup Plan
+
+```text
+You are a senior Divi implementer experienced with Divi 5 and Compatibility Mode trade-offs.
+
+I have a site that has been migrated to Divi 5 using Divi’s Migrator. Many layouts still rely on Compatibility Mode. I want a practical plan to reduce that dependency without breaking important pages.
+
+1) COMPATIBILITY MODE STATUS
+- Is Compatibility Mode currently enabled globally?
+- Are there any per-page overrides or exceptions?
+- Any attempts so far to disable or restrict Compatibility Mode? What happened?
+
+2) LAYOUT INVENTORY
+Describe, at a high level:
+- Types of layouts in use (landing pages, blog posts, shop pages, archives, etc.).
+- Examples of layouts that clearly break when Compatibility Mode is disabled (what breaks?).
+- Examples of layouts that still look fine without Compatibility Mode.
+- Any third-party Divi modules or add-ons that seem to depend on legacy behavior.
+
+3) CUSTOM CODE & INTEGRATIONS
+- Custom CSS that targets Divi-specific classes or markup:
+- JavaScript that relies on specific Divi DOM structure or events:
+- Any integrations (forms, tracking scripts, A/B testing) that may rely on legacy markup:
+
+4) CONSTRAINTS
+- Time available for cleanup per site (e.g. 2 hours, 1 day, multiple days):
+- How strictly do layouts need to match existing designs (pixel-perfect vs “close enough”):
+- Any pages or flows that are business-critical and must be handled with extra care:
+
+Using this information, produce:
+
+A. CLEANUP STRATEGY OVERVIEW
+- Explain the recommended approach to reducing Compatibility Mode usage for this site.
+- Call out which categories of pages should stay in Compatibility Mode for now, and which are candidates for early cleanup.
+
+B. CLASSIFICATION FRAMEWORK
+Provide a simple framework I can use to classify pages into:
+- “Safe without Compatibility Mode”
+- “Needs partial refactor”
+- “Leave in Compatibility Mode for now”
+For each category, describe:
+- Typical symptoms
+- How to test quickly
+- Recommended action
+
+C. PHASED CLEANUP PLAN
+Propose a phased plan with concrete steps:
+- Phase 1: Quick wins and low-risk pages.
+- Phase 2: Medium complexity pages.
+- Phase 3: High-risk or business-critical flows.
+For each phase, include:
+- Entry criteria (which pages to tackle).
+- A numbered checklist for what to do on each page.
+- Exit criteria (how I know the phase is complete).
+
+D. TESTING CHECKLIST
+Create a repeatable checklist I can use when toggling Compatibility Mode for a page or group of pages, covering:
+- Visual layout checks
+- Functional checks (forms, navigation, CTAs)
+- Responsive checks (mobile/tablet/desktop)
+- Performance and Core Web Vitals considerations (at a high level).
+
+E. COMMUNICATION NOTES
+Write a short note I can share with stakeholders that:
+- Explains what Compatibility Mode is in plain language.
+- Describes why we are trying to reduce reliance on it.
+- Sets expectations about which pages may change slightly and why.
+```
+
+---
+
+## 4. Post-migration QA Checklist
+
+Use this prompt once Divi’s Migrator has run and you have a migrated copy to review.
+
+### Purpose
+
+Generate a focused QA checklist tailored to your site so you can:
+
+- Verify that critical layouts, funnels, and content survived the migration.
+- Catch layout regressions before they reach production.
+- Standardize QA across client projects.
+
+### Inputs needed
+
+Collect this information upfront:
+
+- Site priorities:
+  - Most important conversion paths (lead forms, checkout, bookings).
+  - High-traffic pages that must be visually correct.
+- Technical details:
+  - Use of custom post types with Divi layouts.
+  - Any custom header/footer or theme builder templates.
+  - Third-party integrations (forms, payments, tracking, A/B testing).
+- Known fragile areas:
+  - Pages with heavy animations or motion effects.
+  - Complex grids, overlapping elements, or creative layouts.
+  - Known previous migration or update issues.
+
+### Output you should expect
+
+The assistant should return:
+
+- A **prioritized QA checklist** grouped by:
+  - Business-critical flows.
+  - High-traffic or brand-critical pages.
+  - Templates and global elements.
+  - Technical checks (forms, scripts, performance sanity).
+- Clear **pass/fail criteria** for each group.
+- A short **QA summary template** you can fill in after testing.
+
+### Suggested next action
+
+- Assign checklist sections to team members or clients.
+- Run the QA pass in staging before touching production.
+- Feed back any failures into your migration and cleanup plan.
+
+### Prompt: Post-migration QA Checklist
+
+```text
+You are a senior QA lead for WordPress and Divi-based sites.
+
+I have migrated a site from Divi 4 to Divi 5 using Divi’s Migrator. I need a focused, high-value QA checklist tailored to this site so we catch critical issues before we push to production.
+
+1) SITE PRIORITIES
+- List the primary conversion paths (e.g. lead forms, checkout, bookings, contact forms):
+- List the top 10–20 pages by importance (home, key landing pages, pricing, product pages, etc.):
+- Any pages that are especially brand-sensitive (must look perfect):
+
+2) TECHNICAL DETAILS
+- Custom post types that use Divi layouts:
+- Use of Divi Theme Builder (headers, footers, templates, archives):
+- Third-party integrations (forms, CRMs, payments, booking tools, marketing scripts, A/B testing tools):
+- Any known structured data / schema requirements:
+
+3) FRAGILE AREAS
+- Pages with heavy animations, motion effects, or complex layouts:
+- Known issues from previous theme/builder updates:
+- Known performance or Core Web Vitals problems:
+
+4) ENVIRONMENT
+- Where QA will be done (staging vs local vs production shadow):
+- Devices/browsers we care most about (e.g. iPhone Safari, Chrome desktop, etc.):
+
+Using this information, produce:
+
+A. PRIORITIZED QA CHECKLIST
+Organize checks into these sections:
+- Business-critical flows
+- High-traffic and brand-critical pages
+- Templates and global elements (headers, footers, theme builder templates)
+- Forms, integrations, and tracking
+- Performance and UX sanity checks
+
+For each section:
+- Provide a numbered checklist of specific things to verify.
+- Include clear pass/fail criteria where possible.
+
+B. QUICK SMOKE TEST
+Design a very short (10–15 minute) smoke test I can run immediately after migration to catch show-stopper issues fast.
+
+C. DETAILED PASS TEMPLATE
+Provide a simple template I can copy into a ticket or doc to record:
+- What was tested
+- Who tested
+- Date/time
+- Findings and severity
+- Go/no-go recommendation
+
+D. CLIENT/STAKHOLDER SUMMARY
+Write a short, non-technical paragraph summarizing:
+- What we checked after the Divi 5 migration
+- Whether we saw any major issues
+- What will happen next (fixes, sign-off, deployment).
+```
+
+---
+
+## 5. Modernize This Layout (post-migration refactor)
+
+Use this prompt after migration when you are ready to move a specific layout off Compatibility Mode and into native Divi 5 modules and patterns.
+
+### Purpose
+
+Plan a targeted refactor for one layout at a time so you can:
+
+- Replace legacy modules and hacks with modern Divi 5 equivalents.
+- Improve maintainability without breaking the existing design.
+- Decide how far to push modernization given time and budget.
+
+### Inputs needed
+
+Gather concrete details for a single layout:
+
+- Layout basics:
+  - URL or clear description of the page/template.
+  - Its role in the site (landing page, blog post, product page, etc.).
+- Current state:
+  - Whether Compatibility Mode is required to keep it stable.
+  - Legacy modules or third-party modules used.
+  - Custom CSS/JS affecting this layout.
+- Constraints:
+  - How close the refactored layout must be to the current visual design.
+  - Time budget for this specific refactor.
+  - Any performance or accessibility targets.
+
+### Output you should expect
+
+The assistant should return:
+
+- A **side-by-side refactor plan**:
+  - What to keep.
+  - What to replace with native Divi 5 modules or patterns.
+- A small **implementation checklist** for the new layout.
+- A **before/after QA list** specific to this page.
+
+### Suggested next action
+
+- Duplicate the layout in staging (or in a safe branch).
+- Apply the refactor following the checklist.
+- Run the page-specific QA list and then roll the change into production.
+
+### Prompt: Modernize This Layout
+
+```text
+You are a senior Divi layout architect focused on maintainable, performant Divi 5 builds.
+
+I have a specific layout that was migrated from Divi 4 to Divi 5 using Divi’s Migrator. I want to refactor this layout to use native Divi 5 modules and patterns, reduce reliance on Compatibility Mode, and improve maintainability without blowing up the design.
+
+1) LAYOUT BASICS
+- URL or clear description of the layout:
+- Type of layout (landing page, long-form content page, product page, archive template, etc.):
+- Business role of this page (lead-gen, sales, education, support, etc.):
+
+2) CURRENT STATE
+- Whether Compatibility Mode is currently required for this layout (yes/no/unknown, with details):
+- Legacy or third-party modules used on this layout:
+- Custom CSS applied (global vs page-specific, and what it targets):
+- Custom JavaScript applied (animations, interactions, tracking workarounds, etc.):
+- Any known quirks or bugs already present in this layout:
+
+3) CONSTRAINTS
+- How closely the refactored layout needs to match the current design (pixel-perfect vs “close enough”):
+- Time budget for this refactor:
+- Any performance, accessibility, or Core Web Vitals targets:
+
+Using this information, produce:
+
+A. MODERNIZATION STRATEGY
+- Explain the overall approach to modernizing this specific layout.
+- Call out which parts should stay as they are, which should be rebuilt with native Divi 5 modules, and which hacks or workarounds should be removed.
+
+B. MODULE-BY-MODULE PLAN
+Create a structured plan that:
+- Lists major sections of the page.
+- For each section, describes:
+  - Current implementation (in plain language).
+  - Recommended Divi 5-native implementation (modules, structure, patterns).
+  - Any CSS/JS that can be simplified or removed.
+
+C. IMPLEMENTATION CHECKLIST
+Provide a numbered checklist I can follow when rebuilding this layout, including:
+- Duplicating the layout safely (in staging or a draft).
+- Rebuilding section by section.
+- Keeping Compatibility Mode enabled or disabled at the right times.
+- Sanity checks after each major change.
+
+D. PAGE-SPECIFIC QA LIST
+Create a short QA list tailored to this layout type, covering:
+- Visual consistency (key above-the-fold elements, typography, spacing).
+- Functional checks (forms, buttons, navigation elements).
+- Responsive behavior (mobile, tablet, desktop).
+- Performance and Core Web Vitals sanity checks, at a high level.
+
+E. CLIENT/STAKEHOLDER NOTES
+Write a brief summary I can share with a client explaining:
+- What we changed and why.
+- How the new layout will be easier to maintain.
+- Any small visual differences they might notice and why those are acceptable or beneficial.
+```
+
+---
+
+## Related links
+
+Use these resources alongside the prompt pack to design and execute your Divi 5 migration workflow.
+
+<Columns cols={3}>
+
+<Card
+  title="Divi 5 Migration Copilot"
+  href="/toolkits/divi-5-migration-copilot"
+  icon="zap"
+  cta="Use the copilot"
+/>
+
+<Card
+  title="Divi 5 Migration Readiness Report"
+  href="/toolkits/divi-5-migration-readiness-report"
+  icon="bar-chart"
+  cta="Generate a report"
+/>
+
+<Card
+  title="Divi 4 to Divi 5 Guide"
+  href="/guides/divi-4-to-divi-5"
+  icon="book-open"
+  cta="View the guide"
+/>
+
+</Columns>
+
+<Columns cols={2}>
+
+<Card
+  title="Divi 5 Builder Overview"
+  href="/builders/divi-5"
+  icon="layout"
+  cta="Understand Divi 5"
+/>
+
+<Card
+  title="Troubleshooting Divi 5"
+  href="/troubleshooting/divi-5"
+  icon="alert-triangle"
+  cta="Fix common issues"
+/>
+
+</Columns>

@@ -1,0 +1,341 @@
+---
+title: Divi 5 Troubleshooting
+description: Diagnose and fix common Divi 5 migration issues, including compatibility mode pages, broken third party modules, stale CSS, and changed code module behavior.
+---
+
+## Divi 5 troubleshooting
+
+Solve common Divi 5 issues that show up after migration or when editing mixed Divi 4 and Divi 5 content.
+
+Respira helps you plan and validate your Divi 5 migration. Divi’s Migrator performs the actual conversion.
+
+**What you will learn**
+
+- How to confirm whether a page is in compatibility mode and what that means.
+- How to triage broken third party modules and decide when to keep compatibility mode.
+- How to clear stale styles and handle changed behavior in code and HTML modules.
+
+<Callout kind="info">
+
+Divi 5 uses `divi/*` blocks for content and layout. Legacy Divi 4 pages use `et_pb_*` shortcodes. Compatibility mode keeps legacy modules running at the cost of performance and a less consistent editing experience.
+
+</Callout>
+
+<Callout kind="tip">
+
+Use Respira to inspect a page before you make changes. Respira reads the builder content and flags whether you are looking at `divi/*` blocks, legacy `et_pb_*` modules, or a mix of both.
+
+</Callout>
+
+## My page is in compatibility mode
+
+Pages in compatibility mode keep Divi 4 shortcodes active instead of running fully on Divi 5 blocks.
+
+### Symptoms
+
+- The builder or page settings mention **compatibility mode** or similar wording.
+- Edits feel slower than on other Divi 5 pages.
+- Some modules on the page still look and behave like classic Divi 4 modules.
+- Respira shows mostly `et_pb_*` shortcodes when you inspect the builder content.
+
+### Likely cause
+
+Divi 5 is loading legacy Divi 4 modules for this page to preserve layout and behavior. The page has not been fully converted to `divi/*` blocks by Divi’s Migrator, or you have chosen to keep compatibility mode enabled for safety.
+
+### Fix steps
+
+<Steps>
+
+  <Step title="Confirm the current page format" icon="search">
+
+  - Use Respira’s builder inspection to see whether the page content is mainly `et_pb_*` shortcodes or `divi/*` blocks.
+  - Cross check in WordPress by opening the page in Divi 5 and looking for any mention of compatibility mode in the builder interface.
+  - Note any critical layouts or custom modules that still rely on Divi 4 behavior.
+
+  </Step>
+
+  <Step title="Decide if you should stay in compatibility mode" icon="settings">
+
+  - Keep compatibility mode if the page uses complex third party Divi 4 modules that do not yet advertise Divi 5 support.
+  - Move away from compatibility mode if the page is mostly core modules and you want better performance and a cleaner editing experience.
+  - For high traffic or revenue critical pages, plan a duplicate and testing workflow before you turn off compatibility mode.
+
+  </Step>
+
+  <Step title="Create a safe duplicate before changes" icon="copy">
+
+  - Use your usual backup process or Respira’s duplicate‑before‑edit workflow to create a staging copy of the page.
+  - Confirm the duplicate loads correctly in Divi 5 and has the same front end output as the original.
+  - Work on the duplicate first so you can compare behavior with the live page.
+
+  </Step>
+
+  <Step title="Reduce or disable compatibility mode on the duplicate" icon="sliders">
+
+  - If Divi provides a control to turn off compatibility mode at the page level, apply it to the duplicate page first, not the live version.
+  - Reopen the duplicate in Divi 5 and check that legacy `et_pb_*` shortcodes have converted to `divi/*` blocks where expected.
+  - Use Respira to validate that the structure is now primarily Divi 5 blocks and to capture any conversion warnings.
+
+  </Step>
+
+  <Step title="Validate layout and behavior" icon="check-circle">
+
+  - Compare the duplicate and original side by side on the front end for desktop and mobile.
+  - Focus on complex sections (sliders, forms, dynamic content) where conversion might change behavior.
+  - If everything looks correct, repeat the same steps on the live page or swap the duplicate into place using your normal deployment process.
+
+  </Step>
+
+</Steps>
+
+### When to escalate to support
+
+Escalate to support for your Divi license or theme provider when:
+
+- Turning off compatibility mode breaks layout in ways that are not obvious to repair.
+- Divi’s Migrator consistently fails to convert a page while similar pages convert without issues.
+- The builder shows both compatibility mode and Divi 5 notices that contradict each other.
+- Respira confirms the content is valid, but Divi still forces compatibility mode for that page.
+
+Provide the following when you contact support:
+
+- A link to the affected page and a screenshot showing compatibility mode.
+- A copy or export of the page content if your support channel accepts it.
+- A short description of what changed recently, such as running Divi’s Migrator or updating a plugin.
+
+## Third party module looks broken
+
+Third party modules that were built for Divi 4 might not render or edit correctly once Divi 5 is active.
+
+### Symptoms
+
+- Specific modules from third party plugins show empty output, fallback content, or PHP notices.
+- The module’s settings panel opens but changes do not apply on the front end.
+- The module looks correct only when the page is in compatibility mode.
+- Respira shows the module as an `et_pb_*` shortcode even though other content has converted to `divi/*` blocks.
+
+### Likely cause
+
+The third party module does not yet support the native Divi 5 block format, or it requires compatibility mode to function. In some cases, a partial migration can leave the module in a mixed state where Divi 5 attempts to treat a legacy module as a new block.
+
+### Fix steps
+
+<Steps>
+
+  <Step title="Identify which module and provider is involved" icon="search">
+
+  - Use Respira’s builder inspection to locate the affected module in the page structure.
+  - Note the module name, provider plugin, and whether it appears as `et_pb_*` or `divi/*`.
+  - Check another page that uses the same module to see if the problem is global or page specific.
+
+  </Step>
+
+  <Step title="Check for Divi 5 compatibility claims" icon="info">
+
+  - Review the plugin’s documentation or changelog for mention of Divi 5 or block support.
+  - If the vendor explicitly requires compatibility mode, plan to keep that mode enabled for pages using these modules.
+  - If the vendor states Divi 5 support, confirm you are on their latest version.
+
+  </Step>
+
+  <Step title="Test behavior in a controlled environment" icon="copy">
+
+  - Duplicate the affected page so you can test changes without touching production.
+  - On the duplicate, adjust compatibility settings only if Divi exposes them, or isolate the problematic module into a simple one‑section layout.
+  - Compare how the module behaves with and without compatibility mode, if you have access to that toggle.
+
+  </Step>
+
+  <Step title="Apply a short term workaround" icon="settings">
+
+  - If the module works only in compatibility mode, keep that mode on for the affected pages and avoid forcing full conversion.
+  - If a lighter module or core Divi 5 block can replace the broken module with minimal design impact, build a replacement in the duplicate first.
+  - Use Respira to ensure the new layout uses `divi/*` blocks and does not reintroduce legacy shortcodes.
+
+  </Step>
+
+</Steps>
+
+### When to escalate to support
+
+Contact support when:
+
+- A vendor claims full Divi 5 support but their module still fails once you leave compatibility mode.
+- The same module behaves differently across similar pages, and you cannot trace the difference to compatibility mode.
+- Divi’s Migrator reports a successful conversion, but the module output is clearly wrong or missing.
+
+Send the following to support:
+
+- A before and after screenshot of the affected module.
+- The output from Respira showing how the module is represented in the builder content.
+- A list of versions for WordPress, Divi, the third party plugin, and any caching tools involved.
+
+## Styles or CSS look stale after edits
+
+After migration, cached CSS and mixed shortcodes can leave pages looking partially updated or inconsistent.
+
+### Symptoms
+
+- Color, spacing, or font changes in the builder do not appear on the front end.
+- Some sections use the new styles while others keep the old look.
+- Disabling compatibility mode appears to change spacing, but only on some devices.
+- Respira shows a mix of `divi/*` blocks and `et_pb_*` shortcodes on the same page.
+
+### Likely cause
+
+You are seeing a combination of cached assets and layout differences between Divi 4 and Divi 5. Legacy modules can still rely on old stylesheet output while new blocks use updated CSS. Site, plugin, or CDN caches can also serve outdated CSS after you complete migration steps.
+
+### Fix steps
+
+<Steps>
+
+  <Step title="Confirm whether content is mixed or fully migrated" icon="search">
+
+  - Use Respira to scan the page and see how many `et_pb_*` shortcodes remain compared to `divi/*` blocks.
+  - In Divi 5, inspect the sections where styles look wrong and compare them to sections that look correct.
+  - Note whether the problem is limited to modules still based on shortcodes.
+
+  </Step>
+
+  <Step title="Clear caching layers" icon="trash">
+
+  - Clear Divi’s internal cache if the theme exposes one.
+  - Clear any WordPress caching plugin caches that affect HTML and CSS.
+  - Purge CDN or hosting level caches, then reload the page in a private browser window.
+
+  </Step>
+
+  <Step title="Regenerate styles where available" icon="refresh-cw">
+
+  - If Divi offers a way to regenerate CSS or static files, run that process once after migration.
+  - On a staging or duplicated page, toggle a simple style change, save, and confirm that the change appears on the front end.
+  - Use browser developer tools to confirm that the CSS file timestamps update when you make changes.
+
+  </Step>
+
+  <Step title="Reduce legacy modules on critical sections" icon="sliders">
+
+  - For sections that still rely on `et_pb_*` shortcodes, consider rebuilding the layout with equivalent Divi 5 blocks on a duplicate page.
+  - Validate the new sections with Respira to ensure they no longer contain shortcodes.
+  - Swap legacy sections for new ones once you confirm styles are consistent across viewports.
+
+  </Step>
+
+</Steps>
+
+### When to escalate to support
+
+Escalate to support when:
+
+- You have cleared all relevant caches and regenerated styles, but front end CSS still does not match builder settings.
+- Only Divi 5 pages show stale styles while non Divi content looks correct.
+- Respira confirms the page is fully converted to `divi/*` blocks but style changes still fail to appear.
+
+Include in your support request:
+
+- Links to one affected page and one similar page that works as expected.
+- Screenshots of the builder view and front end view highlighting the differences.
+- A summary of the caching tools in play and what you have already cleared.
+
+## Code or HTML modules behave differently
+
+Code and HTML modules can behave differently once Divi 5 and its block structure are active, especially if the embed relies on specific shortcode behavior.
+
+### Symptoms
+
+- Custom code modules that worked before migration no longer output anything.
+- Inline scripts or styles in a code module load in a different order than before.
+- Shortcodes nested inside a code or HTML module act differently or stop rendering.
+- Respira shows code modules as part of the builder content, but the front end markup does not match.
+
+### Likely cause
+
+Divi 5 handles rendering and sanitization differently from Divi 4. Some code that relied on Divi 4’s shortcode parsing, script enqueue order, or relaxed sanitization may not behave the same way. Compatibility mode can also change how and when custom code runs.
+
+### Fix steps
+
+<Steps>
+
+  <Step title="Locate how the code is stored and rendered" icon="search">
+
+  - Use Respira to find all code and HTML modules on the affected page and note whether they appear in `divi/*` blocks or inside legacy shortcodes.
+  - View the page source on the front end and confirm whether the expected markup or scripts are present.
+  - Check if the code module sits inside a section that still relies on compatibility mode.
+
+  </Step>
+
+  <Step title="Isolate the code in a minimal test page" icon="copy">
+
+  - Create a new, simple Divi 5 page that contains only the code or HTML module.
+  - Paste the code from the original module into this test page without any extra layout elements.
+  - Compare behavior between the test page and the original page to see if the issue is page specific or tied to the code itself.
+
+  </Step>
+
+  <Step title="Adjust code to align with Divi 5 behavior" icon="edit">
+
+  - If the code relies on shortcodes, test calling those shortcodes directly in Divi 5 compatible contexts rather than inside raw HTML.
+  - Move inline scripts that depend on page load events into a safer hook or enqueue them through your theme or a custom plugin if possible.
+  - Avoid relying on assumptions about output order if Divi 5’s rendering pipeline has changed.
+
+  </Step>
+
+  <Step title="Decide whether to keep compatibility mode for complex embeds" icon="settings">
+
+  - For mission critical embeds that cannot easily be rewritten, keep them in a dedicated section that uses compatibility mode if that remains an option.
+  - Use Respira to document which sections or pages still depend on legacy behavior so you can revisit them later.
+  - Where possible, replace ad hoc code modules with more standard integrations that are known to work well with Divi 5.
+
+  </Step>
+
+</Steps>
+
+### When to escalate to support
+
+Contact support when:
+
+- A code or HTML module that renders valid markup in a minimal test page fails only when used inside a normal Divi 5 layout.
+- Shortcodes that still work in classic contexts stop rendering inside Divi 5 code modules, even after you confirm they are registered.
+- You suspect Divi 5 sanitization is stripping required markup or scripts beyond what public documentation describes.
+
+Share the following information:
+
+- The exact code used in the module, with any secrets removed.
+- A test page where the code works, and a production page where it does not.
+- The Respira output showing how the code modules are represented in the builder structure.
+
+## Related links
+
+Use these resources to plan and validate your Divi 5 migration and to understand the builder environment Respira is working in.
+
+<Columns cols={2}>
+
+<Card
+  title="Divi 4 to Divi 5 Migration Guide"
+  href="/guides/divi-4-to-divi-5"
+  icon="map"
+  cta="Plan the migration"
+/>
+
+<Card
+  title="Divi 5 Migration Copilot"
+  href="/toolkits/divi-5-migration-copilot"
+  icon="rocket"
+  cta="Use guided workflows"
+/>
+
+<Card
+  title="Divi 5 Migration Readiness Report"
+  href="/toolkits/divi-5-migration-readiness-report"
+  icon="bar-chart"
+  cta="Assess your site"
+/>
+
+<Card
+  title="Divi Builder Overview"
+  href="/builders/divi-5"
+  icon="layout"
+  cta="Review builder details"
+/>
+
+</Columns>

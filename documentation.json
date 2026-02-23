@@ -1,1 +1,822 @@
-{"name":"Respira for WordPress Documentation","initialRoute":"introduction","colors":{"light":{"brand":"#7cb0a4","heading":"#1a1a1a","text":"#374151"},"dark":{"brand":"#5a8f82","heading":"#f2f2f2","text":"#c1c1c1"}},"navigation":{"tabs":[{"tab":"Documentation","icon":"book","groups":[{"group":"Getting Started","icon":"rocket","pages":[{"title":"Introduction","path":"introduction","icon":"star"},{"title":"Installation","path":"installation","icon":"download"},{"title":"Configuration","path":"configuration","icon":"settings"},{"title":"MCP Install Link Generator","path":"mcp-install","icon":"link"},{"title":"Quick Start Guide","path":"quick-start-guide","icon":"zap"},{"title":"Usage Guide","path":"usage","icon":"file-text"}]},{"group":"Core Concepts","icon":"layers-2","pages":[{"title":"Safety Philosophy","path":"safety-philosophy","icon":"shield-alert"},{"title":"Duplicate-Before-Edit Workflow","path":"duplicate-before-edit-workflow","icon":"clipboard-copy"},{"title":"MCP Tools Overview","path":"tools/overview","icon":"book-open"}]},{"group":"Context Tools","icon":"info","pages":[{"title":"wordpress_get_site_context","path":"tools/context/get-site-context","icon":"globe"},{"title":"wordpress_get_theme_docs","path":"tools/context/get-theme-docs","icon":"file"},{"title":"wordpress_get_builder_info","path":"tools/context/get-builder-info","icon":"layout"}]},{"group":"Page Tools","icon":"file-text","pages":[{"title":"wordpress_list_pages","path":"tools/pages/list-pages","icon":"list"},{"title":"wordpress_read_page","path":"tools/pages/read-page","icon":"file-search"},{"title":"wordpress_create_page_duplicate","path":"tools/pages/create-duplicate","icon":"copy"},{"title":"wordpress_update_page","path":"tools/pages/update-page","icon":"edit-3"},{"title":"wordpress_delete_page","path":"tools/pages/delete-page","icon":"trash-2"}]},{"group":"Post Tools","icon":"pen-tool","pages":[{"title":"wordpress_list_posts","path":"tools/posts/list-posts","icon":"list"},{"title":"wordpress_read_post","path":"tools/posts/read-post","icon":"file-search"},{"title":"wordpress_create_post_duplicate","path":"tools/posts/create-duplicate","icon":"copy"},{"title":"wordpress_update_post","path":"tools/posts/update-post","icon":"edit-3"},{"title":"wordpress_delete_post","path":"tools/posts/delete-post","icon":"trash-2"}]},{"group":"Builder Tools","icon":"layout","pages":[{"title":"wordpress_extract_builder_content","path":"tools/builders/extract-content","icon":"scan"},{"title":"wordpress_inject_builder_content","path":"tools/builders/inject-content","icon":"upload"},{"title":"wordpress_update_module","path":"tools/builders/update-module","icon":"sliders"}]},{"group":"Analysis Tools","icon":"bar-chart-3","pages":[{"title":"wordpress_analyze_seo","path":"tools/analysis/analyze-seo","icon":"search"},{"title":"wordpress_check_seo_issues","path":"tools/analysis/check-seo-issues","icon":"alert-triangle"},{"title":"wordpress_analyze_readability","path":"tools/analysis/analyze-readability","icon":"book"},{"title":"wordpress_analyze_performance","path":"tools/analysis/analyze-performance","icon":"activity"},{"title":"wordpress_get_core_web_vitals","path":"tools/analysis/get-core-web-vitals","icon":"pulse"},{"title":"wordpress_analyze_images","path":"tools/analysis/analyze-images","icon":"image"},{"title":"wordpress_analyze_aeo","path":"tools/analysis/analyze-aeo","icon":"cpu"},{"title":"wordpress_check_structured_data","path":"tools/analysis/check-structured-data","icon":"braces"}]},{"group":"Menu Tools","icon":"menu","pages":[{"title":"wordpress_list_menus","path":"tools/menus/list-menus","icon":"list"},{"title":"wordpress_get_menu","path":"tools/menus/get-menu","icon":"navigation"},{"title":"wordpress_create_menu","path":"tools/menus/create-menu","icon":"plus-circle"},{"title":"wordpress_update_menu","path":"tools/menus/update-menu","icon":"edit-3"},{"title":"wordpress_delete_menu","path":"tools/menus/delete-menu","icon":"trash-2"},{"title":"wordpress_list_menu_locations","path":"tools/menus/list-menu-locations","icon":"map-pin"},{"title":"wordpress_assign_menu_location","path":"tools/menus/assign-menu-location","icon":"link-2"},{"title":"wordpress_list_menu_items","path":"tools/menus/list-menu-items","icon":"list"},{"title":"wordpress_create_menu_item","path":"tools/menus/create-menu-item","icon":"plus"},{"title":"wordpress_get_menu_item","path":"tools/menus/get-menu-item","icon":"file-search"},{"title":"wordpress_update_menu_item","path":"tools/menus/update-menu-item","icon":"edit-3"},{"title":"wordpress_delete_menu_item","path":"tools/menus/delete-menu-item","icon":"trash-2"}]},{"group":"Media Tools","icon":"image","pages":[{"title":"wordpress_list_media","path":"tools/media/list-media","icon":"list"},{"title":"wordpress_get_media","path":"tools/media/get-media","icon":"file-search"},{"title":"wordpress_upload_media","path":"tools/media/upload-media","icon":"upload"},{"title":"wordpress_update_media","path":"tools/media/update-media","icon":"edit-3"},{"title":"wordpress_delete_media","path":"tools/media/delete-media","icon":"trash-2"}]},{"group":"User Tools","icon":"users","pages":[{"title":"wordpress_list_users","path":"tools/users/list-users","icon":"list"},{"title":"wordpress_get_user","path":"tools/users/get-user","icon":"user"},{"title":"wordpress_create_user","path":"tools/users/create-user","icon":"user-plus"},{"title":"wordpress_update_user","path":"tools/users/update-user","icon":"user-cog"},{"title":"wordpress_delete_user","path":"tools/users/delete-user","icon":"user-x"}]},{"group":"Taxonomy Tools","icon":"tag","pages":[{"title":"wordpress_list_taxonomies","path":"tools/taxonomies/list-taxonomies","icon":"list"},{"title":"wordpress_get_taxonomy","path":"tools/taxonomies/get-taxonomy","icon":"tag"},{"title":"wordpress_list_terms","path":"tools/taxonomies/list-terms","icon":"list"},{"title":"wordpress_get_term","path":"tools/taxonomies/get-term","icon":"bookmark"},{"title":"wordpress_create_term","path":"tools/taxonomies/create-term","icon":"plus-circle"},{"title":"wordpress_update_term","path":"tools/taxonomies/update-term","icon":"edit-3"},{"title":"wordpress_delete_term","path":"tools/taxonomies/delete-term","icon":"trash-2"}]},{"group":"Custom Post Type Tools","icon":"layers","pages":[{"title":"wordpress_list_post_types","path":"tools/custom-posts/list-post-types","icon":"list"},{"title":"wordpress_get_post_type","path":"tools/custom-posts/get-post-type","icon":"layers"},{"title":"wordpress_list_custom_posts","path":"tools/custom-posts/list-custom-posts","icon":"list"},{"title":"wordpress_get_custom_post","path":"tools/custom-posts/get-custom-post","icon":"file-search"},{"title":"wordpress_create_custom_post","path":"tools/custom-posts/create-custom-post","icon":"plus-circle"},{"title":"wordpress_update_custom_post","path":"tools/custom-posts/update-custom-post","icon":"edit-3"},{"title":"wordpress_delete_custom_post","path":"tools/custom-posts/delete-custom-post","icon":"trash-2"}]},{"group":"Plugin Tools (Experimental)","icon":"package","pages":[{"title":"wordpress_list_plugins","path":"tools/plugins/list-plugins","icon":"list"},{"title":"wordpress_install_plugin","path":"tools/plugins/install-plugin","icon":"download"},{"title":"wordpress_activate_plugin","path":"tools/plugins/activate-plugin","icon":"play"},{"title":"wordpress_deactivate_plugin","path":"tools/plugins/deactivate-plugin","icon":"pause"},{"title":"wordpress_update_plugin","path":"tools/plugins/update-plugin","icon":"refresh-cw"},{"title":"wordpress_delete_plugin","path":"tools/plugins/delete-plugin","icon":"trash-2"}]},{"group":"Options Tools","icon":"sliders-horizontal","pages":[{"title":"wordpress_list_options","path":"tools/options/list-options","icon":"list"},{"title":"wordpress_get_option","path":"tools/options/get-option","icon":"file-search"},{"title":"wordpress_update_option","path":"tools/options/update-option","icon":"edit-3"},{"title":"wordpress_delete_option","path":"tools/options/delete-option","icon":"trash-2"}]},{"group":"Comment Tools","icon":"message-square","pages":[{"title":"wordpress_list_comments","path":"tools/comments/list-comments","icon":"list"},{"title":"wordpress_get_comment","path":"tools/comments/get-comment","icon":"message-circle"},{"title":"wordpress_create_comment","path":"tools/comments/create-comment","icon":"plus"},{"title":"wordpress_update_comment","path":"tools/comments/update-comment","icon":"edit-3"},{"title":"wordpress_delete_comment","path":"tools/comments/delete-comment","icon":"trash-2"}]},{"group":"Other Tools","icon":"shield","pages":[{"title":"wordpress_validate_security","path":"tools/other/validate-security","icon":"shield-check"},{"title":"wordpress_switch_site","path":"tools/other/switch-site","icon":"repeat"}]},{"group":"Guides","icon":"map","pages":[{"title":"SEO Audit Workflow","path":"guides/seo-audit-workflow","icon":"search"},{"title":"Bulk Content Updates","path":"guides/bulk-content-updates","icon":"layers"},{"title":"Multi-Site Management","path":"guides/multi-site-management","icon":"globe"},{"title":"Team Workflows","path":"guides/team-workflows","icon":"users"}]},{"group":"Security","icon":"lock","pages":[{"title":"How It Works","path":"security/how-it-works","icon":"shield"},{"title":"API Key Management","path":"security/api-key-management","icon":"key"},{"title":"Audit Logging","path":"security/audit-logging","icon":"clipboard-list"},{"title":"Data Privacy","path":"security/data-privacy","icon":"eye-off"}]},{"group":"Reference","icon":"book","pages":[{"title":"Prompts & Examples","path":"prompts","icon":"book-open"},{"title":"Error Codes","path":"reference/error-codes","icon":"alert-octagon"}]},{"group":"WooCommerce Add-on","icon":"shopping-cart","pages":[{"title":"Overview","path":"woocommerce/overview","icon":"book-open"},{"title":"Installation","path":"woocommerce/installation","icon":"download"},{"title":"Safety Features","path":"woocommerce/safety","icon":"shield"},{"title":"Tools Reference","path":"woocommerce/tools","icon":"wrench"},{"title":"Example Prompts","path":"woocommerce/prompts","icon":"zap"},{"title":"Troubleshooting","path":"woocommerce/troubleshooting","icon":"alert-triangle"}]},{"group":"Support","icon":"help-circle","pages":[{"title":"Getting Support","path":"support/getting-support","icon":"life-buoy"},{"title":"Troubleshooting","path":"troubleshooting","icon":"alert-circle"},{"title":"FAQ","path":"support/faq","icon":"help-circle"},{"title":"Contact","path":"support/contact","icon":"mail"}]},{"group":"Page Builders","icon":"layout-template","pages":[{"title":"Overview","path":"builders/overview","icon":"book-open"},{"title":"Divi","path":"builders/divi","icon":"layout"},{"title":"Elementor","path":"builders/elementor","icon":"layout"},{"title":"Bricks","path":"builders/bricks","icon":"layout"},{"title":"Oxygen","path":"builders/oxygen","icon":"layout"},{"title":"Gutenberg","path":"builders/gutenberg","icon":"layout"},{"title":"WPBakery","path":"builders/wpbakery","icon":"layout"},{"title":"Beaver Builder","path":"builders/beaver-builder","icon":"layout"},{"title":"Brizy","path":"builders/brizy","icon":"layout"},{"title":"Visual Composer","path":"builders/visual-composer","icon":"layout"},{"title":"Thrive Architect","path":"builders/thrive-architect","icon":"layout"}]}]},{"tab":"API Reference","icon":"code","pages":[{"title":"API Reference","path":"api-reference","icon":"terminal"}]},{"tab":"Changelog","icon":"clock","pages":[{"title":"Release History","path":"changelog","icon":"history"}]}]},"navbar":{"actions":{"primary":{"title":"Download Plugin","link":"https://www.respira.press/releases"},"links":[{"title":"GitHub","link":"https://github.com/respira/vibe-coding"},{"title":"Support","link":"https://support.vibe-coding.com"}]}},"favicon":"https://blob-cdn.documentation.ai/org-cccb5697-cdca-444e-8aec-fdc429b7b40e/doc-3378e7db-0241-430e-87fd-d23f651dc2d8/1765036350188-b1ybrl18djb-RESPIRA-LOGO.png?q=85&fm=auto&auto=compress%2Cformat","logo-dark":"https://blob-cdn.documentation.ai/org-cccb5697-cdca-444e-8aec-fdc429b7b40e/doc-3378e7db-0241-430e-87fd-d23f651dc2d8/1765638205074-pyjrepoob9-RESPIRA-LOGO-dark.png?q=85&fm=auto&auto=compress%2Cformat","logo-light":"https://blob-cdn.documentation.ai/org-cccb5697-cdca-444e-8aec-fdc429b7b40e/doc-3378e7db-0241-430e-87fd-d23f651dc2d8/1765638205074-pyjrepoob9-RESPIRA-LOGO-dark.png?q=85&fm=auto&auto=compress%2Cformat"}
+{
+  "name": "Respira for WordPress Documentation",
+  "initialRoute": "introduction",
+  "colors": {
+    "light": {
+      "brand": "#7cb0a4",
+      "heading": "#1a1a1a",
+      "text": "#374151"
+    },
+    "dark": {
+      "brand": "#5a8f82",
+      "heading": "#f2f2f2",
+      "text": "#c1c1c1"
+    }
+  },
+  "navigation": {
+    "tabs": [
+      {
+        "tab": "Documentation",
+        "icon": "book",
+        "groups": [
+          {
+            "group": "Getting Started",
+            "icon": "rocket",
+            "pages": [
+              {
+                "title": "Introduction",
+                "path": "introduction",
+                "icon": "star"
+              },
+              {
+                "title": "Installation",
+                "path": "installation",
+                "icon": "download"
+              },
+              {
+                "title": "Configuration",
+                "path": "configuration",
+                "icon": "settings"
+              },
+              {
+                "title": "MCP Install Link Generator",
+                "path": "mcp-install",
+                "icon": "link"
+              },
+              {
+                "title": "Quick Start Guide",
+                "path": "quick-start-guide",
+                "icon": "zap"
+              },
+              {
+                "title": "Usage Guide",
+                "path": "usage",
+                "icon": "file-text"
+              }
+            ]
+          },
+          {
+            "group": "Core Concepts",
+            "icon": "layers-2",
+            "pages": [
+              {
+                "title": "Safety Philosophy",
+                "path": "safety-philosophy",
+                "icon": "shield-alert"
+              },
+              {
+                "title": "Duplicate-Before-Edit Workflow",
+                "path": "duplicate-before-edit-workflow",
+                "icon": "clipboard-copy"
+              },
+              {
+                "title": "MCP Tools Overview",
+                "path": "tools/overview",
+                "icon": "book-open"
+              }
+            ]
+          },
+          {
+            "group": "Context Tools",
+            "icon": "info",
+            "pages": [
+              {
+                "title": "wordpress_get_site_context",
+                "path": "tools/context/get-site-context",
+                "icon": "globe"
+              },
+              {
+                "title": "wordpress_get_theme_docs",
+                "path": "tools/context/get-theme-docs",
+                "icon": "file"
+              },
+              {
+                "title": "wordpress_get_builder_info",
+                "path": "tools/context/get-builder-info",
+                "icon": "layout"
+              }
+            ]
+          },
+          {
+            "group": "Page Tools",
+            "icon": "file-text",
+            "pages": [
+              {
+                "title": "wordpress_list_pages",
+                "path": "tools/pages/list-pages",
+                "icon": "list"
+              },
+              {
+                "title": "wordpress_read_page",
+                "path": "tools/pages/read-page",
+                "icon": "file-search"
+              },
+              {
+                "title": "wordpress_create_page_duplicate",
+                "path": "tools/pages/create-duplicate",
+                "icon": "copy"
+              },
+              {
+                "title": "wordpress_update_page",
+                "path": "tools/pages/update-page",
+                "icon": "edit-3"
+              },
+              {
+                "title": "wordpress_delete_page",
+                "path": "tools/pages/delete-page",
+                "icon": "trash-2"
+              }
+            ]
+          },
+          {
+            "group": "Post Tools",
+            "icon": "pen-tool",
+            "pages": [
+              {
+                "title": "wordpress_list_posts",
+                "path": "tools/posts/list-posts",
+                "icon": "list"
+              },
+              {
+                "title": "wordpress_read_post",
+                "path": "tools/posts/read-post",
+                "icon": "file-search"
+              },
+              {
+                "title": "wordpress_create_post_duplicate",
+                "path": "tools/posts/create-duplicate",
+                "icon": "copy"
+              },
+              {
+                "title": "wordpress_update_post",
+                "path": "tools/posts/update-post",
+                "icon": "edit-3"
+              },
+              {
+                "title": "wordpress_delete_post",
+                "path": "tools/posts/delete-post",
+                "icon": "trash-2"
+              }
+            ]
+          },
+          {
+            "group": "Builder Tools",
+            "icon": "layout",
+            "pages": [
+              {
+                "title": "wordpress_extract_builder_content",
+                "path": "tools/builders/extract-content",
+                "icon": "scan"
+              },
+              {
+                "title": "wordpress_inject_builder_content",
+                "path": "tools/builders/inject-content",
+                "icon": "upload"
+              },
+              {
+                "title": "wordpress_update_module",
+                "path": "tools/builders/update-module",
+                "icon": "sliders"
+              }
+            ]
+          },
+          {
+            "group": "Analysis Tools",
+            "icon": "bar-chart-3",
+            "pages": [
+              {
+                "title": "wordpress_analyze_seo",
+                "path": "tools/analysis/analyze-seo",
+                "icon": "search"
+              },
+              {
+                "title": "wordpress_check_seo_issues",
+                "path": "tools/analysis/check-seo-issues",
+                "icon": "alert-triangle"
+              },
+              {
+                "title": "wordpress_analyze_readability",
+                "path": "tools/analysis/analyze-readability",
+                "icon": "book"
+              },
+              {
+                "title": "wordpress_analyze_performance",
+                "path": "tools/analysis/analyze-performance",
+                "icon": "activity"
+              },
+              {
+                "title": "wordpress_get_core_web_vitals",
+                "path": "tools/analysis/get-core-web-vitals",
+                "icon": "pulse"
+              },
+              {
+                "title": "wordpress_analyze_images",
+                "path": "tools/analysis/analyze-images",
+                "icon": "image"
+              },
+              {
+                "title": "wordpress_analyze_aeo",
+                "path": "tools/analysis/analyze-aeo",
+                "icon": "cpu"
+              },
+              {
+                "title": "wordpress_check_structured_data",
+                "path": "tools/analysis/check-structured-data",
+                "icon": "braces"
+              }
+            ]
+          },
+          {
+            "group": "Menu Tools",
+            "icon": "menu",
+            "pages": [
+              {
+                "title": "wordpress_list_menus",
+                "path": "tools/menus/list-menus",
+                "icon": "list"
+              },
+              {
+                "title": "wordpress_get_menu",
+                "path": "tools/menus/get-menu",
+                "icon": "navigation"
+              },
+              {
+                "title": "wordpress_create_menu",
+                "path": "tools/menus/create-menu",
+                "icon": "plus-circle"
+              },
+              {
+                "title": "wordpress_update_menu",
+                "path": "tools/menus/update-menu",
+                "icon": "edit-3"
+              },
+              {
+                "title": "wordpress_delete_menu",
+                "path": "tools/menus/delete-menu",
+                "icon": "trash-2"
+              },
+              {
+                "title": "wordpress_list_menu_locations",
+                "path": "tools/menus/list-menu-locations",
+                "icon": "map-pin"
+              },
+              {
+                "title": "wordpress_assign_menu_location",
+                "path": "tools/menus/assign-menu-location",
+                "icon": "link-2"
+              },
+              {
+                "title": "wordpress_list_menu_items",
+                "path": "tools/menus/list-menu-items",
+                "icon": "list"
+              },
+              {
+                "title": "wordpress_create_menu_item",
+                "path": "tools/menus/create-menu-item",
+                "icon": "plus"
+              },
+              {
+                "title": "wordpress_get_menu_item",
+                "path": "tools/menus/get-menu-item",
+                "icon": "file-search"
+              },
+              {
+                "title": "wordpress_update_menu_item",
+                "path": "tools/menus/update-menu-item",
+                "icon": "edit-3"
+              },
+              {
+                "title": "wordpress_delete_menu_item",
+                "path": "tools/menus/delete-menu-item",
+                "icon": "trash-2"
+              }
+            ]
+          },
+          {
+            "group": "Media Tools",
+            "icon": "image",
+            "pages": [
+              {
+                "title": "wordpress_list_media",
+                "path": "tools/media/list-media",
+                "icon": "list"
+              },
+              {
+                "title": "wordpress_get_media",
+                "path": "tools/media/get-media",
+                "icon": "file-search"
+              },
+              {
+                "title": "wordpress_upload_media",
+                "path": "tools/media/upload-media",
+                "icon": "upload"
+              },
+              {
+                "title": "wordpress_update_media",
+                "path": "tools/media/update-media",
+                "icon": "edit-3"
+              },
+              {
+                "title": "wordpress_delete_media",
+                "path": "tools/media/delete-media",
+                "icon": "trash-2"
+              }
+            ]
+          },
+          {
+            "group": "User Tools",
+            "icon": "users",
+            "pages": [
+              {
+                "title": "wordpress_list_users",
+                "path": "tools/users/list-users",
+                "icon": "list"
+              },
+              {
+                "title": "wordpress_get_user",
+                "path": "tools/users/get-user",
+                "icon": "user"
+              },
+              {
+                "title": "wordpress_create_user",
+                "path": "tools/users/create-user",
+                "icon": "user-plus"
+              },
+              {
+                "title": "wordpress_update_user",
+                "path": "tools/users/update-user",
+                "icon": "user-cog"
+              },
+              {
+                "title": "wordpress_delete_user",
+                "path": "tools/users/delete-user",
+                "icon": "user-x"
+              }
+            ]
+          },
+          {
+            "group": "Taxonomy Tools",
+            "icon": "tag",
+            "pages": [
+              {
+                "title": "wordpress_list_taxonomies",
+                "path": "tools/taxonomies/list-taxonomies",
+                "icon": "list"
+              },
+              {
+                "title": "wordpress_get_taxonomy",
+                "path": "tools/taxonomies/get-taxonomy",
+                "icon": "tag"
+              },
+              {
+                "title": "wordpress_list_terms",
+                "path": "tools/taxonomies/list-terms",
+                "icon": "list"
+              },
+              {
+                "title": "wordpress_get_term",
+                "path": "tools/taxonomies/get-term",
+                "icon": "bookmark"
+              },
+              {
+                "title": "wordpress_create_term",
+                "path": "tools/taxonomies/create-term",
+                "icon": "plus-circle"
+              },
+              {
+                "title": "wordpress_update_term",
+                "path": "tools/taxonomies/update-term",
+                "icon": "edit-3"
+              },
+              {
+                "title": "wordpress_delete_term",
+                "path": "tools/taxonomies/delete-term",
+                "icon": "trash-2"
+              }
+            ]
+          },
+          {
+            "group": "Custom Post Type Tools",
+            "icon": "layers",
+            "pages": [
+              {
+                "title": "wordpress_list_post_types",
+                "path": "tools/custom-posts/list-post-types",
+                "icon": "list"
+              },
+              {
+                "title": "wordpress_get_post_type",
+                "path": "tools/custom-posts/get-post-type",
+                "icon": "layers"
+              },
+              {
+                "title": "wordpress_list_custom_posts",
+                "path": "tools/custom-posts/list-custom-posts",
+                "icon": "list"
+              },
+              {
+                "title": "wordpress_get_custom_post",
+                "path": "tools/custom-posts/get-custom-post",
+                "icon": "file-search"
+              },
+              {
+                "title": "wordpress_create_custom_post",
+                "path": "tools/custom-posts/create-custom-post",
+                "icon": "plus-circle"
+              },
+              {
+                "title": "wordpress_update_custom_post",
+                "path": "tools/custom-posts/update-custom-post",
+                "icon": "edit-3"
+              },
+              {
+                "title": "wordpress_delete_custom_post",
+                "path": "tools/custom-posts/delete-custom-post",
+                "icon": "trash-2"
+              }
+            ]
+          },
+          {
+            "group": "Plugin Tools (Experimental)",
+            "icon": "package",
+            "pages": [
+              {
+                "title": "wordpress_list_plugins",
+                "path": "tools/plugins/list-plugins",
+                "icon": "list"
+              },
+              {
+                "title": "wordpress_install_plugin",
+                "path": "tools/plugins/install-plugin",
+                "icon": "download"
+              },
+              {
+                "title": "wordpress_activate_plugin",
+                "path": "tools/plugins/activate-plugin",
+                "icon": "play"
+              },
+              {
+                "title": "wordpress_deactivate_plugin",
+                "path": "tools/plugins/deactivate-plugin",
+                "icon": "pause"
+              },
+              {
+                "title": "wordpress_update_plugin",
+                "path": "tools/plugins/update-plugin",
+                "icon": "refresh-cw"
+              },
+              {
+                "title": "wordpress_delete_plugin",
+                "path": "tools/plugins/delete-plugin",
+                "icon": "trash-2"
+              }
+            ]
+          },
+          {
+            "group": "Options Tools",
+            "icon": "sliders-horizontal",
+            "pages": [
+              {
+                "title": "wordpress_list_options",
+                "path": "tools/options/list-options",
+                "icon": "list"
+              },
+              {
+                "title": "wordpress_get_option",
+                "path": "tools/options/get-option",
+                "icon": "file-search"
+              },
+              {
+                "title": "wordpress_update_option",
+                "path": "tools/options/update-option",
+                "icon": "edit-3"
+              },
+              {
+                "title": "wordpress_delete_option",
+                "path": "tools/options/delete-option",
+                "icon": "trash-2"
+              }
+            ]
+          },
+          {
+            "group": "Comment Tools",
+            "icon": "message-square",
+            "pages": [
+              {
+                "title": "wordpress_list_comments",
+                "path": "tools/comments/list-comments",
+                "icon": "list"
+              },
+              {
+                "title": "wordpress_get_comment",
+                "path": "tools/comments/get-comment",
+                "icon": "message-circle"
+              },
+              {
+                "title": "wordpress_create_comment",
+                "path": "tools/comments/create-comment",
+                "icon": "plus"
+              },
+              {
+                "title": "wordpress_update_comment",
+                "path": "tools/comments/update-comment",
+                "icon": "edit-3"
+              },
+              {
+                "title": "wordpress_delete_comment",
+                "path": "tools/comments/delete-comment",
+                "icon": "trash-2"
+              }
+            ]
+          },
+          {
+            "group": "Other Tools",
+            "icon": "shield",
+            "pages": [
+              {
+                "title": "wordpress_validate_security",
+                "path": "tools/other/validate-security",
+                "icon": "shield-check"
+              },
+              {
+                "title": "wordpress_switch_site",
+                "path": "tools/other/switch-site",
+                "icon": "repeat"
+              }
+            ]
+          },
+          {
+            "group": "Guides",
+            "icon": "map",
+            "pages": [
+              {
+                "title": "SEO Audit Workflow",
+                "path": "guides/seo-audit-workflow",
+                "icon": "search"
+              },
+              {
+                "title": "Bulk Content Updates",
+                "path": "guides/bulk-content-updates",
+                "icon": "layers"
+              },
+              {
+                "title": "Multi-Site Management",
+                "path": "guides/multi-site-management",
+                "icon": "globe"
+              },
+              {
+                "title": "Team Workflows",
+                "path": "guides/team-workflows",
+                "icon": "users"
+              },
+              {
+                "title": "Divi 4 to Divi 5 Migration Guide",
+                "path": "guides/divi-4-to-divi-5",
+                "icon": "list-checks"
+              }
+            ]
+          },
+          {
+            "group": "Toolkits",
+            "icon": "wrench",
+            "pages": [
+              {
+                "title": "Divi 5 Migration Copilot",
+                "path": "toolkits/divi-5-migration-copilot",
+                "icon": "bot"
+              },
+              {
+                "title": "Migration Readiness Report",
+                "path": "toolkits/divi-5-migration-readiness-report",
+                "icon": "file-scan"
+              },
+              {
+                "title": "Divi 5 Migration Prompt Pack",
+                "path": "toolkits/divi-5-migration-prompt-pack",
+                "icon": "clipboard-type"
+              }
+            ]
+          },
+          {
+            "group": "Security",
+            "icon": "lock",
+            "pages": [
+              {
+                "title": "How It Works",
+                "path": "security/how-it-works",
+                "icon": "shield"
+              },
+              {
+                "title": "API Key Management",
+                "path": "security/api-key-management",
+                "icon": "key"
+              },
+              {
+                "title": "Audit Logging",
+                "path": "security/audit-logging",
+                "icon": "clipboard-list"
+              },
+              {
+                "title": "Data Privacy",
+                "path": "security/data-privacy",
+                "icon": "eye-off"
+              }
+            ]
+          },
+          {
+            "group": "Reference",
+            "icon": "book",
+            "pages": [
+              {
+                "title": "Prompts & Examples",
+                "path": "prompts",
+                "icon": "book-open"
+              },
+              {
+                "title": "Error Codes",
+                "path": "reference/error-codes",
+                "icon": "alert-octagon"
+              }
+            ]
+          },
+          {
+            "group": "WooCommerce Add-on",
+            "icon": "shopping-cart",
+            "pages": [
+              {
+                "title": "Overview",
+                "path": "woocommerce/overview",
+                "icon": "book-open"
+              },
+              {
+                "title": "Installation",
+                "path": "woocommerce/installation",
+                "icon": "download"
+              },
+              {
+                "title": "Safety Features",
+                "path": "woocommerce/safety",
+                "icon": "shield"
+              },
+              {
+                "title": "Tools Reference",
+                "path": "woocommerce/tools",
+                "icon": "wrench"
+              },
+              {
+                "title": "Example Prompts",
+                "path": "woocommerce/prompts",
+                "icon": "zap"
+              },
+              {
+                "title": "Troubleshooting",
+                "path": "woocommerce/troubleshooting",
+                "icon": "alert-triangle"
+              }
+            ]
+          },
+          {
+            "group": "Support",
+            "icon": "help-circle",
+            "pages": [
+              {
+                "title": "Getting Support",
+                "path": "support/getting-support",
+                "icon": "life-buoy"
+              },
+              {
+                "title": "Troubleshooting",
+                "path": "troubleshooting",
+                "icon": "alert-circle"
+              },
+              {
+                "title": "Divi 5 Troubleshooting",
+                "path": "troubleshooting/divi-5",
+                "icon": "alert-triangle"
+              },
+              {
+                "title": "FAQ",
+                "path": "support/faq",
+                "icon": "help-circle"
+              },
+              {
+                "title": "Contact",
+                "path": "support/contact",
+                "icon": "mail"
+              }
+            ]
+          },
+          {
+            "group": "Page Builders",
+            "icon": "layout-template",
+            "pages": [
+              {
+                "title": "Overview",
+                "path": "builders/overview",
+                "icon": "book-open"
+              },
+              {
+                "title": "Divi (Divi 4 + Divi 5)",
+                "path": "builders/divi",
+                "icon": "layout"
+              },
+              {
+                "title": "Divi 5 Support",
+                "path": "builders/divi-5",
+                "icon": "grid-2x2"
+              },
+              {
+                "title": "Elementor",
+                "path": "builders/elementor",
+                "icon": "layout"
+              },
+              {
+                "title": "Bricks",
+                "path": "builders/bricks",
+                "icon": "layout"
+              },
+              {
+                "title": "Oxygen",
+                "path": "builders/oxygen",
+                "icon": "layout"
+              },
+              {
+                "title": "Gutenberg",
+                "path": "builders/gutenberg",
+                "icon": "layout"
+              },
+              {
+                "title": "WPBakery",
+                "path": "builders/wpbakery",
+                "icon": "layout"
+              },
+              {
+                "title": "Beaver Builder",
+                "path": "builders/beaver-builder",
+                "icon": "layout"
+              },
+              {
+                "title": "Brizy",
+                "path": "builders/brizy",
+                "icon": "layout"
+              },
+              {
+                "title": "Visual Composer",
+                "path": "builders/visual-composer",
+                "icon": "layout"
+              },
+              {
+                "title": "Thrive Architect",
+                "path": "builders/thrive-architect",
+                "icon": "layout"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "API Reference",
+        "icon": "code",
+        "pages": [
+          {
+            "title": "API Reference",
+            "path": "api-reference",
+            "icon": "terminal"
+          }
+        ]
+      },
+      {
+        "tab": "Changelog",
+        "icon": "clock",
+        "pages": [
+          {
+            "title": "Release History",
+            "path": "changelog",
+            "icon": "history"
+          }
+        ]
+      }
+    ]
+  },
+  "navbar": {
+    "actions": {
+      "primary": {
+        "title": "Download Plugin",
+        "link": "https://www.respira.press/releases"
+      },
+      "links": [
+        {
+          "title": "GitHub",
+          "link": "https://github.com/respira/vibe-coding"
+        },
+        {
+          "title": "Support",
+          "link": "https://support.vibe-coding.com"
+        }
+      ]
+    }
+  },
+  "favicon": "https://blob-cdn.documentation.ai/org-cccb5697-cdca-444e-8aec-fdc429b7b40e/doc-3378e7db-0241-430e-87fd-d23f651dc2d8/1765036350188-b1ybrl18djb-RESPIRA-LOGO.png?q=85&fm=auto&auto=compress%2Cformat",
+  "logo-dark": "https://blob-cdn.documentation.ai/org-cccb5697-cdca-444e-8aec-fdc429b7b40e/doc-3378e7db-0241-430e-87fd-d23f651dc2d8/1765638205074-pyjrepoob9-RESPIRA-LOGO-dark.png?q=85&fm=auto&auto=compress%2Cformat",
+  "logo-light": "https://blob-cdn.documentation.ai/org-cccb5697-cdca-444e-8aec-fdc429b7b40e/doc-3378e7db-0241-430e-87fd-d23f651dc2d8/1765638205074-pyjrepoob9-RESPIRA-LOGO-dark.png?q=85&fm=auto&auto=compress%2Cformat"
+}

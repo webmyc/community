@@ -1,0 +1,295 @@
+---
+title: Divi 4 to Divi 5 Migration Guide
+description: Plan and execute a safe Divi 4 to Divi 5 migration using Respira for readiness, QA, and guided fixes while Divi’s Migrator handles conversion.
+---
+
+## Divi 4 to Divi 5 at a glance
+
+Move your Divi 4 site to Divi 5 with a staged, auditable process that protects revenue pages and reduces surprises.
+
+Respira helps you plan and validate your Divi 5 migration. Divi’s Migrator performs the actual conversion.
+
+What you will learn:
+
+- How to prepare your site and team for a safe Divi 5 migration
+- How to run the migration on staging with clear checkpoints and rollback
+- How to validate, fix, and modernize key pages after conversion
+
+<Callout kind="info">
+
+Divi 4 stores layouts as `et_pb_*` shortcodes. Divi 5 uses `divi/*` blocks. Backward Compatibility Mode lets Divi 5 load legacy modules but can change performance and editing behavior.
+
+</Callout>
+
+## Before you migrate (checklist)
+
+Lock down your plan before anyone clicks a migrate button. The goal is a repeatable path on staging with backups, clear ownership, and a short list of pages to watch closely.
+
+<Steps>
+
+<Step title="Run a Divi 5 readiness report" icon="bar-chart">
+
+Use Respira’s Divi 5 readiness toolkit to scan your site for layout patterns, legacy modules, and risk areas.
+
+- [Divi 5 Migration Readiness Report](/toolkits/divi-5-migration-readiness-report)
+- [Divi 5 Migration Copilot](/toolkits/divi-5-migration-copilot)
+- [Divi 5 Migration Prompt Pack](/toolkits/divi-5-migration-prompt-pack)
+
+Respira reads representative pages, identifies `et_pb_*` shortcode usage, and highlights where Divi 5 and compatibility mode are most likely to matter.
+
+**Checklist:**
+
+- [ ] Run a readiness scan on a sample of high-traffic pages
+- [ ] List pages that rely heavily on custom layouts or dynamic content
+- [ ] Flag any templates that control critical funnels like checkout or lead gen
+
+</Step>
+
+<Step title="Identify third party Divi modules and integrations" icon="search">
+
+Third party modules and custom integrations often decide how much you can rely on Divi 5’s Backward Compatibility Mode.
+
+**Checklist:**
+
+- [ ] Inventory plugins that add Divi modules or custom Divi extensions  
+- [ ] Note modules that render via `et_pb_*` shortcodes in your content  
+- [ ] Check each vendor’s Divi 5 support status in their docs or changelog  
+- [ ] Use Respira Copilot to search your content for module shortcodes that look custom or uncommon
+
+If a third party module is not yet Divi 5 native, assume Divi 5 will load it in compatibility mode and plan to test those pages carefully.
+
+</Step>
+
+<Step title="Choose a staging and rollback strategy" icon="settings">
+
+Treat Divi 5 as a new major version. You want a clean staging environment and a fast way back if something fails.
+
+**Checklist:**
+
+- [ ] Create or confirm a WordPress staging site with the same PHP version, theme, and plugin set as production  
+- [ ] Confirm you can push staging to production safely with your host or deployment process  
+- [ ] Decide whether you will:
+  - [ ] Clone production to staging, migrate on staging, then push
+  - [ ] Run Divi 5 on a separate sandbox site for early exploration
+
+- [ ] Document how you will roll back:
+  - [ ] Host-level backup restore
+  - [ ] Git or file system rollback
+  - [ ] Database snapshots
+
+Use Respira’s duplicate-before-edit workflow on staging so Copilot always edits safe copies, not your live production pages.
+
+</Step>
+
+<Step title="Set your backup and communication plan" icon="shield">
+
+Backups and clear communication keep your team and clients calm during the migration window.
+
+**Checklist:**
+
+- [ ] Schedule a full site backup (files and database) right before migration on staging  
+- [ ] Schedule an additional backup right before you push staging to production  
+- [ ] Confirm how long restores typically take with your host  
+- [ ] Let internal stakeholders and clients know:
+  - [ ] When migration testing happens on staging
+  - [ ] When you plan to push to production
+  - [ ] How you will monitor and fix regressions
+
+Use Respira Copilot to draft internal runbooks and client-facing emails that explain the plan in clear, non-technical language.
+
+</Step>
+
+</Steps>
+
+## Migration day steps (checklist)
+
+On migration day, sequence matters. Start with staging, observe how Divi 5 handles `et_pb_*` shortcodes, then decide how and when to enable Backward Compatibility Mode.
+
+<Steps>
+
+<Step title="Run Divi Migrator on staging" icon="play-circle">
+
+Divi’s Migrator is the tool that converts content from `et_pb_*` shortcodes to `divi/*` blocks. Respira does not perform this conversion.
+
+**Numbered sequence:**
+
+1. Make a fresh copy of production to staging.  
+2. Take a full backup of staging (files and database).  
+3. Update Divi to Divi 5 on staging following Elegant Themes guidance.  
+4. Run Divi’s Migrator on staging.  
+5. Record which site areas migrate cleanly and which fall back to compatibility mode.
+
+**Checklist:**
+
+- [ ] Confirm Divi 5 is active only on staging, not production  
+- [ ] Run Migrator and wait for it to complete without errors  
+- [ ] Capture logs or screenshots in case you need to review later  
+- [ ] Use Respira to compare pre- and post-migration HTML for a few key pages
+
+A good sign is that most layouts convert to `divi/*` blocks with no visible breakage in the front end.
+
+</Step>
+
+<Step title="Expect compatibility mode where legacy content exists" icon="alert-triangle">
+
+Divi 5 provides Backward Compatibility Mode so pages that still depend on `et_pb_*` shortcodes and legacy modules can keep rendering.
+
+Compatibility mode has trade offs:
+
+- Divi may load extra scripts and CSS to support legacy modules, which can affect performance.  
+- Some editing experiences feel different between native `divi/*` blocks and legacy layouts.  
+- Certain new Divi 5 features may not apply cleanly to legacy content until you modernize it.
+
+**Checklist:**
+
+- [ ] Identify pages still using legacy modules after Migrator runs  
+- [ ] Mark them as "compatibility mode" in your migration spreadsheet  
+- [ ] Use Respira’s readiness and Copilot prompts to:
+  - [ ] List where compatibility mode is active
+  - [ ] Propose a plan to replace legacy modules with native Divi 5 equivalents
+
+Once staging looks stable, repeat the same process for production: backup, update Divi, run Migrator, then spot-check critical pages.
+
+</Step>
+
+</Steps>
+
+## After migration (checklist)
+
+Once Divi 5 is live, focus on quality checks, regression fixes, and modernizing the layouts that matter for revenue and leads.
+
+<Steps>
+
+<Step title="Run a structured QA checklist" icon="check-circle">
+
+Use a consistent QA pass so you do not miss issues on important templates and flows.
+
+**Numbered sequence:**
+
+1. List priority page types: home, key landing pages, product or service pages, blog templates, checkout, login.  
+2. For each type, open staging and production side by side in two browser windows.  
+3. Compare layout, forms, navigation, and any dynamic content.  
+4. Record every visual or functional regression, even if it looks minor.
+
+**Checklist:**
+
+- [ ] Layout alignment and spacing looks consistent  
+- [ ] Forms submit correctly and send notifications or feed CRMs  
+- [ ] Menus, search, and footers behave as expected  
+- [ ] Animations and interactions still trigger correctly  
+- [ ] Performance is at least as good as before, especially on mobile
+
+Respira Copilot can generate customized QA checklists per template and log findings into a structured document you can share with your team.
+
+</Step>
+
+<Step title="Fix regressions with Copilot and safe editing patterns" icon="edit">
+
+Treat each regression as a small, tracked change. Combine Respira’s duplicate-before-edit workflow with Divi 5 aware prompts.
+
+**Checklist:**
+
+- [ ] Use Respira to:
+  - [ ] Duplicate affected pages or templates before editing  
+  - [ ] Extract Divi builder content for inspection  
+  - [ ] Suggest targeted fixes that respect Divi 5 structures and modules  
+
+- [ ] When a page is in compatibility mode:
+  - [ ] Decide if a small CSS tweak is enough
+  - [ ] Or whether you should rebuild the section using native `divi/*` blocks
+
+- [ ] After each fix:
+  - [ ] Re-run a quick visual and functional check  
+  - [ ] Note whether the page still relies on compatibility mode
+
+Aim to keep fixes narrow and reversible. If a change causes new issues, use your backups or Respira’s audit history to roll back.
+
+</Step>
+
+<Step title="Modernize highest value pages first" icon="zap">
+
+Once everything is stable, start replacing legacy layouts with native Divi 5 blocks where it makes business sense.
+
+**Checklist:**
+
+- [ ] Rank pages by business value:
+  - [ ] Revenue (checkout, pricing, product)
+  - [ ] Lead capture (contact, demo, quote)
+  - [ ] SEO value (top organic landing pages)
+
+- [ ] For each high-value page:
+  - [ ] Use Respira to analyze the current layout and traffic role  
+  - [ ] Plan a Divi 5 native layout that removes or reduces `et_pb_*` dependencies  
+  - [ ] Rebuild sections using Divi 5 modules where safe  
+  - [ ] Keep a snapshot of the previous version for quick rollback
+
+- [ ] Monitor metrics after modernization:
+  - [ ] Conversion rate or form submissions  
+  - [ ] Core Web Vitals and performance  
+  - [ ] Time on page and bounce rate
+
+This staged modernization path lets you benefit from Divi 5 features and performance while keeping risk tightly controlled.
+
+</Step>
+
+</Steps>
+
+## Troubleshooting
+
+If something goes wrong before, during, or after migration, start with a simple pattern: isolate, compare, then roll back or patch.
+
+- [ ] Check whether the broken page uses legacy `et_pb_*` shortcodes, new `divi/*` blocks, or a mix  
+- [ ] Confirm whether Backward Compatibility Mode is active and whether a third party module is involved  
+- [ ] Compare against a known-good backup or pre-migration copy using Respira’s extraction tools
+
+For more detailed patterns and common issues, see:
+
+- [Divi 5 troubleshooting](/troubleshooting/divi-5)
+
+Use your host’s backup and staging tools to roll back if a regression affects critical revenue pages and you cannot patch it quickly.
+
+## Related links
+
+<Columns cols={3}>
+
+<Card title="Divi 5 Migration Copilot" href="/toolkits/divi-5-migration-copilot" icon="terminal" cta="Use Copilot">
+
+Use guided prompts to plan, execute, and document your Divi 5 migration across staging and production.
+
+</Card>
+
+<Card title="Divi 5 Readiness Report" href="/toolkits/divi-5-migration-readiness-report" icon="bar-chart" cta="Run a scan">
+
+Scan your site for Divi 4 shortcode usage, legacy modules, and pages most affected by Divi 5.
+
+</Card>
+
+<Card title="Divi 5 Prompt Pack" href="/toolkits/divi-5-migration-prompt-pack" icon="code" cta="Get prompts">
+
+Access a library of prompts for QA, regression triage, and modernization after Divi 5 migration.
+
+</Card>
+
+</Columns>
+
+<Columns cols={3}>
+
+<Card title="Divi 5 builder overview" href="/builders/divi-5" icon="layout" cta="Learn Divi 5">
+
+Understand how Divi 5 structures content with `divi/*` blocks and how that differs from Divi 4 shortcodes.
+
+</Card>
+
+<Card title="Divi 5 troubleshooting" href="/troubleshooting/divi-5" icon="alert-triangle" cta="Fix issues">
+
+Review common Divi 5 problems, compatibility mode issues, and safe rollback strategies.
+
+</Card>
+
+<Card title="Divi builder overview" href="/builders/divi" icon="layout" cta="Compare versions">
+
+See how Respira works with Divi 4 and Divi 5 so you can plan long term maintenance across versions.
+
+</Card>
+
+</Columns>

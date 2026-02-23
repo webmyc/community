@@ -1,0 +1,283 @@
+---
+title: Divi 5 Support
+description: Understand how Respira detects and safely edits Divi 5 block layouts and Divi 4 shortcodes, including limits, safety rules, and migration roles.
+---
+
+## Divi 5 support overview
+
+Divi 5 changes how layouts are stored, and Respira is built to handle both the new block format and older shortcode layouts safely.
+
+Respira helps you plan and validate your Divi 5 migration. Divi’s Migrator performs the actual conversion.
+
+**What you’ll learn:**
+
+1. How Respira detects Divi 5 vs Divi 4 pages and handles mixed content.
+2. What Respira edits in Divi 5 block layouts and what it preserves.
+3. How to keep existing Divi 4 workflows running while you migrate.
+
+> Tip: Treat Divi 5 migration as a content and structure project, not only a plugin update. Plan, stage, and validate before you switch production pages.
+
+---
+
+## What Divi 5 support means in Respira
+
+Divi 5 support in Respira focuses on safe reading and editing of both layout formats without changing how Divi itself works.
+
+**Divi 5 layout format**
+
+- Divi 5 uses a block-based layout format.
+- Divi modules appear as `divi/*` blocks stored in `post_content`.
+- The content structure is similar in spirit to WordPress core blocks but with Divi-specific block names and attributes.
+
+**Divi 4 layout format**
+
+- Divi 4 uses shortcode-based layouts.
+- Layouts are stored as `et_pb_*` shortcodes inside `post_content`.
+- Each shortcode encodes a module, row, or section with attributes.
+
+**Respira behavior**
+
+- Respira can read, edit, and save Divi 5 pages as blocks safely.
+- Respira continues supporting Divi 4 pages by reading and writing the existing `et_pb_*` shortcodes.
+- Respira does not perform automatic conversion between these formats.
+
+<Callout kind="info">
+
+Respira helps you plan and validate your Divi 5 migration. Divi’s Migrator performs the actual conversion.
+
+</Callout>
+
+---
+
+## How Respira detects Divi 5 pages
+
+Respira identifies the layout format by scanning the raw `post_content` for known Divi patterns instead of relying only on metadata.
+
+### Detection rules
+
+1. **Divi 5 pages (block-based)**  
+   - Respira scans `post_content` for block markers where the block name starts with `divi/`.
+   - If it finds one or more `divi/*` blocks and no `et_pb_` shortcodes, Respira treats the page as a Divi 5 layout.
+
+2. **Divi 4 pages (shortcode-based)**  
+   - Respira scans `post_content` for shortcodes where the tag name starts with `et_pb_`.
+   - If it finds `et_pb_*` shortcodes and no `divi/*` blocks, Respira treats the page as a Divi 4 layout.
+
+3. **Mixed pages (backward compatibility mode)**  
+   - Divi 5 can load legacy Divi 4 modules via Backward Compatibility Mode.
+   - On these pages, `post_content` can contain both:
+     - `divi/*` blocks, and  
+     - `et_pb_*` shortcodes for legacy modules.
+   - Respira flags these as mixed-format pages so that editing is more conservative.
+
+> Warning: Mixed pages running Backward Compatibility Mode can have performance and editing side effects. Plan to stabilize these layouts before doing large-scale edits.
+
+### Quick checklist: how Respira classifies a page
+
+- [x] Scan `post_content` for `divi/*` blocks.  
+- [x] Scan `post_content` for `et_pb_*` shortcodes.  
+- [x] If only blocks are present, treat as Divi 5.  
+- [x] If only shortcodes are present, treat as Divi 4.  
+- [x] If both are present, treat as mixed and apply stricter safety rules.
+
+---
+
+## What Respira edits in Divi 5 pages
+
+On a Divi 5 page, Respira works directly with the block structure stored in `post_content`.
+
+### Block structure handling
+
+Respira:
+
+1. Reads the full block tree for `divi/*` blocks.
+2. Focuses changes on:
+   - Text content within modules.
+   - Selected attributes that are safe to adjust (for example, copy, headings, basic configuration).
+3. Writes changes back while keeping the block order and hierarchy intact.
+
+### Preservation rules
+
+To avoid breaking layouts or custom behavior, Respira:
+
+- Preserves unknown attributes on Divi 5 blocks.
+- Avoids altering block types or turning Divi blocks into other block types.
+- Does not strip or re-key attributes it does not recognize.
+- Leaves custom JSON-like structures inside attributes untouched unless explicitly targeted for edit.
+
+> Tip: If a block has complex styling or custom configuration attributes, edit only the specific text or fields you intend to change and leave structural attributes as they are.
+
+### Safe edit checklist for Divi 5 blocks
+
+- [x] Confirm the page is classified as Divi 5 or mixed in the Respira readiness report.  
+- [x] Target clear, content-focused fields such as headings, body copy, buttons, and alt text.  
+- [x] Avoid renaming block types or moving blocks across the layout in bulk edits.  
+- [x] After changes, review the page live on staging to confirm layout and interactions still behave as expected.
+
+---
+
+## What remains compatible for Divi 4 pages
+
+Your existing Divi 4 workflows continue to work in Respira.
+
+### Shortcode handling
+
+Respira:
+
+- Reads `et_pb_*` shortcodes from `post_content` as structured modules.
+- Edits module content and selected attributes while keeping shortcode tags and nesting intact.
+- Writes updated shortcodes back without converting them into blocks.
+
+### Existing workflows
+
+You can continue to:
+
+1. Run content and SEO updates on Divi 4 layouts.
+2. Use Respira to refactor copy, headings, and basic module settings.
+3. Keep using the same safety practices you already follow for Divi shortcode pages.
+
+> Tip: Use your current Divi 4 workflows to clean up copy and structure before running Divi’s Migrator. Cleaner source layouts usually migrate more predictably.
+
+---
+
+## Limitations and safety rules
+
+Divi 5 introduces Backward Compatibility Mode and mixed layouts, which require extra care. Respira leans toward safety over aggressive restructuring.
+
+### General limitations
+
+- Divi 5 can load legacy modules through Backward Compatibility Mode, which can affect performance and editing behavior.
+- Respira does not disable or configure Backward Compatibility Mode. It only works with the content format it finds in `post_content`.
+- Page-level performance issues from running both blocks and shortcodes come from the site configuration, not from Respira.
+
+### Safety rules Respira follows
+
+Respira treats certain parts of the layout as opaque unless you explicitly choose to edit them:
+
+- Unknown attributes on Divi 5 blocks are preserved as-is.
+- Legacy modules referenced via `et_pb_*` shortcodes remain in place.
+- Complex layout constructs, such as nested containers or advanced cosmetic settings, are not restructured by default.
+
+<Callout kind="alert">
+
+For both Divi 4 and Divi 5 pages, Respira avoids wholesale reformatting. It works surgically on content and selected settings to keep layouts stable.
+
+</Callout>
+
+### Recommended operating procedure
+
+Use this checklist to keep Divi 5 work safe:
+
+1. **Work on staging first**
+
+   - [x] Clone your production site to a staging environment.  
+   - [x] Connect Respira to staging while you map and test your Divi 5 migration.  
+
+2. **Audit your pages**
+
+   - [x] Identify which pages are pure Divi 4, pure Divi 5, and mixed.  
+   - [x] Prioritize high-traffic and template-based pages for extra review.  
+
+3. **Limit edits on mixed pages**
+
+   - [x] For pages with both `divi/*` blocks and `et_pb_*` shortcodes, avoid large structural changes.  
+   - [x] Focus on text and minor attribute updates until you complete migration.  
+
+4. **Validate before going live**
+
+   - [x] After Respira edits, open each key page with Divi’s own editor.  
+   - [x] Load the page on the front end to confirm layout, modules, and performance look correct.  
+   - [x] Only then mirror changes to production.
+
+---
+
+## FAQ
+
+<ExpandableGroup>
+
+<Expandable title="Does Respira convert Divi 4 layouts to Divi 5?" default-open="true">
+
+No. Divi’s Migrator performs conversion from Divi 4 shortcode layouts to Divi 5 blocks.
+
+Respira helps you plan and validate your Divi 5 migration. Divi’s Migrator performs the actual conversion.
+
+Use Respira to:
+
+- Audit which pages are Divi 4, Divi 5, or mixed.
+- Clean up content and structure on Divi 4 layouts before migration.
+- Validate Divi 5 pages after they are converted.
+
+</Expandable>
+
+<Expandable title="Can I keep using Respira on sites that stay on Divi 4?">
+
+Yes. Respira continues to support Divi 4 pages stored as `et_pb_*` shortcodes.
+
+You can:
+
+- Run ongoing content and SEO improvements on Divi 4 layouts.
+- Keep your existing workflows without switching to blocks.
+- Introduce Divi 5 on selected sites or sections when you are ready, then use Respira on both formats.
+
+</Expandable>
+
+<Expandable title="How does Backward Compatibility Mode affect Respira edits?">
+
+When Divi 5 loads legacy modules via Backward Compatibility Mode, the page can contain both `divi/*` blocks and `et_pb_*` shortcodes.
+
+Respira:
+
+- Detects the mixed layout and treats it more conservatively.
+- Edits content within each module format while preserving unknown attributes.
+- Avoids reformatting or converting legacy shortcodes.
+
+You should verify mixed pages carefully on staging for layout and performance before publishing changes to production.
+
+</Expandable>
+
+<Expandable title="What happens if Divi changes or adds new block attributes?">
+
+Respira preserves attributes it does not explicitly know about.
+
+Unknown or newly added attributes on `divi/*` blocks:
+
+- Stay attached to their blocks when Respira edits content.
+- Are not removed or renamed by Respira.
+- Remain available for Divi’s own editor and runtime behavior.
+
+If you start using new Divi features, consider testing a few pages first and confirming in your Respira readiness report that attributes are preserved as expected.
+
+</Expandable>
+
+</ExpandableGroup>
+
+---
+
+## Related links
+
+Use these resources to plan and execute your Divi 5 rollout with Respira:
+
+<Columns cols={3}>
+
+<Card
+  title="Divi 4 to Divi 5 migration guide"
+  href="/guides/divi-4-to-divi-5"
+  icon="map"
+  cta="Plan your migration"
+/>
+
+<Card
+  title="Divi 5 migration copilot toolkit"
+  href="/toolkits/divi-5-migration-copilot"
+  icon="zap"
+  cta="Set up your workflows"
+/>
+
+<Card
+  title="Troubleshooting Divi 5 issues"
+  href="/troubleshooting/divi-5"
+  icon="alert-triangle"
+  cta="Debug problems quickly"
+/>
+
+</Columns>
