@@ -29,6 +29,21 @@
                 "icon": "star"
               },
               {
+                "title": "Getting Started",
+                "path": "getting-started",
+                "icon": "play-circle"
+              },
+              {
+                "title": "Browser AI Setup",
+                "path": "browser-ai",
+                "icon": "globe"
+              },
+              {
+                "title": "Desktop AI (MCP Server)",
+                "path": "mcp-server",
+                "icon": "monitor"
+              },
+              {
                 "title": "Installation",
                 "path": "installation",
                 "icon": "download"

@@ -1,0 +1,64 @@
+---
+title: Desktop AI (MCP Server)
+description: Set up Respira Desktop AI with the MCP server for Cursor, Claude Code, and other MCP-compatible assistants.
+---
+
+## Desktop AI setup
+
+Desktop AI mode uses the Respira MCP server so tools like Cursor and Claude Code can safely edit WordPress with duplicate-before-edit workflows.
+
+## Requirements
+
+- Node.js 18+
+- Respira for WordPress plugin installed on your site
+- WordPress API key from **Respira → API Keys**
+
+## Step 1: Run the setup wizard
+
+```bash
+npx @respira/wordpress-mcp-server --setup
+```
+
+The wizard validates your site and writes the local configuration.
+
+## Step 2: Connect your AI tool
+
+Use the configuration guide for your client:
+
+- [Cursor setup](/configuration#cursor)
+- [Claude Code setup](/configuration#claude-code)
+- [Windsurf setup](/configuration#windsurf)
+
+## Step 3: Test
+
+```bash
+npx @respira/wordpress-mcp-server --test
+```
+
+If the test succeeds, ask your AI:
+
+- "List all pages"
+- "Create a duplicate of the homepage"
+- "Analyze page speed for /"
+
+## What Desktop AI is best for
+
+- Batch edits and multi-step workflows
+- Repeatable, scriptable operations
+- Developer-heavy tasks in terminal/editor environments
+
+## Browser + Desktop together
+
+Respira supports both modes at once:
+
+- Browser AI for quick edits
+- Desktop AI for advanced operations
+
+Both modes use the same 88 tools and same safety workflow.
+
+## Related guides
+
+- [Getting Started](/getting-started)
+- [Browser AI Setup](/browser-ai)
+- [Configuration](/configuration)
+- [Troubleshooting](/troubleshooting)
