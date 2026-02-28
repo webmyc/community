@@ -1,6 +1,6 @@
 # Discord
 
-We have both GitHub Discussions and Discord. Here's when to use what.
+The **Respira for WordPress GitHub Community** has both GitHub Discussions and Discord. Here's when to use what.
 
 ## Use GitHub Discussions for:
 

@@ -4,6 +4,8 @@
   "type": "module",
   "private": true,
   "scripts": {
-    "publish:discussions": "node scripts/publish-discussions.mjs"
+    "publish:discussions": "node scripts/publish-discussions.mjs",
+    "wiki:validate": "node scripts/sync-wiki-links.mjs",
+    "wiki:help": "echo 'Wiki commands: npm run wiki:validate'"
   }
 }

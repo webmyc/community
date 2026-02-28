@@ -1,6 +1,6 @@
-# Respira for WordPress Community
+# Respira for WordPress GitHub Community
 
-This is the public community hub for **Respira for WordPress**.
+This is the **Respira for WordPress GitHub Community** — the public community hub for Respira for WordPress.
 
 - Docs live here (and are published to the public docs site).
 - Support happens in GitHub Discussions and Issues.
@@ -35,7 +35,7 @@ This is the public community hub for **Respira for WordPress**.
 
 ## Community channels
 
-**GitHub Discussions (here):**
+**Respira for WordPress GitHub Community — Discussions (here):**
 - Bug reports, feature requests, troubleshooting
 - Searchable, permanent, public
 - Best for: documentation, prompts, anything someone should find later
@@ -57,6 +57,14 @@ See [CONTRIBUTING.md](./CONTRIBUTING.md).
 - Be respectful: [CODE_OF_CONDUCT.md](./CODE_OF_CONDUCT.md)
 - Redact secrets and private data before posting
 - Include reproducible steps for bugs
+
+## Wiki
+
+**Respira for WordPress GitHub Community — Wiki:** prompts, troubleshooting, integrations.
+
+- [Wiki Home](https://github.com/webmyc/community/wiki) (when enabled)
+- Wiki source: [wiki/](./wiki) in this repo
+- [Contributing to the Wiki](./wiki/Contributing-to-Wiki.md)
 
 ## Repository quick links
 

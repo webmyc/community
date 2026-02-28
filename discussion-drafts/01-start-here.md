@@ -1,11 +1,11 @@
 ---
-title: "Start Here: What Respira for WordPress is (and is not)"
+title: "Start Here: Respira for WordPress GitHub Community"
 category: "Announcements"
 ---
 
-Welcome. This is the public community hub for Respira for WordPress.
+Welcome to the **Respira for WordPress GitHub Community**.
 
-This repo contains docs and community resources.
+This is the public community hub on GitHub: docs, discussions, wiki, and prompt recipes.
 It does not contain the commercial plugin source code.
 
 ## What Respira is

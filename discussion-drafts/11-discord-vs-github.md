@@ -3,7 +3,7 @@ title: "Discord vs GitHub: Where to post what"
 category: "Announcements"
 ---
 
-We have GitHub Discussions (here) and Discord (link below).
+The **Respira for WordPress GitHub Community** has GitHub Discussions (here) and Discord (link below).
 
 **Use GitHub for:**
 - Bug reports → searchable forever

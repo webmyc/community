@@ -87,6 +87,15 @@ REPO=webmyc/community node scripts/publish-discussions.mjs
 4. Open: **Read this before posting: Support rules + redaction checklist**
 5. Pin this one too
 
+### Enable Wiki
+
+1. Go to repo **Settings** → **General**
+2. Scroll to **Features**
+3. Check **Wikis**
+4. Clone wiki repo: `git clone https://github.com/webmyc/community.wiki.git`
+5. Copy `wiki/*.md` into wiki repo root, then commit and push
+6. See [WIKI_SETUP.md](./WIKI_SETUP.md) for full checklist
+
 ---
 
 ## 3. Go-live checklist (≈30 min)
@@ -98,6 +107,8 @@ REPO=webmyc/community node scripts/publish-discussions.mjs
 - [ ] Create discussion categories
 - [ ] Run `npm run publish:discussions`
 - [ ] Pin: "Start Here" and "Support rules"
+- [ ] Enable Wiki and push initial pages (see WIKI_SETUP.md)
+- [ ] Publish "Community Wiki is live" discussion (draft: 14-wiki-launch.md)
 - [ ] Update Documentation.ai (if it points to repo URL)
 - [ ] Update external links (respira.press, product site) that point to `github.com/webmyc/respira-docs`
 
