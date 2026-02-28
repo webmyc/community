@@ -120,7 +120,7 @@ Wiki not enough? Try these:
 
 - **Question:** [Respira for WordPress GitHub Community — Discussions](https://github.com/webmyc/community/discussions)
 - **Bug:** [GitHub Issues](https://github.com/webmyc/community/issues)
-- **Quick help:** [Discord](#) (link when ready)
+- **Quick help:** [Discord](https://go.respira.cafe/respira-discord)
 - **Official docs:** [respira.press](https://respira.press)
 
 ---

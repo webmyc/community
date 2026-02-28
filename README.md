@@ -40,7 +40,7 @@ This is the **Respira for WordPress GitHub Community** — the public community 
 - Searchable, permanent, public
 - Best for: documentation, prompts, anything someone should find later
 
-**Discord (link when ready):**
+**Discord:** [Join Respira Discord](https://go.respira.cafe/respira-discord)
 - Quick questions, real-time help, community chat
 - Fast, casual, synchronous
 - Best for: quick answers, voice debugging, hanging out

@@ -145,7 +145,7 @@ You did it! Now try:
 ## Share Your Win
 
 First edit successful? Post in:
-- [Discord #wins](#) (link when ready)
+- [Discord #wins](https://go.respira.cafe/respira-discord)
 - [Discussions Showcase](https://github.com/webmyc/community/discussions/categories/showcase)
 
 ---

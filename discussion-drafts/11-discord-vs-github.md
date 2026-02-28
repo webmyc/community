@@ -21,6 +21,6 @@ The **Respira for WordPress GitHub Community** has GitHub Discussions (here) and
 
 **The rule:** If the answer should be discoverable in 6 months → post here on GitHub.
 
-**Discord invite:** [TODO: Add link when server launches]
+**Discord invite:** [Join Respira Discord](https://go.respira.cafe/respira-discord)
 
 When you get a great answer in Discord, post a summary here so it's searchable.

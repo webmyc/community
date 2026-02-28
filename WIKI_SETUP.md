@@ -17,7 +17,7 @@ One-time setup for the Respira Community Wiki.
 - [ ] Test edit workflow (Edit → change → Save)
 - [ ] Create [Announcement discussion](#announcement-draft) (see below)
 - [ ] Pin announcement in Discussions
-- [ ] Add wiki link to Discord (when ready)
+- [ ] Add wiki link to Discord: https://go.respira.cafe/respira-discord
 
 ## Post-Launch
 

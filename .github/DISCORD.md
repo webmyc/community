@@ -32,8 +32,7 @@ When someone asks a good question in Discord and gets a good answer:
 
 ## Discord Invite
 
-[Join Respira Discord](#)  
-<!-- TODO: Add actual invite link after Discord server is set up -->
+[Join Respira Discord](https://go.respira.cafe/respira-discord)
 
 ## Discord Channels (planned)
 

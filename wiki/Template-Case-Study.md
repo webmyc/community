@@ -131,7 +131,7 @@
 
 If you're trying something similar and get stuck, ask in:
 - [GitHub Discussions](https://github.com/webmyc/community/discussions)
-- [Discord](#) (link when ready)
+- [Discord](https://go.respira.cafe/respira-discord)
 
 ## About the Author
 

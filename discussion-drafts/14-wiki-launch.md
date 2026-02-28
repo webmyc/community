@@ -36,3 +36,7 @@ A community-maintained knowledge base for:
 - [Contributing to the Wiki](https://github.com/webmyc/community/wiki/Contributing-to-Wiki) – how to add content
 
 **Give more than you receive.** If you learned something the hard way, document it so others don't have to.
+
+## Also: Discord
+
+Real-time chat, quick questions, voice debugging: [Join Respira Discord](https://go.respira.cafe/respira-discord)
