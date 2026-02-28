@@ -1,0 +1,95 @@
+# Admin Setup: Respira Community Hub
+
+One-time setup guide for transforming respira-docs into the community repo.
+
+## 1. CLI commands (run AFTER merging and pushing)
+
+### Check auth
+
+```bash
+gh auth status
+```
+
+### Rename repo
+
+From the repo root (respira-docs):
+
+```bash
+gh repo rename community
+```
+
+### Update description and enable Discussions
+
+```bash
+gh repo edit --description "Respira for WordPress Community. Docs, support, prompt recipes, and roadmap." --enable-discussions
+```
+
+If `--enable-discussions` is not supported, enable via UI (see below).
+
+---
+
+## 2. One-time GitHub UI steps
+
+### Enable Discussions (if not enabled via CLI)
+
+1. Go to repo **Settings** → **General**
+2. Scroll to **Features**
+3. Check **Discussions**
+
+### Create discussion categories
+
+1. Go to **Discussions** tab
+2. Click **New category** (or equivalent)
+3. Create these categories:
+   - **Announcements**
+   - **Q&A**
+   - **Troubleshooting**
+   - **Prompt Recipes**
+   - **Feature Requests**
+   - **Showcase**
+   - **Roadmap** (optional)
+
+### Publish discussion drafts
+
+From repo root (after rename to `community`):
+
+```bash
+npm run publish:discussions
+```
+
+Or with explicit repo:
+
+```bash
+REPO=webmyc/community node scripts/publish-discussions.mjs
+```
+
+### Pin discussions
+
+1. Go to **Discussions**
+2. Open: **Start Here: What Respira for WordPress is (and is not)**
+3. Click **Pin discussion** (⋯ menu or sidebar)
+4. Open: **Read this before posting: Support rules + redaction checklist**
+5. Pin this one too
+
+---
+
+## 3. Go-live checklist (≈30 min)
+
+- [ ] Merge PR (`chore/community-hub` → `main`)
+- [ ] Rename repo: `gh repo rename community`
+- [ ] Update description: `gh repo edit --description "..." --enable-discussions`
+- [ ] Enable Discussions (UI if needed)
+- [ ] Create discussion categories
+- [ ] Run `npm run publish:discussions`
+- [ ] Pin: "Start Here" and "Support rules"
+- [ ] Update Documentation.ai (if it points to repo URL)
+- [ ] Update external links (respira.press, product site) that point to `github.com/webmyc/respira-docs`
+
+---
+
+## 4. Post-rename verification
+
+- [ ] `https://github.com/webmyc/community` loads
+- [ ] Discussions tab visible
+- [ ] docs.respira.press still works (Documentation.ai may need repo re-link)
+- [ ] Redirect: `github.com/webmyc/respira-docs` → `github.com/webmyc/community` (GitHub provides this automatically for a while)

@@ -1,0 +1,86 @@
+name: Bug report
+description: Report a reproducible bug in Respira for WordPress docs or workflows
+title: "[Bug]: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to report a bug.
+        Please redact secrets (keys, tokens, private domains) before posting.
+  - type: input
+    id: wp_version
+    attributes:
+      label: WordPress version
+      placeholder: "6.x"
+    validations:
+      required: true
+  - type: input
+    id: php_version
+    attributes:
+      label: PHP version
+      placeholder: "8.1"
+    validations:
+      required: true
+  - type: input
+    id: theme
+    attributes:
+      label: Theme
+      placeholder: "Theme name + version"
+    validations:
+      required: false
+  - type: dropdown
+    id: builder
+    attributes:
+      label: Builder
+      options:
+        - Elementor
+        - Divi
+        - Gutenberg
+        - Other
+    validations:
+      required: true
+  - type: input
+    id: hosting
+    attributes:
+      label: Hosting environment
+      placeholder: "shared / VPS / managed WP / other"
+    validations:
+      required: false
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      description: Numbered steps are best.
+      placeholder: |
+        1) ...
+        2) ...
+        3) ...
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual behavior
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: Logs (optional)
+      description: Redact secrets. Use REDACTED for private domains.
+    validations:
+      required: false
+  - type: checkboxes
+    id: redaction
+    attributes:
+      label: Confirmation
+      options:
+        - label: I confirm I removed secrets (keys, tokens, private domains, client data).
+          required: true
