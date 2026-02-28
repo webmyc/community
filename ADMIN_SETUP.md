@@ -2,6 +2,21 @@
 
 One-time setup guide for transforming respira-docs into the community repo.
 
+## Pre-Flight Checklist
+
+**Complete these BEFORE running any rename commands:**
+
+- [ ] All changes merged to main branch
+- [ ] Docs build successfully: `npm run build` (or your build command)
+- [ ] No secrets or private code anywhere in commits
+- [ ] Review TODO_POST_RENAME.md (you'll need it after rename)
+- [ ] Optional: Clone repo as backup just in case
+
+**After rename, you'll need a follow-up PR for repo name references.**
+See TODO_POST_RENAME.md for the list.
+
+---
+
 ## 1. CLI commands (run AFTER merging and pushing)
 
 ### Check auth

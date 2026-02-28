@@ -1,57 +1,50 @@
-# Scripts
+# Community Automation Scripts
 
-## publish-discussions.mjs
+## Prerequisites
 
-Publishes discussion drafts from `discussion-drafts/*.md` to GitHub Discussions via the GraphQL API.
+- Node.js 18+ installed
+- GitHub CLI authenticated: `gh auth status`
+- Repository discussions enabled
 
-### Prerequisites
+## Publish Discussion Drafts
 
-- Node.js 18+
-- [gh CLI](https://cli.github.com/) installed and authenticated
+Creates GitHub Discussions from markdown files in `discussion-drafts/`.
 
-```bash
-gh auth status
-# If not logged in: gh auth login
-```
+**IMPORTANT:** Create discussion categories in GitHub UI FIRST.
 
-### Usage
-
-From repo root:
-
-```bash
-npm run publish:discussions
-```
-
-Or with Node directly:
-
-```bash
-node scripts/publish-discussions.mjs
-```
-
-### Override repo
-
-By default the script uses the `origin` remote of the current git repo. To target another repo:
-
-```bash
-REPO=webmyc/community node scripts/publish-discussions.mjs
-```
-
-### Behavior
-
-1. Reads all `.md` files in `discussion-drafts/`
-2. Parses YAML frontmatter (`title`, `category`)
-3. Queries GitHub for repository ID, discussion categories, and existing discussion titles
-4. For each draft: if a discussion with the same title exists, skips; otherwise creates via `createDiscussion` mutation
-5. Prints created URLs and a summary
-
-### Discussion categories
-
-Create these categories in the repo **before** running (Settings → General → Discussions → Create category):
-
+Required categories:
 - Announcements
 - Q&A
 - Troubleshooting
 - Prompt Recipes
 - Feature Requests
 - Showcase
-- Roadmap (optional)
+- Community Meta
+
+**Run:**
+```bash
+npm run publish:discussions
+```
+
+The script will:
+- Check all required categories exist (fails if missing)
+- Skip discussions that already exist (checks by title)
+- Create new discussions from drafts
+- Print what was created and what was skipped
+
+**To re-run safely:**
+Just run it again. It won't create duplicates.
+
+## Troubleshooting
+
+**"Missing required discussion categories"**
+→ Create the categories in GitHub UI first
+
+**"gh: command not found"**
+→ Install GitHub CLI: https://cli.github.com
+
+**"gh auth status" fails**
+→ Run: `gh auth login`
+
+**Script creates discussions in wrong category**
+→ Check YAML frontmatter in draft files matches category name exactly
