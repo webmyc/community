@@ -105,8 +105,37 @@ function main() {
   }
 
   const repositoryId = repoNode.id;
-  const categories = new Map(repoNode.discussionCategories.nodes.map((n) => [n.name, n.id]));
+  const categoryNodes = repoNode.discussionCategories.nodes;
+  const categories = new Map(categoryNodes.map((n) => [n.name, n.id]));
   const existingTitles = new Set(repoNode.discussions.nodes.map((n) => n.title));
+
+  // Validate required categories exist
+  console.log('\nValidating required categories exist...');
+
+  const requiredCategories = [
+    'Announcements',
+    'Q&A',
+    'Troubleshooting',
+    'Prompt Recipes',
+    'Feature Requests',
+    'Showcase',
+    'Community Meta',
+  ];
+
+  const existingCategoryNames = categoryNodes.map((n) => n.name);
+  const missingCategories = requiredCategories.filter(
+    (name) => !existingCategoryNames.includes(name)
+  );
+
+  if (missingCategories.length > 0) {
+    console.error('\n❌ ERROR: Missing required discussion categories:');
+    console.error(missingCategories.map((c) => `  - ${c}`).join('\n'));
+    console.error('\nCreate these categories in GitHub UI first:');
+    console.error('Settings → Discussions → Categories → New Category\n');
+    process.exit(1);
+  }
+
+  console.log('✅ All required categories exist\n');
 
   const files = readdirSync(DRAFTS_DIR).filter((f) => f.endsWith('.md')).sort();
   let created = 0;
