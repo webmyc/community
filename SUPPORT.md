@@ -6,6 +6,7 @@ If you're posting because something is broken, help us help you. The better the 
 
 ## Where to post what
 
+- Quick question, real-time help? -> [Discord](https://go.respira.cafe/respira-discord)
 - How do I...? -> Discussions (Q&A)
 - I get an error / something conflicts -> Discussions (Troubleshooting)
 - Confirmed bug with steps -> Issues (Bug Report form)

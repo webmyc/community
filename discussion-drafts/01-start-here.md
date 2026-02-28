@@ -23,6 +23,7 @@ It does not contain the commercial plugin source code.
 ## Where to go next
 
 - Quickstart: [Quick Start Guide](https://docs.respira.press/quick-start-guide)
+- Quick question? [Discord](https://go.respira.cafe/respira-discord)
 - Ask questions: post in Discussions (Q&A)
 - Troubleshooting: post in Discussions (Troubleshooting)
 - Bugs: open an Issue using the Bug report form

@@ -821,8 +821,12 @@
       },
       "links": [
         {
-          "title": "Community",
-          "link": "https://github.com/webmyc/community/discussions"
+          "title": "GitHub Community",
+          "link": "https://github.com/webmyc/community"
+        },
+        {
+          "title": "Discord",
+          "link": "https://go.respira.cafe/respira-discord"
         },
         {
           "title": "Support",
