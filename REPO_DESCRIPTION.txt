@@ -1,0 +1,4 @@
+Respira for WordPress Community. Docs, support, prompt recipes, and roadmap.
+
+Public hub for Respira for WordPress. Ask questions, share prompt recipes, report bugs, and follow the roadmap.
+Note: this repository does not contain the commercial plugin source code.
