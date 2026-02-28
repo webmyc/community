@@ -1,0 +1,9 @@
+{
+  "name": "respira-community",
+  "description": "Respira for WordPress Community hub",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "publish:discussions": "node scripts/publish-discussions.mjs"
+  }
+}
