@@ -33,6 +33,20 @@ This is the public community hub for **Respira for WordPress**.
 - Bug reports: GitHub Issues (use the templates)
 - Security issues: see [SECURITY.md](./SECURITY.md)
 
+## Community channels
+
+**GitHub Discussions (here):**
+- Bug reports, feature requests, troubleshooting
+- Searchable, permanent, public
+- Best for: documentation, prompts, anything someone should find later
+
+**Discord (link when ready):**
+- Quick questions, real-time help, community chat
+- Fast, casual, synchronous
+- Best for: quick answers, voice debugging, hanging out
+
+See [DISCORD.md](./.github/DISCORD.md) for when to use what.
+
 ## Contributing
 
 Docs contributions are welcome.
