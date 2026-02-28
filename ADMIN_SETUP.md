@@ -40,13 +40,14 @@ If `--enable-discussions` is not supported, enable via UI (see below).
 
 1. Go to **Discussions** tab
 2. Click **New category** (or equivalent)
-3. Create these categories:
+3. Create discussion categories (exact names):
    - **Announcements**
    - **Q&A**
    - **Troubleshooting**
    - **Prompt Recipes**
    - **Feature Requests**
    - **Showcase**
+   - **Community Meta**
    - **Roadmap** (optional)
 
 ### Publish discussion drafts
