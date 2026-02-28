@@ -1,6 +1,6 @@
 ---
 title: "Showcase: what did you build with Respira?"
-category: "Showcase"
+category: "Show and tell"
 ---
 
 Share:

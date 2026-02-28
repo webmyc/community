@@ -1,6 +1,6 @@
 ---
 title: "Prompt Recipes: safe edits patterns (duplicate-first, rollback, verification)"
-category: "Prompt Recipes"
+category: "Ideas"
 ---
 
 Here are reusable patterns that keep you out of trouble.

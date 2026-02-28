@@ -1,6 +1,6 @@
 ---
 title: "Elementor: supported workflows, known gotchas, and safe patterns"
-category: "Prompt Recipes"
+category: "Ideas"
 ---
 
 If you're using Elementor, start with these safe patterns:

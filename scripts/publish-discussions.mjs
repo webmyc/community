@@ -39,8 +39,8 @@ function getRepoFromGit() {
       encoding: 'utf-8',
       cwd: join(__dirname, '..'),
     });
-    const m = out.trim().match(/github\.com[:/]([\w-]+\/[\w.-]+)(?:\.git)?$/);
-    return m ? m[1] : null;
+    const m = out.trim().match(/github\.com[:/]([\w-]+)\/([\w.-]+?)(?:\.git)?$/i);
+    return m ? `${m[1]}/${m[2].replace(/\.git$/i, '')}` : null;
   } catch {
     return null;
   }

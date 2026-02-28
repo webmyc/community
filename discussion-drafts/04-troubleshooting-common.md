@@ -1,6 +1,6 @@
 ---
 title: "Troubleshooting: common errors and quick fixes"
-category: "Troubleshooting"
+category: "Q&A"
 ---
 
 Post your issue here if you are not sure it's a bug yet.

@@ -1,6 +1,6 @@
 ---
 title: "Feature Requests: how to write one that actually ships"
-category: "Feature Requests"
+category: "Ideas"
 ---
 
 Good feature requests include:

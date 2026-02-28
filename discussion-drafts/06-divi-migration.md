@@ -1,6 +1,6 @@
 ---
 title: "Divi 4 to Divi 5: migration copilot prompts (not auto-conversion)"
-category: "Prompt Recipes"
+category: "Ideas"
 ---
 
 Respira does not claim to auto-convert your Divi 4 layouts into Divi 5. Divi migration is a Divi-owned conversion process.
