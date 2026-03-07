@@ -9,6 +9,51 @@ This page is the official changelog and download hub for both Respira for WordPr
 
 ## WordPress Plugin Releases
 
+<Update label="2026-03-07" description="Respira for WordPress v4.0.7 + v4.0.6" tags={["bugfix", "elementor", "telemetry", "stability"]}>
+
+### Latest stable plugin version
+
+Download: [respira-for-wordpress-4.0.7.zip](https://respira.press/releases)
+
+### What's New
+
+- Fixed Elementor URL-control validation crashes by handling link-field array payloads before URL sanitization.
+- Hardened fallback Elementor save path to clear `_elementor_element_cache` when direct `_elementor_data` writes are used.
+- Added regression coverage for Elementor root-only wrapping and fallback save behavior.
+- Added normalized `X-Respira-Agent-*` telemetry capture across plugin and MCP flows for clearer client attribution in logs/stats.
+
+### Recommended For
+
+- All Elementor users, especially if you saw intermittent 500s during module updates.
+
+</Update>
+
+<Update label="2026-03-06" description="Respira for WordPress v4.0.5 + v4.0.4" tags={["bugfix", "woocommerce", "improvement"]}>
+
+### Download
+
+[respira-for-wordpress-4.0.7.zip](https://respira.press/releases)
+
+### What's New
+
+- Strengthened Elementor payload normalization to prevent nested/double-serialized `_elementor_data` saves.
+- Added type coercion guards to stop array payloads from reaching scalar sanitizers (`ltrim()`-style crashes).
+- Added WooCommerce taxonomy CRUD parity for categories/tags and product assignment support.
+- Updated Browser AI/WebMCP inventory contracts to current tool registry totals.
+
+</Update>
+
+<Update label="2026-03-05" description="Respira for WordPress v4.0.0-4.0.3 + v3.3.1" tags={["feature", "ux", "compatibility"]}>
+
+### What's New
+
+- Major wp-admin IA/UX refresh in `4.0.0` (Overview, Setup, Approvals, Reports, Add-ons, Logs, Settings).
+- `4.0.1`-`4.0.3` shipped Elementor write-flow hardening and structured diagnostics for MCP clients.
+- `4.0.2` centralized editing controls under **Respira → Settings**, with **Setup → Health & Permissions** as a focused read-only summary.
+- `3.3.1` updated official WordPress MCP Adapter compatibility (`mcp_adapter_init` + legacy fallback).
+
+</Update>
+
 <Update label="2026-02-23" description="Documentation Update" tags={["docs"]}>
 
 ### What's New
@@ -74,6 +119,59 @@ Download: [respira-for-wordpress-1.9.1.zip](https://respira.press/releases)
 </Update>
 
 ## MCP Server Releases
+
+<Update label="2026-03-07" description="MCP Server v3.3.5" tags={["improvement", "telemetry"]}>
+
+### Latest MCP server version
+
+Install: `npx @respira/wordpress-mcp-server`
+
+npm: [@respira/wordpress-mcp-server](https://www.npmjs.com/package/@respira/wordpress-mcp-server)
+
+### What's New
+
+- Added normalized agent telemetry headers on WordPress requests (`X-Respira-Agent-*`).
+- Setup/discovery now sends the same agent signature headers as runtime tool calls.
+
+</Update>
+
+<Update label="2026-03-06" description="MCP Server v3.3.4" tags={["feature", "woocommerce"]}>
+
+### What's New
+
+- Added WooCommerce taxonomy tools for categories and tags (list/get/create/update/delete).
+- Added product category/tag assignment fields to MCP write schemas.
+- Updated Desktop MCP inventory contract to `82` WordPress tools + `21` WooCommerce tools (`103` total with add-on active).
+
+### Compatibility
+
+- Requires WooCommerce add-on `1.0.2+` for taxonomy endpoint execution.
+
+</Update>
+
+<Update label="2026-03-05" description="MCP Server v3.3.3 + v3.3.2 + v3.3.1" tags={["improvement", "bugfix"]}>
+
+### What's New
+
+- Added once-per-day npm update checks with a persistent local cache.
+- Added `respira_mcp_update` prompt hints when a newer MCP version is available.
+- Improved 5xx error handling so WordPress critical errors surface structured diagnostics.
+
+### Notes
+
+- Set `RESPIRA_MCP_DISABLE_UPDATE_CHECK=1` to disable the automatic update check.
+
+</Update>
+
+<Update label="2026-03-04" description="MCP Server v3.3.0" tags={["feature", "fidelity"]}>
+
+### What's New
+
+- Added automatic v2 capability negotiation (`/wp-json/respira/v2/status`) with v1 fallback.
+- Added snapshot toolchain support (list/get/diff/restore) and builder patch support.
+- Added `include`-driven fidelity reads for richer context payloads.
+
+</Update>
 
 <Update label="2025-12-14" description="MCP Server v2.0.9" tags={["feature", "improvement"]}>
 

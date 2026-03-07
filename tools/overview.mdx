@@ -1,11 +1,11 @@
 ---
 title: "Tools Reference"
-description: "Complete reference for 77 Respira MCP tools. Find the right tool for pages, posts, builders, menus, SEO analysis, and more."
+description: "Reference for current Respira MCP tools. Find the right tool for pages, posts, builders, snapshots, menus, SEO analysis, and more."
 ---
 
 # Tools Reference
 
-Respira provides 60+ MCP tools for AI assistants to interact with WordPress. This reference documents every available tool.
+Respira provides 80+ MCP tools for AI assistants to interact with WordPress. This reference documents the core categories and naming patterns.
 
 ## Tool Categories
 
@@ -44,6 +44,16 @@ Work directly with page builder structures (Divi, Elementor, Bricks, etc.).
 - [wordpress_extract_builder_content](/tools/builders/extract-content)
 - [wordpress_inject_builder_content](/tools/builders/inject-content)
 - [wordpress_update_module](/tools/builders/update-module)
+
+### Fidelity & Snapshot Tools (5 tools)
+
+Safer comparison, rollback, and patch workflows on v2-capable sites.
+
+- `wordpress_list_snapshots`
+- `wordpress_get_snapshot`
+- `wordpress_diff_snapshots`
+- `wordpress_restore_snapshot`
+- `wordpress_apply_builder_patch`
 
 ### Analysis Tools (8 tools)
 
@@ -164,6 +174,7 @@ Miscellaneous utilities.
 | Pages | 5 | 2 | 3 |
 | Posts | 5 | 2 | 3 |
 | Builders | 3 | 1 | 2 |
+| Fidelity & Snapshots | 5 | 3 | 2 |
 | Analysis | 8 | 8 | 0 |
 | Menus | 12 | 4 | 8 |
 | Media | 5 | 2 | 3 |
@@ -174,7 +185,7 @@ Miscellaneous utilities.
 | Options | 4 | 2 | 2 |
 | Comments | 5 | 2 | 3 |
 | Other | 2 | 1 | 1 |
-| **Total** | **77** | **38** | **39** |
+| **Total** | **82** | **41** | **41** |
 
 ## Tool Naming Convention
 
@@ -192,7 +203,7 @@ All tools follow the pattern: `wordpress_[action]_[resource]`
 
 ### How many tools does Respira have?
 
-Respira provides 77 MCP tools across 14 categories. This includes 38 read-only tools (for viewing content and analysis) and 39 write tools (for creating, updating, and deleting content).
+Desktop MCP currently provides `82` tools across the categories above. With WooCommerce add-on tools enabled, the inventory increases further (see [Release History](/changelog) for exact contract changes by version).
 
 ### What's the difference between read-only and write tools?
 

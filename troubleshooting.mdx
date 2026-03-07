@@ -38,6 +38,14 @@ npx @respira/wordpress-mcp-server --list
 npx @respira/wordpress-mcp-server --setup
 ```
 
+### Recommended version baseline (March 2026)
+
+- Respira for WordPress: `4.0.7+`
+- MCP server: `3.3.5+`
+- WooCommerce taxonomy tooling: plugin `4.0.4+`, MCP `3.3.4+`, Woo add-on `1.0.2+`
+
+If you are on older versions, upgrade first before deep debugging.
+
 ### Gathering information for support
 
 Before requesting support, gather the following:
@@ -67,6 +75,14 @@ npx @respira/wordpress-mcp-server --setup
 - Confirm your system firewall or host environment is not blocking local connections
 - Restart your AI assistant (Cursor, Claude Code, etc.) after configuration changes
 
+### MCP update hints appear in tool responses (`respira_mcp_update`)
+
+This is informational, not a runtime failure.
+
+- Upgrade with: `npx -y @respira/wordpress-mcp-server@latest`
+- Restart your AI client after upgrade
+- Disable daily update checks with: `RESPIRA_MCP_DISABLE_UPDATE_CHECK=1`
+
 ### API key not working
 
 - Confirm the API key starts with `respira_` and has no extra spaces
@@ -84,6 +100,18 @@ npx @respira/wordpress-mcp-server --setup
 - If detection still fails, check for JavaScript errors in the browser console
 - Try reading the page directly: `Read page ID 123`
 
+### Elementor 500 errors (URL control / `ltrim()` / inject failures)
+
+If Elementor writes fail intermittently or return 500-level errors:
+
+- Upgrade Respira plugin to `4.0.7+`
+- Upgrade MCP server to `3.3.5+`
+- Re-run setup: `npx @respira/wordpress-mcp-server --setup`
+- Re-test: `npx @respira/wordpress-mcp-server --test`
+- Retry the same operation once after upgrade
+
+Recent fixes include safer handling for link-control array payloads, stricter payload normalization, and cache invalidation on fallback save paths.
+
 ### Changes not saving
 
 - Respira uses a duplicate-first workflow—verify you're reviewing the duplicate
@@ -91,6 +119,13 @@ npx @respira/wordpress-mcp-server --setup
 - Review the audit log for validation or publishing errors
 - Confirm that content validation is passing
 - If drafts are not updating, clear any server-level or plugin caching
+
+### Setup page is read-only after upgrade
+
+This is expected in the 4.0 admin IA refresh.
+
+- Edit plugin controls in **Respira → Settings**
+- Use **Setup → Health & Permissions** as a readiness/status summary
 
 ### Windows: 'npx' not recognized
 

@@ -1,6 +1,6 @@
 ---
 title: "FAQ"
-description: "Frequently asked questions about Respira for WordPress, safety, supported AI tools, and supported page builders."
+description: "Frequently asked questions about Respira for WordPress releases, safety, supported AI tools, and troubleshooting."
 ---
 
 # FAQ
@@ -12,6 +12,10 @@ No. Respira is designed so you can work entirely through natural language. Devel
 ## Which AI tools work with Respira?
 
 Respira works with AI coding assistants that support the MCP protocol, including Cursor, Claude Code, Windsurf, and similar tools.
+
+## How many tools are available now?
+
+Desktop MCP currently exposes `82` WordPress tools plus `21` conditional WooCommerce tools (`103` total when the add-on is active). Browser AI/WebMCP exposes a separate inventory contract.
 
 ## Is it safe to let AI edit my site?
 
@@ -28,3 +32,21 @@ Yes. Respira offers a free trial. You can start without entering payment details
 ## Which page builders does Respira support?
 
 Respira supports 11 page builders: Gutenberg, Divi, Elementor, Bricks, Oxygen, WPBakery, Beaver Builder, Brizy, Visual Composer, Thrive Architect, and Breakdance.
+
+## I see `respira_mcp_update` in responses. Is that an error?
+
+No. It is an upgrade hint from the MCP server when a newer package version is available. Upgrade with:
+
+```bash
+npx -y @respira/wordpress-mcp-server@latest
+```
+
+To disable automatic update checks, set `RESPIRA_MCP_DISABLE_UPDATE_CHECK=1`.
+
+## Where did settings go after the 4.0 admin refresh?
+
+`Respira → Settings` is now the single source of truth for editable plugin settings. `Setup → Health & Permissions` is a read-only readiness summary.
+
+## I hit Elementor 500 errors during updates. What should I do?
+
+Update to Respira for WordPress `4.0.7+` and MCP server `3.3.5+`. These releases include fixes for URL-control array payloads, safer fallback writes, and improved structured diagnostics.

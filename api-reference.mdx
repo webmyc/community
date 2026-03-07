@@ -1,18 +1,30 @@
 ---
 title: "API Reference"
-description: "Complete REST API reference for Respira for WordPress, including 60+ endpoints for pages, posts, menus, taxonomies, media, users, analysis, and more."
+description: "Complete REST API reference for Respira for WordPress, including v1 and v2 endpoints for pages, posts, builders, snapshots, and more."
 ---
 
 ## Overview
 
-Respira for WordPress exposes a comprehensive REST API with 60+ tools for managing your WordPress site. This page provides a complete reference to all available endpoints.
+Respira for WordPress exposes a comprehensive REST API for managing your WordPress site with duplicate-first safety, builder-aware updates, and fidelity workflows.
 
-## Base URL
+## Base URLs
 
-All endpoints use the same base URL:
+Respira currently exposes two namespaces:
 
 ```
 https://your-site.com/wp-json/respira/v1/
+https://your-site.com/wp-json/respira/v2/
+```
+
+- `v1`: broad compatibility endpoints used across older and mixed environments
+- `v2`: capability negotiation, fidelity/snapshot flows, and builder patch operations
+
+### Capability status endpoint (v2)
+
+Use this endpoint to detect v2 feature support:
+
+```
+GET /wp-json/respira/v2/status
 ```
 
 ## Authentication
@@ -47,6 +59,23 @@ Returns information about the active page builder including available modules/wi
 
 ```
 GET /context/builder-info
+```
+
+## Snapshots and fidelity (v2)
+
+Snapshot endpoints support safer compare/restore flows:
+
+```
+GET /snapshots
+GET /snapshots/{uuid}
+POST /snapshots/diff
+POST /snapshots/restore
+```
+
+Builder patch endpoint:
+
+```
+POST /builder/{builder}/patch/{post_id}
 ```
 
 ## Pages
