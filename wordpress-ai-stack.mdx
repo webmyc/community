@@ -1,0 +1,76 @@
+---
+title: WordPress AI Stack Compatibility
+description: How Respira fits into the official WordPress Abilities API and MCP Adapter stack, including default/public exposure, the dedicated Respira server, and coexistence with the standalone MCP server.
+---
+
+## Overview
+
+Respira works with the official WordPress AI stack instead of fighting it.
+
+Today there are three WordPress-native building blocks to understand:
+
+- **WordPress Abilities API**: the registry where Respira tools are declared as abilities
+- **WordPress MCP Adapter default server**: the official public/default MCP surface that auto-discovers abilities with `mcp.public=true`
+- **Dedicated Respira MCP Adapter server**: Respira's full-tool server registered inside the adapter for the complete registry
+
+Respira also keeps its **standalone desktop MCP server** for Cursor, Claude Code, Windsurf, and other local MCP clients.
+
+## The four Respira surfaces
+
+Use this framing throughout the docs:
+
+1. **Standalone Respira MCP server**
+   Runs locally via `npx @respira/wordpress-mcp-server` and talks to WordPress over the Respira REST API.
+2. **Official WordPress MCP Adapter default/public server**
+   Auto-discovers the safe read-only Respira abilities marked `mcp.public=true`.
+3. **Dedicated Respira MCP Adapter server**
+   Exposes the broader Respira registry through the official adapter.
+4. **Browser surfaces**
+   Includes built-in Browser AI/WebMCP plus the curated Elementor Angie bridge.
+
+## How Respira registers into WordPress
+
+When the WordPress Abilities API is available, Respira registers its tools as WordPress abilities with:
+
+- `meta.show_in_rest=true`
+- `meta.annotations`
+- `meta.mcp.public` for the safe default/public subset
+
+Respira keeps the dedicated adapter server for the full registry, while the official default server can still discover the safe read-only subset automatically.
+
+## Which path should you use?
+
+### Use the standalone MCP server when:
+
+- you want the full desktop MCP workflow
+- you need local editor or terminal integrations
+- you want the established Respira install path
+
+### Use the official default/public MCP server when:
+
+- you want a WordPress-native discovery path
+- you only need the safe read-only subset
+- you want to validate that your site is exposing abilities through the official stack
+
+### Use the dedicated Respira MCP Adapter server when:
+
+- you want the official adapter transport layer
+- you still need the broader Respira ability inventory
+- you want one WordPress-native MCP server dedicated to Respira
+
+## Safety model
+
+Respira does **not** put every tool on the default/public server.
+
+- Safe read-only abilities can be public
+- Destructive or admin-sensitive abilities stay off the default/public server by default
+- The dedicated Respira server remains the path for the broader registry
+- Duplicate-before-edit remains the safety model for write operations
+
+## Related guides
+
+- [Desktop AI (MCP Server)](/mcp-server)
+- [Browser AI Setup](/browser-ai)
+- [Configuration](/configuration)
+- [Elementor Angie](/elementor-angie)
+- [API Reference](/api-reference)

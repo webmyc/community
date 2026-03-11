@@ -1,0 +1,83 @@
+---
+title: Elementor Angie Integration
+description: Use Respira inside Elementor Angie through a curated browser-auth bridge that runs in logged-in wp-admin and preserves duplicate-before-edit safety.
+---
+
+## Overview
+
+Respira can register as a browser MCP surface inside **Elementor Angie**.
+
+This is not the same thing as:
+
+- the standalone desktop MCP server
+- the built-in Browser AI/WebMCP surface
+- the official WordPress MCP Adapter
+
+It is a separate, curated integration intended for Elementor Angie workflows inside logged-in WordPress admin.
+
+## Requirements
+
+- Respira for WordPress `4.1.2+`
+- Elementor with Angie available
+- Logged-in `wp-admin` session
+- Respira Angie integration enabled in plugin settings
+
+No local `npx` MCP process is required for this path.
+
+## How it works
+
+The Angie bridge runs from WordPress admin and uses:
+
+- **Route namespace**: `respira/browser/v1`
+- **Auth model**: WordPress login cookies plus REST nonce
+- **Execution layer**: the shared Respira WebMCP/Abilities registry
+
+This keeps the Angie bridge aligned with the main Respira tool contracts instead of maintaining a separate tool runner.
+
+## Tool scope
+
+Angie does **not** get the full Respira registry.
+
+It uses a curated allowlist focused on high-value interactive workflows such as:
+
+- page listing and reading
+- page-builder detection
+- duplicate creation
+- builder extraction and injection
+- duplicate approval and rejection
+- selected WooCommerce product tools when the add-on is available
+
+## Safety boundaries
+
+Respira keeps the Angie surface intentionally narrow:
+
+- it only runs for logged-in users inside `wp-admin`
+- it uses duplicate-first write flows
+- it applies object-level permission checks before execution
+- WooCommerce tools remain conditional on add-on availability
+
+## When to use Angie vs other Respira surfaces
+
+### Use Angie when:
+
+- you are already working inside Elementor's browser AI workflow
+- you want a lightweight browser-auth integration
+- you only need the curated task set
+
+### Use Browser AI/WebMCP when:
+
+- you want the broader built-in browser tool inventory
+- you are using Chrome browser AI clients such as Claude or Gemini
+
+### Use Desktop MCP when:
+
+- you need the full local MCP workflow
+- you want Cursor, Claude Code, Windsurf, or other desktop clients
+- you want automation and repeatable terminal/editor workflows
+
+## Related guides
+
+- [Browser AI Setup](/browser-ai)
+- [Desktop AI (MCP Server)](/mcp-server)
+- [WordPress AI Stack Compatibility](/wordpress-ai-stack)
+- [Configuration](/configuration)

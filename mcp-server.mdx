@@ -1,11 +1,13 @@
 ---
 title: Desktop AI (MCP Server)
-description: Set up Respira Desktop AI with the MCP server for Cursor, Claude Code, and other MCP-compatible assistants.
+description: Set up Respira Desktop AI with the standalone MCP server, and understand how it coexists with the official WordPress MCP Adapter.
 ---
 
 ## Desktop AI setup
 
 Desktop AI mode uses the Respira MCP server so tools like Cursor and Claude Code can safely edit WordPress with duplicate-before-edit workflows.
+
+This page covers the **standalone Respira MCP server**. It can coexist with the official WordPress MCP Adapter and with Respira's browser surfaces.
 
 ## Requirements
 
@@ -47,6 +49,18 @@ If the test succeeds, ask your AI:
 - Repeatable, scriptable operations
 - Developer-heavy tasks in terminal/editor environments
 
+## Desktop MCP vs the official WordPress adapter
+
+Respira supports both approaches:
+
+- **Standalone Respira MCP server**: local `npx` process, full established desktop workflow
+- **Official WordPress MCP Adapter default/public server**: WordPress-native discovery of the safe read-only Respira subset
+- **Dedicated Respira MCP Adapter server**: WordPress-native server for the broader Respira registry
+
+Use the standalone MCP server when you want the usual Cursor/Claude Code workflow. Use the WordPress-native adapter path when you want WordPress to expose abilities directly.
+
+Related: [WordPress AI Stack Compatibility](/wordpress-ai-stack)
+
 ## Browser + Desktop together
 
 Respira supports both modes at once:
@@ -63,5 +77,7 @@ Both modes use the same safety workflow, but tool totals differ by runtime and a
 
 - [Getting Started](/getting-started)
 - [Browser AI Setup](/browser-ai)
+- [WordPress AI Stack Compatibility](/wordpress-ai-stack)
+- [Elementor Angie](/elementor-angie)
 - [Configuration](/configuration)
 - [Troubleshooting](/troubleshooting)

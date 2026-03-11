@@ -2,6 +2,12 @@ openapi: '3.0.0'
 info:
   version: 1.0.0
   title: Respira for WordPress REST API
+  description: |
+    Core Respira REST API used by the standalone MCP server, Browser AI/WebMCP, and the WordPress-native abilities stack.
+
+    Additional browser-auth endpoints exist under `/wp-json/respira/browser/v1` for the Elementor Angie integration.
+
+    See `/wordpress-ai-stack` for official WordPress Abilities + MCP Adapter guidance and `/elementor-angie` for the curated Angie flow.
   license:
     name: MIT
 servers:

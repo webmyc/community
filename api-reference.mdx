@@ -7,6 +7,13 @@ description: "Complete REST API reference for Respira for WordPress, including v
 
 Respira for WordPress exposes a comprehensive REST API for managing your WordPress site with duplicate-first safety, builder-aware updates, and fidelity workflows.
 
+This REST API underpins multiple Respira surfaces:
+
+- the standalone Respira MCP server
+- the official WordPress Abilities + MCP Adapter integration
+- built-in Browser AI/WebMCP
+- the curated Elementor Angie bridge
+
 ## Base URLs
 
 Respira currently exposes two namespaces:
@@ -18,6 +25,14 @@ https://your-site.com/wp-json/respira/v2/
 
 - `v1`: broad compatibility endpoints used across older and mixed environments
 - `v2`: capability negotiation, fidelity/snapshot flows, and builder patch operations
+
+Browser-auth Angie endpoints use a separate namespace:
+
+```
+https://your-site.com/wp-json/respira/browser/v1/
+```
+
+See [Elementor Angie](/elementor-angie) for the browser-auth flow, and [WordPress AI Stack Compatibility](/wordpress-ai-stack) for the official Abilities/MCP Adapter path.
 
 ### Capability status endpoint (v2)
 

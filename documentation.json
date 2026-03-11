@@ -39,9 +39,19 @@
                 "icon": "globe"
               },
               {
+                "title": "WordPress AI Stack",
+                "path": "wordpress-ai-stack",
+                "icon": "plug-zap"
+              },
+              {
                 "title": "Desktop AI (MCP Server)",
                 "path": "mcp-server",
                 "icon": "monitor"
+              },
+              {
+                "title": "Elementor Angie",
+                "path": "elementor-angie",
+                "icon": "sparkles"
               },
               {
                 "title": "Installation",
