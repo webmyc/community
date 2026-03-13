@@ -7,22 +7,22 @@ description: How Respira’s duplicate-before-edit workflow keeps your WordPress
 
 Giving an AI tool write access to your WordPress site is a big trust decision. One bad edit can break layouts, tank SEO, or confuse customers.
 
-Respira is designed so you never have to worry about AI accidentally destroying your work. The core idea: treat every AI change as an experiment in a sandbox, not as a live edit.
+Respira is designed so you never have to worry about AI accidentally destroying your work. The core idea: treat AI changes as reviewable operations with clear edit targets and rollback paths.
 
 <Callout kind="info">
-Respira never edits live content directly. Every change starts as a duplicate you control in wp-admin.
+By default, Respira uses duplicate-before-edit. If direct editing is enabled, Respira presents explicit live vs duplicate confirmation and rollback guidance before touching originals.
 </Callout>
 
 ## Duplicate-before-edit: sandboxing your content
 
-Respira’s primary safety mechanism is a strict duplicate-before-edit workflow. The AI never touches the published original.
+Respira’s primary safety mechanism is duplicate-before-edit. In direct-edit mode, the AI can target originals only after explicit confirmation.
 
 ### How the workflow behaves
 
 Every AI write operation follows the same pattern:
 
-- Respira duplicates the target page, post, or custom post first.
-- The AI edits the duplicate, not the original.
+- Respira duplicates the target page, post, or custom post first (default path).
+- The AI edits the duplicate, not the original, unless you explicitly choose live editing.
 - You review the duplicate in wp-admin using your normal editor.
 - You decide what happens next.
 
@@ -33,7 +33,7 @@ Typical outcomes:
 - **Manually tweak** the duplicate further before publishing.
 - **Do nothing yet** and leave the duplicate as a draft for later.
 
-Throughout this process, the original remains published and unchanged, so experiments never put your live site at risk.
+In duplicate mode, originals remain published and unchanged. In live mode, Respira provides preflight confirmation plus rollback guidance (WordPress revisions and Respira snapshots where available).
 
 ### What you see in WordPress
 
@@ -94,7 +94,7 @@ Some AI tools log into WordPress and edit live content via the admin UI or REST 
 - Multi-step edits can leave content in a broken intermediate state.
 - There is no clear “before and after” artifact tied to the AI change.
 
-Respira never does this. Admin-side editing is reserved for you and your team; the AI only works on duplicates.
+Respira does not do silent live edits. When direct editing is enabled, live changes require explicit confirmation before execution.
 
 ## Technical safety features
 

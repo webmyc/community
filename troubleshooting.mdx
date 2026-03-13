@@ -40,9 +40,9 @@ npx @respira/wordpress-mcp-server --setup
 
 ### Recommended version baseline (March 2026)
 
-- Respira for WordPress: `4.0.7+`
-- MCP server: `3.3.5+`
-- WooCommerce taxonomy tooling: plugin `4.0.4+`, MCP `3.3.4+`, Woo add-on `1.0.2+`
+- Respira for WordPress: `4.2.0+`
+- MCP server: `4.0.0+`
+- WooCommerce tooling: plugin `4.2.0+`, MCP `4.0.0+`, Woo add-on `1.0.2+`
 
 If you are on older versions, upgrade first before deep debugging.
 
@@ -85,7 +85,7 @@ This is informational, not a runtime failure.
 
 ### API key not working
 
-- Confirm the API key starts with `respira_` and has no extra spaces
+- Confirm the key starts with `respira_` or `respira_site_` and has no extra spaces
 - Check that the API key is active in WordPress Admin (Respira → API Keys)
 - Ensure your site URL is correct and includes `https://`
 - Review the audit log in WordPress Admin for failed API requests
@@ -104,8 +104,8 @@ This is informational, not a runtime failure.
 
 If Elementor writes fail intermittently or return 500-level errors:
 
-- Upgrade Respira plugin to `4.0.7+`
-- Upgrade MCP server to `3.3.5+`
+- Upgrade Respira plugin to `4.2.0+`
+- Upgrade MCP server to `4.0.0+`
 - Re-run setup: `npx @respira/wordpress-mcp-server --setup`
 - Re-test: `npx @respira/wordpress-mcp-server --test`
 - Retry the same operation once after upgrade
@@ -114,7 +114,8 @@ Recent fixes include safer handling for link-control array payloads, stricter pa
 
 ### Changes not saving
 
-- Respira uses a duplicate-first workflow—verify you're reviewing the duplicate
+- If direct editing is enabled, confirm whether you chose `live` or `duplicate` in preflight
+- For duplicate edits, verify you're reviewing the duplicate
 - Ensure your WordPress account has permission to edit the page or post
 - Review the audit log for validation or publishing errors
 - Confirm that content validation is passing
@@ -141,7 +142,7 @@ The site URL in your config must match exactly what WordPress reports:
 
 1. In WordPress Admin, go to **Settings → General**
 2. Copy the "WordPress Address (URL)" exactly
-3. Update `~/.respira/config.json` with this URL
+3. Update dashboard-generated MCP config, or `~/.respira/config.json` for manual mode
 4. Re-run `npx @respira/wordpress-mcp-server --test`
 
 ## Helpful resources

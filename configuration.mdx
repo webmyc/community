@@ -1,13 +1,23 @@
 ---
 title: Configuration Guide
-description: Configure Respira for WordPress with Cursor, Claude Code, Windsurf, and other AI coding assistants. Step-by-step MCP server setup and multi-site configuration.
+description: Configure Respira for WordPress with Cursor, Codex, Claude Code, and other AI clients using dashboard-generated MCP setup and multi-site config.
 ---
 
 This page focuses on the **standalone Respira MCP server** configuration path.
 
 If you want the WordPress-native stack instead, see [WordPress AI Stack Compatibility](/wordpress-ai-stack). If you want the curated Elementor browser workflow, see [Elementor Angie](/elementor-angie).
 
-## Quick Setup with Wizard
+## Quick Setup (Dashboard Recommended)
+
+Open **respira.press → Dashboard → MCP Setup** and choose:
+
+- Download config file per client
+- Copy one-time install command
+- Copy AI setup prompt
+
+This is the recommended flow for multi-site and stacked plans.
+
+## Local CLI Setup
 
 The fastest way to configure Respira is using the interactive setup wizard with [@respira/wordpress-mcp-server](https://www.npmjs.com/package/@respira/wordpress-mcp-server):
 
@@ -30,20 +40,7 @@ npx @respira/wordpress-mcp-server --help    # Show help
 
 Configure Respira to work with [Cursor](https://cursor.com).
 
-### Option 1: One-Click Install
-
-Click this button to automatically add Respira to Cursor:
-
-<a href="cursor://anysphere.cursor-deeplink/mcp/install?name=respira-wordpress&config=eyJjb21tYW5kIjoibnB4IiwiYXJncyI6WyIteSIsIkByZXNwaXJhL3dvcmRwcmVzcy1tY3Atc2VydmVyIl19">
-  <Image
-    src="https://cursor.com/deeplink/mcp-install-dark.svg"
-    alt="Add to Cursor"
-    width="200"
-    height="50"
-  />
-</a>
-
-### Option 2: Manual Configuration
+### Manual Configuration
 
 Create or edit `.cursor/mcp.json` in your project root:
 
@@ -81,6 +78,18 @@ Or manually create `~/.respira/config.json`:
 ```
 
 Restart Cursor to load the MCP server configuration.
+
+## Codex
+
+Configure Respira to work with Codex.
+
+Add to Codex MCP configuration:
+
+```toml
+[mcp_servers.respira-wordpress]
+command = "npx"
+args = ["-y", "@respira/wordpress-mcp-server"]
+```
 
 ## Claude Code
 
@@ -142,11 +151,15 @@ Then run `npx @respira/wordpress-mcp-server --setup` to create your site configu
 
 You can configure multiple WordPress sites using the setup wizard or manually.
 
-### Option 1: Use the Setup Wizard
+### Option 1: Use dashboard MCP setup (recommended)
 
-Run `npx @respira/wordpress-mcp-server --setup` and follow the prompts. You can add multiple sites and the wizard will ask if you want to add another after each one.
+Use **respira.press → Dashboard → MCP Setup** to generate account-wide multi-site config. This includes all eligible connected sites across stacked plans.
 
-### Option 2: Manual Configuration
+### Option 2: Use the Setup Wizard
+
+Run `npx @respira/wordpress-mcp-server --setup` and follow prompts to add sites.
+
+### Option 3: Manual Configuration
 
 Create or edit `~/.respira/config.json`:
 
@@ -187,7 +200,7 @@ Create or edit `~/.respira/config.json`:
 
 ### API Key Not Working
 
-- API key should start with `respira_`
+- API key may start with `respira_` (plugin key) or `respira_site_` (dashboard-issued site token)
 - Verify the API key is active in WordPress admin (Respira → API Keys)
 - Ensure your WordPress site URL includes `https://`
 - Check that the Respira plugin is installed and activated on WordPress

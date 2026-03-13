@@ -55,7 +55,7 @@ See [official installation docs](https://respira.press/docs)
       "command": "npx",
       "args": ["-y", "@respira/wordpress-mcp-server"],
       "env": {
-        "WORDPRESS_SITE_URL": "https://yoursite.com",
+        "WORDPRESS_URL": "https://yoursite.com",
         "WORDPRESS_API_KEY": "respira_your_key"
       }
     }
